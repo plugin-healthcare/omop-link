@@ -1,5 +1,5 @@
 ---
-name: Deploy docs
+name: Deploy docs and ERD viewer
 on:  # yamllint disable-line rule:truthy
   push:
     branches: [main]
@@ -8,7 +8,7 @@ on:  # yamllint disable-line rule:truthy
 permissions: {}
 
 jobs:
-  build-docs:
+  build-and-deploy:
     runs-on: ubuntu-latest
 
     strategy:
@@ -17,14 +17,14 @@ jobs:
 
     # Grant GITHUB_TOKEN the permissions required to make a gh-pages deployment
     permissions:
-      contents: write  # to let mkdocs write the new docs
+      contents: write  # to push the gh-pages branch
       pages: write     # to deploy to Pages
       id-token: write  # allow to generate an OpenID Connect (OIDC) token
 
     steps:
       # https://github.com/actions/checkout
       - name: Checkout
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0  # otherwise, you will fail to push refs to dest repo
 
@@ -34,6 +34,10 @@ jobs:
         run: |
           git config user.name github-actions[bot]
           git config user.email github-actions[bot]@users.noreply.github.com
+
+      # -----------------------------------------------------------------------
+      # Python / mkdocs setup
+      # -----------------------------------------------------------------------
 
       # https://github.com/astral-sh/setup-uv
       - name: Install uv
@@ -50,13 +54,52 @@ jobs:
           python-version: ${{ matrix.pyversion }}
 
       - name: Install just
-        run: |
-          uv tool install rust-just
+        run: uv tool install rust-just
 
-      - name: Install dependencies
+      - name: Install Python dependencies
         run: uv sync --dev --no-progress
 
       - name: Generate schema documentation
-        run: |
-          just gen-doc
-          uv run mkdocs gh-deploy
+        run: just gen-doc
+
+      - name: Build mkdocs site
+        run: uv run mkdocs build  # outputs to site/
+
+      # -----------------------------------------------------------------------
+      # Node / SvelteKit app build
+      # -----------------------------------------------------------------------
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+          cache-dependency-path: app/package-lock.json
+
+      - name: Install app dependencies
+        run: npm ci
+        working-directory: app
+
+      - name: Build SvelteKit app
+        run: npm run build
+        working-directory: app
+        env:
+          NODE_ENV: production  # ensures base path /omop-link/app is applied
+
+      # -----------------------------------------------------------------------
+      # Combine and deploy
+      # -----------------------------------------------------------------------
+
+      - name: Inject app into mkdocs site
+        # The mkdocs site is in site/; the SvelteKit build is in app/build/.
+        # Copying app/build/ to site/app/ makes the ERD viewer available at
+        # https://plugin-healthcare.github.io/omop-link/app/
+        run: cp -r app/build site/app
+
+      - name: Deploy combined site to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./site
+          # Replace gh-pages history each deploy for a clean branch
+          force_orphan: true

@@ -9,6 +9,7 @@
  */
 
 import yaml from 'js-yaml';
+import { base } from '$app/paths';
 import type {
   NormalizedSchema,
   ErdClass,
@@ -284,7 +285,7 @@ export function parseLinkMLSchema(input: unknown): NormalizedSchema {
  * Load the default OMOP CDM schema from the static asset.
  */
 export async function loadDefaultSchema(): Promise<NormalizedSchema> {
-  const res = await fetch('/omop_cdm.schema.json');
+  const res = await fetch(`${base}/omop_cdm.schema.json`);
   if (!res.ok) throw new Error(`Failed to load default schema: ${res.statusText}`);
   const json = await res.json();
   return parseLinkMLSchema(json);

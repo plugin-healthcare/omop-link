@@ -1,12 +1,18 @@
-import adapter from '@sveltejs/adapter-auto';
+import adapter from '@sveltejs/adapter-static';
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
 	kit: {
-		// adapter-auto only supports some environments, see https://svelte.dev/docs/kit/adapter-auto for a list.
-		// If your environment is not supported, or you settled on a specific environment, switch out the adapter.
-		// See https://svelte.dev/docs/kit/adapters for more information about adapters.
-		adapter: adapter()
+		// Static adapter for GitHub Pages deployment.
+		// fallback: '404.html' enables client-side routing on GitHub Pages.
+		adapter: adapter({
+			fallback: '404.html'
+		}),
+		paths: {
+			// In production the app is served at /omop-link/app on GitHub Pages.
+			// In development (npm run dev) the base is empty so relative paths work.
+			base: process.env.NODE_ENV === 'production' ? '/omop-link/app' : ''
+		}
 	}
 };
 

@@ -57,8 +57,8 @@ nav:
 exclude_docs: |
   /templates-linkml/
 
-site_url: https://SPHERE-Cancer-CAG.github.io/omop-cdm
-repo_url: https://github.com/SPHERE-Cancer-CAG/omop-cdm
+site_url: https://plugin-healthcare.github.io/omop-link
+repo_url: https://github.com/plugin-healthcare/omop-link
 
 # Uncomment this block to enable use of Google Analytics.
 # Replace the property value with your own ID.

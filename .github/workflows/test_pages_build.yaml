@@ -64,6 +64,7 @@ jobs:
       - name: Build documentation
         run: |
           just gen-doc
+          just gen-doc-omop-cdm
           uv run mkdocs build -d site
           touch site/.nojekyll
 

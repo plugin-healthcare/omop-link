@@ -48,10 +48,12 @@ markdown_extensions:
 
 watch:
   - src/omop_cdm/schema
+  - src/omop_named_sets/schema
 
 nav:
   - Home: index.md
-  - Schema: elements/index.md
+  - OMOP CDM: omop-cdm/index.md
+  - Named Sets: elements/index.md
   - About: about.md
 
 exclude_docs: |

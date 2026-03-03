@@ -62,6 +62,9 @@ jobs:
       - name: Generate schema documentation
         run: just gen-doc
 
+      - name: Generate omop_cdm schema documentation
+        run: just gen-doc-omop-cdm
+
       - name: Build mkdocs site
         run: uv run mkdocs build  # outputs to site/
 

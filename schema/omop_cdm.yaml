@@ -1,0 +1,3146 @@
+name: omop-cdm54
+id: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+imports:
+- linkml:types
+license: https://creativecommons.org/publicdomain/zero/1.0/
+prefixes:
+  linkml:
+    prefix_prefix: linkml
+    prefix_reference: https://w3id.org/linkml/
+  omop_cdm54:
+    prefix_prefix: omop_cdm54
+    prefix_reference: https://timformatie.github.io/SEIN-OMOP/omop-cdm54/
+default_prefix: omop_cdm54
+default_range: string
+types:
+  string:
+    name: string
+    definition_uri: https://w3id.org/linkml/String
+    description: A character string
+    notes:
+    - In RDF serializations, a slot with range of string is treated as a literal or
+      type xsd:string.   If you are authoring schemas in LinkML YAML, the type is
+      referenced with the lower case "string".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Text
+    base: str
+    uri: xsd:string
+  integer:
+    name: integer
+    definition_uri: https://w3id.org/linkml/Integer
+    description: An integer
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "integer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Integer
+    base: int
+    uri: xsd:integer
+  boolean:
+    name: boolean
+    definition_uri: https://w3id.org/linkml/Boolean
+    description: A binary (true or false) value
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "boolean".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Boolean
+    base: Bool
+    uri: xsd:boolean
+    repr: bool
+  float:
+    name: float
+    definition_uri: https://w3id.org/linkml/Float
+    description: A real number that conforms to the xsd:float specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "float".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:float
+  double:
+    name: double
+    definition_uri: https://w3id.org/linkml/Double
+    description: A real number that conforms to the xsd:double specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "double".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:double
+  decimal:
+    name: decimal
+    definition_uri: https://w3id.org/linkml/Decimal
+    description: A real number with arbitrary precision that conforms to the xsd:decimal
+      specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "decimal".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    broad_mappings:
+    - schema:Number
+    base: Decimal
+    uri: xsd:decimal
+  time:
+    name: time
+    definition_uri: https://w3id.org/linkml/Time
+    description: A time object represents a (local) time of day, independent of any
+      particular day
+    notes:
+    - URI is dateTime because OWL reasoners do not work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "time".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Time
+    base: XSDTime
+    uri: xsd:time
+    repr: str
+  date:
+    name: date
+    definition_uri: https://w3id.org/linkml/Date
+    description: a date (year, month and day) in an idealized calendar
+    notes:
+    - URI is dateTime because OWL reasoners don't work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Date
+    base: XSDDate
+    uri: xsd:date
+    repr: str
+  datetime:
+    name: datetime
+    definition_uri: https://w3id.org/linkml/Datetime
+    description: The combination of a date and time
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:DateTime
+    base: XSDDateTime
+    uri: xsd:dateTime
+    repr: str
+  date_or_datetime:
+    name: date_or_datetime
+    definition_uri: https://w3id.org/linkml/DateOrDatetime
+    description: Either a date or a datetime
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date_or_datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: linkml:DateOrDatetime
+    repr: str
+  uriorcurie:
+    name: uriorcurie
+    definition_uri: https://w3id.org/linkml/Uriorcurie
+    description: a URI or a CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uriorcurie".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: URIorCURIE
+    uri: xsd:anyURI
+    repr: str
+  curie:
+    name: curie
+    definition_uri: https://w3id.org/linkml/Curie
+    conforms_to: https://www.w3.org/TR/curie/
+    description: a compact URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "curie".
+    comments:
+    - in RDF serializations this MUST be expanded to a URI
+    - in non-RDF serializations MAY be serialized as the compact representation
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: Curie
+    uri: xsd:string
+    repr: str
+  uri:
+    name: uri
+    definition_uri: https://w3id.org/linkml/Uri
+    conforms_to: https://www.ietf.org/rfc/rfc3987.txt
+    description: a complete URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uri".
+    comments:
+    - in RDF serializations a slot with range of uri is treated as a literal or type
+      xsd:anyURI unless it is an identifier or a reference to an identifier, in which
+      case it is translated directly to a node
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:URL
+    base: URI
+    uri: xsd:anyURI
+    repr: str
+  ncname:
+    name: ncname
+    definition_uri: https://w3id.org/linkml/Ncname
+    description: Prefix part of CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "ncname".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NCName
+    uri: xsd:string
+    repr: str
+  objectidentifier:
+    name: objectidentifier
+    definition_uri: https://w3id.org/linkml/Objectidentifier
+    description: A URI or CURIE that represents an object in the model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "objectidentifier".
+    comments:
+    - Used for inheritance and type checking
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: ElementIdentifier
+    uri: shex:iri
+    repr: str
+  nodeidentifier:
+    name: nodeidentifier
+    definition_uri: https://w3id.org/linkml/Nodeidentifier
+    description: A URI, CURIE or BNODE that represents a node in a model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "nodeidentifier".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NodeIdentifier
+    uri: shex:nonLiteral
+    repr: str
+  jsonpointer:
+    name: jsonpointer
+    definition_uri: https://w3id.org/linkml/Jsonpointer
+    conforms_to: https://datatracker.ietf.org/doc/html/rfc6901
+    description: A string encoding a JSON Pointer. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to a valid object within the current
+      instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpointer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  jsonpath:
+    name: jsonpath
+    definition_uri: https://w3id.org/linkml/Jsonpath
+    conforms_to: https://www.ietf.org/archive/id/draft-goessner-dispatch-jsonpath-00.html
+    description: A string encoding a JSON Path. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to zero or more valid objects within
+      the current instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  sparqlpath:
+    name: sparqlpath
+    definition_uri: https://w3id.org/linkml/Sparqlpath
+    conforms_to: https://www.w3.org/TR/sparql11-query/#propertypaths
+    description: A string encoding a SPARQL Property Path. The value of the string
+      MUST conform to SPARQL syntax and SHOULD dereference to zero or more valid objects
+      within the current instance document when encoded as RDF.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "sparqlpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+slots:
+  cdmSource__cdm_source_name:
+    name: cdmSource__cdm_source_name
+    description: The name of the CDM instance.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:cdm_source_name
+    alias: cdm_source_name
+    owner: CdmSource
+    domain_of:
+    - CdmSource
+    range: string
+    required: true
+  cdmSource__cdm_source_abbreviation:
+    name: cdmSource__cdm_source_abbreviation
+    description: The abbreviation of the CDM instance.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:cdm_source_abbreviation
+    alias: cdm_source_abbreviation
+    owner: CdmSource
+    domain_of:
+    - CdmSource
+    range: string
+    required: true
+  cdmSource__cdm_holder:
+    name: cdmSource__cdm_holder
+    description: The holder of the CDM instance.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:cdm_holder
+    alias: cdm_holder
+    owner: CdmSource
+    domain_of:
+    - CdmSource
+    range: string
+    required: true
+  cdmSource__source_description:
+    name: cdmSource__source_description
+    description: The description of the CDM instance.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:source_description
+    alias: source_description
+    owner: CdmSource
+    domain_of:
+    - CdmSource
+    range: string
+  cdmSource__source_documentation_reference:
+    name: cdmSource__source_documentation_reference
+    description: Refers to a publication or web resource describing the source data
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:source_documentation_reference
+    alias: source_documentation_reference
+    owner: CdmSource
+    domain_of:
+    - CdmSource
+    range: string
+  cdmSource__cdm_etl_reference:
+    name: cdmSource__cdm_etl_reference
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:cdm_etl_reference
+    alias: cdm_etl_reference
+    owner: CdmSource
+    domain_of:
+    - CdmSource
+    range: string
+  cdmSource__source_release_date:
+    name: cdmSource__source_release_date
+    description: The date the data was extracted from the source system. In some systems
+      that is the same as the date the ETL was run. Typically the latest even date
+      in the source is on the source_release_date.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:source_release_date
+    alias: source_release_date
+    owner: CdmSource
+    domain_of:
+    - CdmSource
+    range: string
+    required: true
+  cdmSource__cdm_release_date:
+    name: cdmSource__cdm_release_date
+    description: The date the ETL script was completed. Typically this is after the
+      source_release_date.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:cdm_release_date
+    alias: cdm_release_date
+    owner: CdmSource
+    domain_of:
+    - CdmSource
+    range: string
+    required: true
+  cdmSource__cdm_version:
+    name: cdmSource__cdm_version
+    description: Version of the OMOP CDM used as string. e.g. v5.4
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:cdm_version
+    alias: cdm_version
+    owner: CdmSource
+    domain_of:
+    - CdmSource
+    range: string
+  cdmSource__cdm_version_concept_id:
+    name: cdmSource__cdm_version_concept_id
+    description: The Concept Id representing the version of the CDM.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:cdm_version_concept_id
+    alias: cdm_version_concept_id
+    owner: CdmSource
+    domain_of:
+    - CdmSource
+    range: Concept
+    required: true
+  cdmSource__vocabulary_version:
+    name: cdmSource__vocabulary_version
+    description: Version of the OMOP standardised vocabularies loaded
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:vocabulary_version
+    alias: vocabulary_version
+    owner: CdmSource
+    domain_of:
+    - CdmSource
+    range: string
+    required: true
+  conceptAncestor__ancestor_concept_id:
+    name: conceptAncestor__ancestor_concept_id
+    description: The Concept Id for the higher-level concept that forms the ancestor
+      in the relationship.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:ancestor_concept_id
+    alias: ancestor_concept_id
+    owner: ConceptAncestor
+    domain_of:
+    - ConceptAncestor
+    range: Concept
+    required: true
+  conceptAncestor__descendant_concept_id:
+    name: conceptAncestor__descendant_concept_id
+    description: The Concept Id for the lower-level concept that forms the descendant
+      in the relationship.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:descendant_concept_id
+    alias: descendant_concept_id
+    owner: ConceptAncestor
+    domain_of:
+    - ConceptAncestor
+    range: Concept
+    required: true
+  conceptAncestor__min_levels_of_separation:
+    name: conceptAncestor__min_levels_of_separation
+    description: The minimum separation in number of levels of hierarchy between ancestor
+      and descendant concepts. This is an attribute that is used to simplify hierarchic
+      analysis.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:min_levels_of_separation
+    alias: min_levels_of_separation
+    owner: ConceptAncestor
+    domain_of:
+    - ConceptAncestor
+    range: string
+    required: true
+  conceptAncestor__max_levels_of_separation:
+    name: conceptAncestor__max_levels_of_separation
+    description: The maximum separation in number of levels of hierarchy between ancestor
+      and descendant concepts. This is an attribute that is used to simplify hierarchic
+      analysis.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:max_levels_of_separation
+    alias: max_levels_of_separation
+    owner: ConceptAncestor
+    domain_of:
+    - ConceptAncestor
+    range: string
+    required: true
+  conceptClass__concept_class_id:
+    name: conceptClass__concept_class_id
+    description: A unique key for each class.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:concept_class_id
+    identifier: true
+    alias: concept_class_id
+    owner: ConceptClass
+    domain_of:
+    - ConceptClass
+    range: string
+    required: true
+  conceptClass__concept_class_name:
+    name: conceptClass__concept_class_name
+    description: The name describing the Concept Class, e.g. Clinical Finding, Ingredient,
+      etc.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:concept_class_name
+    alias: concept_class_name
+    owner: ConceptClass
+    domain_of:
+    - ConceptClass
+    range: string
+    required: true
+  conceptClass__concept_class_concept_id:
+    name: conceptClass__concept_class_concept_id
+    description: A Concept that represents the Concept Class.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:concept_class_concept_id
+    alias: concept_class_concept_id
+    owner: ConceptClass
+    domain_of:
+    - ConceptClass
+    range: Concept
+    required: true
+  conceptRelation__concept_id_1:
+    name: conceptRelation__concept_id_1
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:concept_id_1
+    alias: concept_id_1
+    owner: ConceptRelation
+    domain_of:
+    - ConceptRelation
+    range: Concept
+    required: true
+  conceptRelation__concept_id_2:
+    name: conceptRelation__concept_id_2
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:concept_id_2
+    alias: concept_id_2
+    owner: ConceptRelation
+    domain_of:
+    - ConceptRelation
+    range: Concept
+    required: true
+  conceptRelation__relationship_id:
+    name: conceptRelation__relationship_id
+    description: The relationship between CONCEPT_ID_1 and CONCEPT_ID_2. Please see
+      the Vocabulary Conventions. for more information.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:relationship_id
+    alias: relationship_id
+    owner: ConceptRelation
+    domain_of:
+    - ConceptRelation
+    range: Relationship
+    required: true
+  conceptRelation__valid_start_date:
+    name: conceptRelation__valid_start_date
+    description: The date when the relationship is first recorded.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:valid_start_date
+    alias: valid_start_date
+    owner: ConceptRelation
+    domain_of:
+    - ConceptRelation
+    range: string
+    required: true
+  conceptRelation__valid_end_date:
+    name: conceptRelation__valid_end_date
+    description: The date when the relationship is invalidated.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:valid_end_date
+    alias: valid_end_date
+    owner: ConceptRelation
+    domain_of:
+    - ConceptRelation
+    range: string
+    required: true
+  conceptRelation__invalid_reason:
+    name: conceptRelation__invalid_reason
+    description: "Reason the relationship was invalidated. Possible values are \u2018\
+      D\u2019 (deleted), \u2018U\u2019 (updated) or NULL."
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:invalid_reason
+    alias: invalid_reason
+    owner: ConceptRelation
+    domain_of:
+    - ConceptRelation
+    range: string
+  conceptSynonym__concept_id:
+    name: conceptSynonym__concept_id
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:concept_id
+    alias: concept_id
+    owner: ConceptSynonym
+    domain_of:
+    - ConceptSynonym
+    range: Concept
+    required: true
+  conceptSynonym__concept_synonym_name:
+    name: conceptSynonym__concept_synonym_name
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:concept_synonym_name
+    alias: concept_synonym_name
+    owner: ConceptSynonym
+    domain_of:
+    - ConceptSynonym
+    range: string
+    required: true
+  conceptSynonym__language_concept_id:
+    name: conceptSynonym__language_concept_id
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:language_concept_id
+    alias: language_concept_id
+    owner: ConceptSynonym
+    domain_of:
+    - ConceptSynonym
+    range: Concept
+    required: true
+  concept__concept_id:
+    name: concept__concept_id
+    description: A unique identifier for each Concept across all domains.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:concept_id
+    identifier: true
+    alias: concept_id
+    owner: Concept
+    domain_of:
+    - Concept
+    range: string
+    required: true
+  concept__concept_name:
+    name: concept__concept_name
+    description: An unambiguous, meaningful and descriptive name for the Concept.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:concept_name
+    alias: concept_name
+    owner: Concept
+    domain_of:
+    - Concept
+    range: string
+    required: true
+  concept__domain_id:
+    name: concept__domain_id
+    description: A foreign key to the DOMAIN table the Concept belongs to.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:domain_id
+    alias: domain_id
+    owner: Concept
+    domain_of:
+    - Concept
+    range: Domain
+    required: true
+  concept__vocabulary_id:
+    name: concept__vocabulary_id
+    description: A foreign key to the VOCABULARY table indicating from which source
+      the Concept has been adapted.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:vocabulary_id
+    alias: vocabulary_id
+    owner: Concept
+    domain_of:
+    - Concept
+    range: Vocabulary
+    required: true
+  concept__concept_class_id:
+    name: concept__concept_class_id
+    description: "The attribute or concept class of the Concept. Examples are \u2018\
+      Clinical Drug\u2019, \u2018Ingredient\u2019, \u2018Clinical Finding\u2019 etc."
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:concept_class_id
+    alias: concept_class_id
+    owner: Concept
+    domain_of:
+    - Concept
+    range: ConceptClass
+    required: true
+  concept__standard_concept:
+    name: concept__standard_concept
+    description: "This flag determines where a Concept is a Standard Concept, i.e.\
+      \ is used in the data, a Classification Concept, or a non-standard Source Concept.\
+      \ The allowable values are \u2018S\u2019 (Standard Concept) and \u2018C\u2019\
+      \ (Classification Concept), otherwise the content is NULL."
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:standard_concept
+    alias: standard_concept
+    owner: Concept
+    domain_of:
+    - Concept
+    range: string
+  concept__concept_code:
+    name: concept__concept_code
+    description: The concept code represents the identifier of the Concept in the
+      source vocabulary, such as SNOMED-CT concept IDs, RxNorm RXCUIs etc. Note that
+      concept codes are not unique across vocabularies.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:concept_code
+    alias: concept_code
+    owner: Concept
+    domain_of:
+    - Concept
+    range: string
+    required: true
+  concept__valid_start_date:
+    name: concept__valid_start_date
+    description: The date when the Concept was first recorded. The default value is
+      1-Jan-1970, meaning, the Concept has no (known) date of inception.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:valid_start_date
+    alias: valid_start_date
+    owner: Concept
+    domain_of:
+    - Concept
+    range: string
+    required: true
+  concept__valid_end_date:
+    name: concept__valid_end_date
+    description: The date when the Concept became invalid because it was deleted or
+      superseded (updated) by a new concept. The default value is 31-Dec-2099, meaning,
+      the Concept is valid until it becomes deprecated.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:valid_end_date
+    alias: valid_end_date
+    owner: Concept
+    domain_of:
+    - Concept
+    range: string
+    required: true
+  concept__invalid_reason:
+    name: concept__invalid_reason
+    description: Reason the Concept was invalidated. Possible values are D (deleted),
+      U (replaced with an update) or NULL when valid_end_date has the default value.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:invalid_reason
+    alias: invalid_reason
+    owner: Concept
+    domain_of:
+    - Concept
+    range: string
+  conditionOccurrence__condition_occurrence_id:
+    name: conditionOccurrence__condition_occurrence_id
+    description: The unique key given to a condition record for a person.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:condition_occurrence_id
+    identifier: true
+    alias: condition_occurrence_id
+    owner: ConditionOccurrence
+    domain_of:
+    - ConditionOccurrence
+    range: string
+    required: true
+  conditionOccurrence__person_id:
+    name: conditionOccurrence__person_id
+    description: The PERSON_ID of the PERSON for whom the condition is recorded.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:person_id
+    alias: person_id
+    owner: ConditionOccurrence
+    domain_of:
+    - ConditionOccurrence
+    range: Person
+    required: true
+  conditionOccurrence__condition_concept_id:
+    name: conditionOccurrence__condition_concept_id
+    description: The CONDITION_CONCEPT_ID field is recommended for primary use in
+      analyses, and must be used for network studies. This is the standard concept
+      mapped from the source value which represents a condition
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:condition_concept_id
+    alias: condition_concept_id
+    owner: ConditionOccurrence
+    domain_of:
+    - ConditionOccurrence
+    range: Concept
+    required: true
+  conditionOccurrence__condition_start_date:
+    name: conditionOccurrence__condition_start_date
+    description: Use this date to determine the start date of the condition
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:condition_start_date
+    alias: condition_start_date
+    owner: ConditionOccurrence
+    domain_of:
+    - ConditionOccurrence
+    range: string
+    required: true
+  conditionOccurrence__condition_start_datetime:
+    name: conditionOccurrence__condition_start_datetime
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:condition_start_datetime
+    alias: condition_start_datetime
+    owner: ConditionOccurrence
+    domain_of:
+    - ConditionOccurrence
+    range: string
+  conditionOccurrence__condition_end_date:
+    name: conditionOccurrence__condition_end_date
+    description: Use this date to determine the end date of the condition
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:condition_end_date
+    alias: condition_end_date
+    owner: ConditionOccurrence
+    domain_of:
+    - ConditionOccurrence
+    range: string
+  conditionOccurrence__condition_end_datetime:
+    name: conditionOccurrence__condition_end_datetime
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:condition_end_datetime
+    alias: condition_end_datetime
+    owner: ConditionOccurrence
+    domain_of:
+    - ConditionOccurrence
+    range: string
+  conditionOccurrence__condition_type_concept_id:
+    name: conditionOccurrence__condition_type_concept_id
+    description: This field can be used to determine the provenance of the Condition
+      record, as in whether the condition was from an EHR system, insurance claim,
+      registry, or other sources.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:condition_type_concept_id
+    alias: condition_type_concept_id
+    owner: ConditionOccurrence
+    domain_of:
+    - ConditionOccurrence
+    range: Concept
+    required: true
+  conditionOccurrence__condition_status_concept_id:
+    name: conditionOccurrence__condition_status_concept_id
+    description: This concept represents the point during the visit the diagnosis
+      was given (admitting diagnosis, final diagnosis), whether the diagnosis was
+      determined due to laboratory findings, if the diagnosis was exclusionary, or
+      if it was a preliminary diagnosis, among others.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:condition_status_concept_id
+    alias: condition_status_concept_id
+    owner: ConditionOccurrence
+    domain_of:
+    - ConditionOccurrence
+    range: Concept
+  conditionOccurrence__stop_reason:
+    name: conditionOccurrence__stop_reason
+    description: The Stop Reason indicates why a Condition is no longer valid with
+      respect to the purpose within the source data. Note that a Stop Reason does
+      not necessarily imply that the condition is no longer occurring.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:stop_reason
+    alias: stop_reason
+    owner: ConditionOccurrence
+    domain_of:
+    - ConditionOccurrence
+    range: string
+  conditionOccurrence__provider_id:
+    name: conditionOccurrence__provider_id
+    description: The provider associated with condition record, e.g. the provider
+      who made the diagnosis or the provider who recorded the symptom.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:provider_id
+    alias: provider_id
+    owner: ConditionOccurrence
+    domain_of:
+    - ConditionOccurrence
+    range: string
+  conditionOccurrence__visit_occurrence_id:
+    name: conditionOccurrence__visit_occurrence_id
+    description: The visit during which the condition occurred.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:visit_occurrence_id
+    alias: visit_occurrence_id
+    owner: ConditionOccurrence
+    domain_of:
+    - ConditionOccurrence
+    range: VisitOccurrence
+  conditionOccurrence__visit_detail_id:
+    name: conditionOccurrence__visit_detail_id
+    description: The VISIT_DETAIL record during which the condition occurred. For
+      example, if the person was in the ICU at the time of the diagnosis the VISIT_OCCURRENCE
+      record would reflect the overall hospital stay and the VISIT_DETAIL record would
+      reflect the ICU stay during the hospital visit.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:visit_detail_id
+    alias: visit_detail_id
+    owner: ConditionOccurrence
+    domain_of:
+    - ConditionOccurrence
+    range: string
+  conditionOccurrence__condition_source_value:
+    name: conditionOccurrence__condition_source_value
+    description: This field houses the verbatim value from the source data epresenting
+      the condition that occurred. For example, this could be an ICD10 or Read code.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:condition_source_value
+    alias: condition_source_value
+    owner: ConditionOccurrence
+    domain_of:
+    - ConditionOccurrence
+    range: string
+  conditionOccurrence__condition_source_concept_id:
+    name: conditionOccurrence__condition_source_concept_id
+    description: This is the concept representing the condition source value and may
+      not necessarily be standard. This field is discouraged from use in analysis
+      because it is not required to contain Standard Concepts that are used across
+      the OHDSI community, and should only be used when Standard Concepts do not adequately
+      represent the source detail for the Condition necessary for a given analytic
+      use case. Consider using CONDITION_CONCEPT_ID instead to enable standardized
+      analytics that can be consistent across the network.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:condition_source_concept_id
+    alias: condition_source_concept_id
+    owner: ConditionOccurrence
+    domain_of:
+    - ConditionOccurrence
+    range: Concept
+  conditionOccurrence__condition_status_source_value:
+    name: conditionOccurrence__condition_status_source_value
+    description: This field houses the verbatim value from the source data representing
+      the condition status.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:condition_status_source_value
+    alias: condition_status_source_value
+    owner: ConditionOccurrence
+    domain_of:
+    - ConditionOccurrence
+    range: string
+  domain__domain_id:
+    name: domain__domain_id
+    description: A unique key for each domain.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:domain_id
+    identifier: true
+    alias: domain_id
+    owner: Domain
+    domain_of:
+    - Domain
+    range: string
+    required: true
+  domain__domain_name:
+    name: domain__domain_name
+    description: The name describing the Domain, e.g. Condition, Procedure, Measurement
+      etc.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:domain_name
+    alias: domain_name
+    owner: Domain
+    domain_of:
+    - Domain
+    range: string
+    required: true
+  domain__domain_concept_id:
+    name: domain__domain_concept_id
+    description: A Concept representing the Domain Concept the DOMAIN record belongs
+      to.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:domain_concept_id
+    alias: domain_concept_id
+    owner: Domain
+    domain_of:
+    - Domain
+    range: Concept
+    required: true
+  drugExposure__drug_exposure_id:
+    name: drugExposure__drug_exposure_id
+    description: The unique key given to records of drug dispensings or administrations
+      for a person.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:drug_exposure_id
+    identifier: true
+    alias: drug_exposure_id
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: string
+    required: true
+  drugExposure__person_id:
+    name: drugExposure__person_id
+    description: The PERSON_ID of the PERSON for whom the drug dispensing or administration
+      is recorded.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:person_id
+    alias: person_id
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: Person
+    required: true
+  drugExposure__drug_concept_id:
+    name: drugExposure__drug_concept_id
+    description: This is the standard concept mapped from the source concept id which
+      represents a drug product or molecule otherwise introduced to the body.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:drug_concept_id
+    alias: drug_concept_id
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: Concept
+    required: true
+  drugExposure__drug_exposure_start_date:
+    name: drugExposure__drug_exposure_start_date
+    description: Start date of a prescription, the date a prescription was filled,
+      or the date on which a Drug administration was recorded.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:drug_exposure_start_date
+    alias: drug_exposure_start_date
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: string
+    required: true
+  drugExposure__drug_exposure_start_datetime:
+    name: drugExposure__drug_exposure_start_datetime
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:drug_exposure_start_datetime
+    alias: drug_exposure_start_datetime
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: string
+  drugExposure__drug_exposure_end_date:
+    name: drugExposure__drug_exposure_end_date
+    description: The DRUG_EXPOSURE_END_DATE denotes the day the drug exposure ended
+      for the patient.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:drug_exposure_end_date
+    alias: drug_exposure_end_date
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: string
+    required: true
+  drugExposure__drug_exposure_end_datetime:
+    name: drugExposure__drug_exposure_end_datetime
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:drug_exposure_end_datetime
+    alias: drug_exposure_end_datetime
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: string
+  drugExposure__verbatim_end_date:
+    name: drugExposure__verbatim_end_date
+    description: This is the end date of the drug exposure as it appears in the source
+      data, if it is given
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:verbatim_end_date
+    alias: verbatim_end_date
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: string
+  drugExposure__drug_type_concept_id:
+    name: drugExposure__drug_type_concept_id
+    description: You can use the TYPE_CONCEPT_ID to delineate between prescriptions
+      written vs. prescriptions dispensed vs. medication history vs. patient-reported
+      exposure, etc.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:drug_type_concept_id
+    alias: drug_type_concept_id
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: Concept
+    required: true
+  drugExposure__stop_reason:
+    name: drugExposure__stop_reason
+    description: The reason a person stopped a medication as it is represented in
+      the source.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:stop_reason
+    alias: stop_reason
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: string
+  drugExposure__refills:
+    name: drugExposure__refills
+    description: This is only filled in when the record is coming from a prescription
+      written this field is meant to represent intended refills at time of the prescription.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:refills
+    alias: refills
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: string
+  drugExposure__quantity:
+    name: drugExposure__quantity
+    description: If liquid, quantity stands for the total amount dispensed or ordered
+      of ingredient. For clinical drugs with fixed dose forms (tablets etc.) the quantity
+      is the number of units/tablets/capsules prescribed or dispensed (can be partial,
+      but then only 1/2 or 1/3, not 0.01). Clinical drugs with divisible dose forms
+      (injections) the quantity is the amount of ingredient the patient got.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:quantity
+    alias: quantity
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: string
+  drugExposure__days_supply:
+    name: drugExposure__days_supply
+    description: The number of days of supply of the medication as recorded in the
+      original prescription or dispensing record.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:days_supply
+    alias: days_supply
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: string
+  drugExposure__sig:
+    name: drugExposure__sig
+    description: This is the verbatim instruction for the drug as written by the provider.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:sig
+    alias: sig
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: string
+  drugExposure__route_concept_id:
+    name: drugExposure__route_concept_id
+    description: The standard CONCEPT_ID that the ROUTE_SOURCE_VALUE maps to in the
+      route domain.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:route_concept_id
+    alias: route_concept_id
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: Concept
+  drugExposure__lot_number:
+    name: drugExposure__lot_number
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:lot_number
+    alias: lot_number
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: string
+  drugExposure__provider_id:
+    name: drugExposure__provider_id
+    description: The Provider associated with drug record, e.g. the provider who wrote
+      the prescription or the provider who administered the drug.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:provider_id
+    alias: provider_id
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: string
+  drugExposure__visit_occurrence_id:
+    name: drugExposure__visit_occurrence_id
+    description: The Visit during which the drug was prescribed, administered or dispensed.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:visit_occurrence_id
+    alias: visit_occurrence_id
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: VisitOccurrence
+  drugExposure__visit_detail_id:
+    name: drugExposure__visit_detail_id
+    description: The VISIT_DETAIL record during which the drug exposure occurred.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:visit_detail_id
+    alias: visit_detail_id
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: string
+  drugExposure__drug_source_value:
+    name: drugExposure__drug_source_value
+    description: This field houses the verbatim value from the source data representing
+      the drug exposure that occurred.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:drug_source_value
+    alias: drug_source_value
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: string
+  drugExposure__drug_source_concept_id:
+    name: drugExposure__drug_source_concept_id
+    description: This is the concept representing the drug source value and may not
+      necessarily be standard.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:drug_source_concept_id
+    alias: drug_source_concept_id
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: Concept
+  drugExposure__route_source_value:
+    name: drugExposure__route_source_value
+    description: This field houses the verbatim value from the source data representing
+      the drug route.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:route_source_value
+    alias: route_source_value
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: string
+  drugExposure__dose_unit_source_value:
+    name: drugExposure__dose_unit_source_value
+    description: This field houses the verbatim value from the source data representing
+      the dose unit of the drug given.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:dose_unit_source_value
+    alias: dose_unit_source_value
+    owner: DrugExposure
+    domain_of:
+    - DrugExposure
+    range: string
+  location__location_id:
+    name: location__location_id
+    description: The unique key given to a unique Location.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:location_id
+    identifier: true
+    alias: location_id
+    owner: Location
+    domain_of:
+    - Location
+    range: string
+    required: true
+  location__address_1:
+    name: location__address_1
+    description: This is the first line of the address.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:address_1
+    alias: address_1
+    owner: Location
+    domain_of:
+    - Location
+    range: string
+  location__address_2:
+    name: location__address_2
+    description: This is the second line of the address
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:address_2
+    alias: address_2
+    owner: Location
+    domain_of:
+    - Location
+    range: string
+  location__city:
+    name: location__city
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:city
+    alias: city
+    owner: Location
+    domain_of:
+    - Location
+    range: string
+  location__state:
+    name: location__state
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:state
+    alias: state
+    owner: Location
+    domain_of:
+    - Location
+    range: string
+  location__zip:
+    name: location__zip
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:zip
+    alias: zip
+    owner: Location
+    domain_of:
+    - Location
+    range: string
+  location__county:
+    name: location__county
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:county
+    alias: county
+    owner: Location
+    domain_of:
+    - Location
+    range: string
+  location__location_source_value:
+    name: location__location_source_value
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:location_source_value
+    alias: location_source_value
+    owner: Location
+    domain_of:
+    - Location
+    range: string
+  location__country_concept_id:
+    name: location__country_concept_id
+    description: The Concept Id representing the country. Values should conform to
+      the Geography domain.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:country_concept_id
+    alias: country_concept_id
+    owner: Location
+    domain_of:
+    - Location
+    range: Concept
+  location__country_source_value:
+    name: location__country_source_value
+    description: The name of the country.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:country_source_value
+    alias: country_source_value
+    owner: Location
+    domain_of:
+    - Location
+    range: string
+  location__latitude:
+    name: location__latitude
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:latitude
+    alias: latitude
+    owner: Location
+    domain_of:
+    - Location
+    range: string
+  location__longitude:
+    name: location__longitude
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:longitude
+    alias: longitude
+    owner: Location
+    domain_of:
+    - Location
+    range: string
+  note__note_id:
+    name: note__note_id
+    description: A unique identifier for each note.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:note_id
+    identifier: true
+    alias: note_id
+    owner: Note
+    domain_of:
+    - Note
+    range: string
+    required: true
+  note__person_id:
+    name: note__person_id
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:person_id
+    alias: person_id
+    owner: Note
+    domain_of:
+    - Note
+    range: Person
+    required: true
+  note__note_date:
+    name: note__note_date
+    description: The date the note was recorded.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:note_date
+    alias: note_date
+    owner: Note
+    domain_of:
+    - Note
+    range: string
+    required: true
+  note__note_datetime:
+    name: note__note_datetime
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:note_datetime
+    alias: note_datetime
+    owner: Note
+    domain_of:
+    - Note
+    range: string
+  note__note_type_concept_id:
+    name: note__note_type_concept_id
+    description: The provenance of the note. Most likely this will be EHR.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:note_type_concept_id
+    alias: note_type_concept_id
+    owner: Note
+    domain_of:
+    - Note
+    range: Concept
+    required: true
+  note__note_class_concept_id:
+    name: note__note_class_concept_id
+    description: A Standard Concept Id representing the HL7 LOINC Document Type Vocabulary
+      classification of the note.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:note_class_concept_id
+    alias: note_class_concept_id
+    owner: Note
+    domain_of:
+    - Note
+    range: Concept
+    required: true
+  note__note_title:
+    name: note__note_title
+    description: The title of the note.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:note_title
+    alias: note_title
+    owner: Note
+    domain_of:
+    - Note
+    range: string
+  note__note_text:
+    name: note__note_text
+    description: The content of the note.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:note_text
+    alias: note_text
+    owner: Note
+    domain_of:
+    - Note
+    range: string
+    required: true
+  note__encoding_concept_id:
+    name: note__encoding_concept_id
+    description: This is the Concept representing the character encoding type.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:encoding_concept_id
+    alias: encoding_concept_id
+    owner: Note
+    domain_of:
+    - Note
+    range: Concept
+    required: true
+  note__language_concept_id:
+    name: note__language_concept_id
+    description: The language of the note.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:language_concept_id
+    alias: language_concept_id
+    owner: Note
+    domain_of:
+    - Note
+    range: Concept
+    required: true
+  note__provider_id:
+    name: note__provider_id
+    description: The Provider who wrote the note.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:provider_id
+    alias: provider_id
+    owner: Note
+    domain_of:
+    - Note
+    range: string
+  note__visit_occurrence_id:
+    name: note__visit_occurrence_id
+    description: The Visit during which the note was written.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:visit_occurrence_id
+    alias: visit_occurrence_id
+    owner: Note
+    domain_of:
+    - Note
+    range: VisitOccurrence
+  note__visit_detail_id:
+    name: note__visit_detail_id
+    description: The Visit Detail during which the note was written.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:visit_detail_id
+    alias: visit_detail_id
+    owner: Note
+    domain_of:
+    - Note
+    range: string
+  note__note_source_value:
+    name: note__note_source_value
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:note_source_value
+    alias: note_source_value
+    owner: Note
+    domain_of:
+    - Note
+    range: string
+  note__note_event_id:
+    name: note__note_event_id
+    description: If the Note record is related to another record in the database,
+      this field is the primary key of the linked record.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:note_event_id
+    alias: note_event_id
+    owner: Note
+    domain_of:
+    - Note
+    range: string
+  note__note_event_field_concept_id:
+    name: note__note_event_field_concept_id
+    description: If the Note record is related to another record in the database,
+      this field is the CONCEPT_ID that identifies which table the primary key of
+      the linked record came from.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:note_event_field_concept_id
+    alias: note_event_field_concept_id
+    owner: Note
+    domain_of:
+    - Note
+    range: Concept
+  observationPeriod__observation_period_id:
+    name: observationPeriod__observation_period_id
+    description: A Person can have multiple discrete Observation Periods which are
+      identified by the Observation_Period_Id.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:observation_period_id
+    identifier: true
+    alias: observation_period_id
+    owner: ObservationPeriod
+    domain_of:
+    - ObservationPeriod
+    range: string
+    required: true
+  observationPeriod__person_id:
+    name: observationPeriod__person_id
+    description: The Person ID of the PERSON record for which the Observation Period
+      is recorded.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:person_id
+    alias: person_id
+    owner: ObservationPeriod
+    domain_of:
+    - ObservationPeriod
+    range: Person
+    required: true
+  observationPeriod__observation_period_start_date:
+    name: observationPeriod__observation_period_start_date
+    description: Use this date to determine the start date of the Observation Period.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:observation_period_start_date
+    alias: observation_period_start_date
+    owner: ObservationPeriod
+    domain_of:
+    - ObservationPeriod
+    range: string
+    required: true
+  observationPeriod__observation_period_end_date:
+    name: observationPeriod__observation_period_end_date
+    description: Use this date to determine the end date of the period for which we
+      can assume that all events for a Person are recorded.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:observation_period_end_date
+    alias: observation_period_end_date
+    owner: ObservationPeriod
+    domain_of:
+    - ObservationPeriod
+    range: string
+    required: true
+  observationPeriod__period_type_concept_id:
+    name: observationPeriod__period_type_concept_id
+    description: This field can be used to determine the provenance of the Observation
+      Period as in whether the period was determined from an insurance enrollment
+      file, EHR healthcare encounters, or other sources.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:period_type_concept_id
+    alias: period_type_concept_id
+    owner: ObservationPeriod
+    domain_of:
+    - ObservationPeriod
+    range: Concept
+    required: true
+  person__person_id:
+    name: person__person_id
+    description: It is assumed that every person with a different unique identifier
+      is in fact a different person and should be treated independently.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:person_id
+    identifier: true
+    alias: person_id
+    owner: Person
+    domain_of:
+    - Person
+    range: string
+    required: true
+  person__gender_concept_id:
+    name: person__gender_concept_id
+    description: This field is meant to capture the biological sex at birth of the
+      Person. This field should not be used to study gender identity issues.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:gender_concept_id
+    alias: gender_concept_id
+    owner: Person
+    domain_of:
+    - Person
+    range: Concept
+    required: true
+  person__year_of_birth:
+    name: person__year_of_birth
+    description: Compute age using year_of_birth.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:year_of_birth
+    alias: year_of_birth
+    owner: Person
+    domain_of:
+    - Person
+    range: string
+    required: true
+  person__month_of_birth:
+    name: person__month_of_birth
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:month_of_birth
+    alias: month_of_birth
+    owner: Person
+    domain_of:
+    - Person
+    range: string
+  person__day_of_birth:
+    name: person__day_of_birth
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:day_of_birth
+    alias: day_of_birth
+    owner: Person
+    domain_of:
+    - Person
+    range: string
+  person__birth_datetime:
+    name: person__birth_datetime
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:birth_datetime
+    alias: birth_datetime
+    owner: Person
+    domain_of:
+    - Person
+    range: string
+  person__race_concept_id:
+    name: person__race_concept_id
+    description: This field captures race or ethnic background of the person.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:race_concept_id
+    alias: race_concept_id
+    owner: Person
+    domain_of:
+    - Person
+    range: Concept
+    required: true
+  person__ethnicity_concept_id:
+    name: person__ethnicity_concept_id
+    description: "This field captures Ethnicity as defined by the Office of Management\
+      \ and Budget (OMB) of the US Government it distinguishes only between \u201C\
+      Hispanic\u201D and \u201CNot Hispanic\u201D. Races and ethnic backgrounds are\
+      \ not stored here."
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:ethnicity_concept_id
+    alias: ethnicity_concept_id
+    owner: Person
+    domain_of:
+    - Person
+    range: Concept
+    required: true
+  person__location_id:
+    name: person__location_id
+    description: The location refers to the physical address of the person. This field
+      should capture the last known location of the person.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:location_id
+    alias: location_id
+    owner: Person
+    domain_of:
+    - Person
+    range: Location
+  person__provider_id:
+    name: person__provider_id
+    description: The Provider refers to the last known primary care provider (General
+      Practitioner).
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:provider_id
+    alias: provider_id
+    owner: Person
+    domain_of:
+    - Person
+    range: string
+  person__care_site_id:
+    name: person__care_site_id
+    description: The Care Site refers to where the Provider typically provides the
+      primary care.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:care_site_id
+    alias: care_site_id
+    owner: Person
+    domain_of:
+    - Person
+    range: string
+  person__person_source_value:
+    name: person__person_source_value
+    description: Use this field to link back to persons in the source data. This is
+      typically used for error checking of ETL logic.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:person_source_value
+    alias: person_source_value
+    owner: Person
+    domain_of:
+    - Person
+    range: string
+  person__gender_source_value:
+    name: person__gender_source_value
+    description: This field is used to store the biological sex of the person from
+      the source data. It is not intended for use in standard analytics but for reference
+      only.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:gender_source_value
+    alias: gender_source_value
+    owner: Person
+    domain_of:
+    - Person
+    range: string
+  person__gender_source_concept_id:
+    name: person__gender_source_concept_id
+    description: Due to the small number of options, this tends to be zero.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:gender_source_concept_id
+    alias: gender_source_concept_id
+    owner: Person
+    domain_of:
+    - Person
+    range: Concept
+  person__race_source_value:
+    name: person__race_source_value
+    description: This field is used to store the race of the person from the source
+      data. It is not intended for use in standard analytics but for reference only.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:race_source_value
+    alias: race_source_value
+    owner: Person
+    domain_of:
+    - Person
+    range: string
+  person__race_source_concept_id:
+    name: person__race_source_concept_id
+    description: Due to the small number of options, this tends to be zero.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:race_source_concept_id
+    alias: race_source_concept_id
+    owner: Person
+    domain_of:
+    - Person
+    range: Concept
+  person__ethnicity_source_value:
+    name: person__ethnicity_source_value
+    description: This field is used to store the ethnicity of the person from the
+      source data. It is not intended for use in standard analytics but for reference
+      only.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:ethnicity_source_value
+    alias: ethnicity_source_value
+    owner: Person
+    domain_of:
+    - Person
+    range: string
+  person__ethnicity_source_concept_id:
+    name: person__ethnicity_source_concept_id
+    description: Due to the small number of options, this tends to be zero.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:ethnicity_source_concept_id
+    alias: ethnicity_source_concept_id
+    owner: Person
+    domain_of:
+    - Person
+    range: Concept
+  relationship__relationship_id:
+    name: relationship__relationship_id
+    description: The type of relationship captured by the relationship record.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:relationship_id
+    identifier: true
+    alias: relationship_id
+    owner: Relationship
+    domain_of:
+    - Relationship
+    range: string
+    required: true
+  relationship__relationship_name:
+    name: relationship__relationship_name
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:relationship_name
+    alias: relationship_name
+    owner: Relationship
+    domain_of:
+    - Relationship
+    range: string
+    required: true
+  relationship__is_hierarchical:
+    name: relationship__is_hierarchical
+    description: Defines whether a relationship defines concepts into classes or hierarchies.
+      Values are 1 for hierarchical relationship or 0 if not.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:is_hierarchical
+    alias: is_hierarchical
+    owner: Relationship
+    domain_of:
+    - Relationship
+    range: string
+    required: true
+  relationship__defines_ancestry:
+    name: relationship__defines_ancestry
+    description: Defines whether a hierarchical relationship contributes to the concept_ancestor
+      table. These are subsets of the hierarchical relationships. Valid values are
+      1 or 0.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:defines_ancestry
+    alias: defines_ancestry
+    owner: Relationship
+    domain_of:
+    - Relationship
+    range: string
+    required: true
+  relationship__reverse_relationship_id:
+    name: relationship__reverse_relationship_id
+    description: The identifier for the relationship used to define the reverse relationship
+      between two concepts.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:reverse_relationship_id
+    alias: reverse_relationship_id
+    owner: Relationship
+    domain_of:
+    - Relationship
+    range: string
+    required: true
+  relationship__relationship_concept_id:
+    name: relationship__relationship_concept_id
+    description: A foreign key that refers to an identifier in the CONCEPT table for
+      the unique relationship concept.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:relationship_concept_id
+    alias: relationship_concept_id
+    owner: Relationship
+    domain_of:
+    - Relationship
+    range: Concept
+    required: true
+  visitOccurrence__visit_occurrence_id:
+    name: visitOccurrence__visit_occurrence_id
+    description: Use this to identify unique interactions between a person and the
+      health care system. This identifier links across the other CDM event tables
+      to associate events with a visit.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:visit_occurrence_id
+    identifier: true
+    alias: visit_occurrence_id
+    owner: VisitOccurrence
+    domain_of:
+    - VisitOccurrence
+    range: string
+    required: true
+  visitOccurrence__person_id:
+    name: visitOccurrence__person_id
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:person_id
+    alias: person_id
+    owner: VisitOccurrence
+    domain_of:
+    - VisitOccurrence
+    range: Person
+    required: true
+  visitOccurrence__visit_concept_id:
+    name: visitOccurrence__visit_concept_id
+    description: This field contains a concept id representing the kind of visit,
+      like inpatient or outpatient. All concepts in this field should be standard
+      and belong to the Visit domain.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:visit_concept_id
+    alias: visit_concept_id
+    owner: VisitOccurrence
+    domain_of:
+    - VisitOccurrence
+    range: Concept
+    required: true
+  visitOccurrence__visit_start_date:
+    name: visitOccurrence__visit_start_date
+    description: For inpatient visits, the start date is typically the admission date.
+      For outpatient visits the start date and end date will be the same.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:visit_start_date
+    alias: visit_start_date
+    owner: VisitOccurrence
+    domain_of:
+    - VisitOccurrence
+    range: string
+    required: true
+  visitOccurrence__visit_start_datetime:
+    name: visitOccurrence__visit_start_datetime
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:visit_start_datetime
+    alias: visit_start_datetime
+    owner: VisitOccurrence
+    domain_of:
+    - VisitOccurrence
+    range: string
+  visitOccurrence__visit_end_date:
+    name: visitOccurrence__visit_end_date
+    description: For inpatient visits the end date is typically the discharge date.
+      If a Person is still an inpatient in the hospital at the time of the data extract
+      and does not have a visit_end_date, then set the visit_end_date to the date
+      of the data pull.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:visit_end_date
+    alias: visit_end_date
+    owner: VisitOccurrence
+    domain_of:
+    - VisitOccurrence
+    range: string
+    required: true
+  visitOccurrence__visit_end_datetime:
+    name: visitOccurrence__visit_end_datetime
+    description: If a Person is still an inpatient in the hospital at the time of
+      the data extract and does not have a visit_end_datetime, then set the visit_end_datetime
+      to the datetime of the data pull.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:visit_end_datetime
+    alias: visit_end_datetime
+    owner: VisitOccurrence
+    domain_of:
+    - VisitOccurrence
+    range: string
+  visitOccurrence__visit_type_concept_id:
+    name: visitOccurrence__visit_type_concept_id
+    description: Use this field to understand the provenance of the visit record,
+      or where the record comes from.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:visit_type_concept_id
+    alias: visit_type_concept_id
+    owner: VisitOccurrence
+    domain_of:
+    - VisitOccurrence
+    range: Concept
+    required: true
+  visitOccurrence__provider_id:
+    name: visitOccurrence__provider_id
+    description: There will only be one provider per visit record and the ETL document
+      should clearly state how they were chosen (attending, admitting, etc.). If there
+      are multiple providers associated with a visit in the source, this can be reflected
+      in the event tables (CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE, etc.) or in
+      the VISIT_DETAIL table.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:provider_id
+    alias: provider_id
+    owner: VisitOccurrence
+    domain_of:
+    - VisitOccurrence
+    range: string
+  visitOccurrence__care_site_id:
+    name: visitOccurrence__care_site_id
+    description: This field provides information about the Care Site where the Visit
+      took place.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:care_site_id
+    alias: care_site_id
+    owner: VisitOccurrence
+    domain_of:
+    - VisitOccurrence
+    range: string
+  visitOccurrence__preceding_visit_occurrence_id:
+    name: visitOccurrence__preceding_visit_occurrence_id
+    description: Use this field to find the visit that occurred for the person prior
+      to the given visit. There could be a few days or a few years in between.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:preceding_visit_occurrence_id
+    alias: preceding_visit_occurrence_id
+    owner: VisitOccurrence
+    domain_of:
+    - VisitOccurrence
+    range: VisitOccurrence
+  visitOccurrence__visit_source_value:
+    name: visitOccurrence__visit_source_value
+    description: This field houses the verbatim value from the source data representing
+      the kind of visit that took place (inpatient, outpatient, emergency, etc.)
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:visit_source_value
+    alias: visit_source_value
+    owner: VisitOccurrence
+    domain_of:
+    - VisitOccurrence
+    range: string
+  visitOccurrence__visit_source_concept_id:
+    name: visitOccurrence__visit_source_concept_id
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:visit_source_concept_id
+    alias: visit_source_concept_id
+    owner: VisitOccurrence
+    domain_of:
+    - VisitOccurrence
+    range: Concept
+  visitOccurrence__admitted_from_concept_id:
+    name: visitOccurrence__admitted_from_concept_id
+    description: Use this field to determine where the patient was admitted from.
+      This concept is part of the visit domain and can indicate if a patient was admitted
+      to the hospital from a long-term care facility, for example.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:admitted_from_concept_id
+    alias: admitted_from_concept_id
+    owner: VisitOccurrence
+    domain_of:
+    - VisitOccurrence
+    range: Concept
+  visitOccurrence__admitted_from_source_value:
+    name: visitOccurrence__admitted_from_source_value
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:admitted_from_source_value
+    alias: admitted_from_source_value
+    owner: VisitOccurrence
+    domain_of:
+    - VisitOccurrence
+    range: string
+  visitOccurrence__discharged_to_concept_id:
+    name: visitOccurrence__discharged_to_concept_id
+    description: "Use this field to determine where the patient was discharged to\
+      \ after a visit. This concept is part of the visit domain and can indicate if\
+      \ a patient was transferred to another hospital or sent to a long-term care\
+      \ facility, for example. It is assumed that a person is discharged to home therefore\
+      \ there is not a standard concept id for \u201Chome\u201D. Use concept id =\
+      \ 0 when a person is discharged to home."
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:discharged_to_concept_id
+    alias: discharged_to_concept_id
+    owner: VisitOccurrence
+    domain_of:
+    - VisitOccurrence
+    range: Concept
+  visitOccurrence__discharged_to_source_value:
+    name: visitOccurrence__discharged_to_source_value
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:discharged_to_source_value
+    alias: discharged_to_source_value
+    owner: VisitOccurrence
+    domain_of:
+    - VisitOccurrence
+    range: string
+  vocabulary__vocabulary_id:
+    name: vocabulary__vocabulary_id
+    description: A unique identifier for each Vocabulary, such as ICD9CM, SNOMED,
+      Visit.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:vocabulary_id
+    identifier: true
+    alias: vocabulary_id
+    owner: Vocabulary
+    domain_of:
+    - Vocabulary
+    range: string
+    required: true
+  vocabulary__vocabulary_name:
+    name: vocabulary__vocabulary_name
+    description: The name describing the vocabulary, for example, International Classification
+      of Diseases, Ninth Revision, Clinical Modification, Volume 1 and 2 (NCHS) etc.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:vocabulary_name
+    alias: vocabulary_name
+    owner: Vocabulary
+    domain_of:
+    - Vocabulary
+    range: string
+    required: true
+  vocabulary__vocabulary_reference:
+    name: vocabulary__vocabulary_reference
+    description: External reference to documentation or available download of the
+      about the vocabulary.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:vocabulary_reference
+    alias: vocabulary_reference
+    owner: Vocabulary
+    domain_of:
+    - Vocabulary
+    range: string
+  vocabulary__vocabulary_version:
+    name: vocabulary__vocabulary_version
+    description: Version of the Vocabulary as indicated in the source.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:vocabulary_version
+    alias: vocabulary_version
+    owner: Vocabulary
+    domain_of:
+    - Vocabulary
+    range: string
+  vocabulary__vocabulary_concept_id:
+    name: vocabulary__vocabulary_concept_id
+    description: A Concept that represents the Vocabulary the VOCABULARY record belongs
+      to.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slot_uri: omop_cdm54:vocabulary_concept_id
+    alias: vocabulary_concept_id
+    owner: Vocabulary
+    domain_of:
+    - Vocabulary
+    range: Concept
+    required: true
+classes:
+  CdmSource:
+    name: CdmSource
+    definition_uri: https://timformatie.github.io/SEIN-OMOP/omop-cdm54/CdmSource
+    description: The CDM_SOURCE table contains detail about the source database and
+      the process used to transform the data into the OMOP Common Data Model.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slots:
+    - cdmSource__cdm_source_name
+    - cdmSource__cdm_source_abbreviation
+    - cdmSource__cdm_holder
+    - cdmSource__source_description
+    - cdmSource__source_documentation_reference
+    - cdmSource__cdm_etl_reference
+    - cdmSource__source_release_date
+    - cdmSource__cdm_release_date
+    - cdmSource__cdm_version
+    - cdmSource__cdm_version_concept_id
+    - cdmSource__vocabulary_version
+    attributes:
+      cdm_source_name:
+        name: cdm_source_name
+        description: The name of the CDM instance.
+        required: true
+      cdm_source_abbreviation:
+        name: cdm_source_abbreviation
+        description: The abbreviation of the CDM instance.
+        required: true
+      cdm_holder:
+        name: cdm_holder
+        description: The holder of the CDM instance.
+        required: true
+      source_description:
+        name: source_description
+        description: The description of the CDM instance.
+      source_documentation_reference:
+        name: source_documentation_reference
+        description: Refers to a publication or web resource describing the source
+          data
+      cdm_etl_reference:
+        name: cdm_etl_reference
+      source_release_date:
+        name: source_release_date
+        description: The date the data was extracted from the source system. In some
+          systems that is the same as the date the ETL was run. Typically the latest
+          even date in the source is on the source_release_date.
+        required: true
+      cdm_release_date:
+        name: cdm_release_date
+        description: The date the ETL script was completed. Typically this is after
+          the source_release_date.
+        required: true
+      cdm_version:
+        name: cdm_version
+        description: Version of the OMOP CDM used as string. e.g. v5.4
+      cdm_version_concept_id:
+        name: cdm_version_concept_id
+        description: The Concept Id representing the version of the CDM.
+        range: Concept
+        required: true
+      vocabulary_version:
+        name: vocabulary_version
+        description: Version of the OMOP standardised vocabularies loaded
+        required: true
+    class_uri: omop_cdm54:CdmSource
+  ConceptAncestor:
+    name: ConceptAncestor
+    definition_uri: https://timformatie.github.io/SEIN-OMOP/omop-cdm54/ConceptAncestor
+    description: The CONCEPT_ANCESTOR table is designed to simplify observational
+      analysis by providing the complete hierarchical relationships between Concepts.
+      Only direct parent-child relationships between Concepts are stored in the CONCEPT_RELATIONSHIP
+      table. To determine higher-level ancestry connections, all individual direct
+      relationships would have to be navigated at analysis time. The CONCEPT_ANCESTOR
+      table includes records for all parent-child relationships, as well as grandparent-grandchild
+      relationships and those of any other level of lineage for Standard or Classification
+      concepts. Using the CONCEPT_ANCESTOR table allows for querying for all descendants
+      of a hierarchical concept, and the other way around. For example, drug ingredients
+      and drug products, beneath them in the hierarchy, are all descendants of a drug
+      class ancestor. This table is entirely derived from the CONCEPT, CONCEPT_RELATIONSHIP,
+      and RELATIONSHIP tables.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slots:
+    - conceptAncestor__ancestor_concept_id
+    - conceptAncestor__descendant_concept_id
+    - conceptAncestor__min_levels_of_separation
+    - conceptAncestor__max_levels_of_separation
+    attributes:
+      ancestor_concept_id:
+        name: ancestor_concept_id
+        description: The Concept Id for the higher-level concept that forms the ancestor
+          in the relationship.
+        range: Concept
+        required: true
+      descendant_concept_id:
+        name: descendant_concept_id
+        description: The Concept Id for the lower-level concept that forms the descendant
+          in the relationship.
+        range: Concept
+        required: true
+      min_levels_of_separation:
+        name: min_levels_of_separation
+        description: The minimum separation in number of levels of hierarchy between
+          ancestor and descendant concepts. This is an attribute that is used to simplify
+          hierarchic analysis.
+        required: true
+      max_levels_of_separation:
+        name: max_levels_of_separation
+        description: The maximum separation in number of levels of hierarchy between
+          ancestor and descendant concepts. This is an attribute that is used to simplify
+          hierarchic analysis.
+        required: true
+    class_uri: omop_cdm54:ConceptAncestor
+  ConceptClass:
+    name: ConceptClass
+    definition_uri: https://timformatie.github.io/SEIN-OMOP/omop-cdm54/ConceptClass
+    description: The CONCEPT_CLASS table includes semantic categories that reference
+      the source structure of each Vocabulary. Concept Classes represent so-called
+      horizontal (e.g. MedDRA, RxNorm) or vertical levels (e.g. SNOMED) of the vocabulary
+      structure. Vocabularies without any Concept Classes, such as HCPCS, use the
+      vocabulary_id as the Concept Class. This reference table is populated with a
+      single record for each Concept Class, which includes a Concept Class ID and
+      a fully specified Concept Class name.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slots:
+    - conceptClass__concept_class_id
+    - conceptClass__concept_class_name
+    - conceptClass__concept_class_concept_id
+    attributes:
+      concept_class_id:
+        name: concept_class_id
+        description: A unique key for each class.
+        identifier: true
+        required: true
+      concept_class_name:
+        name: concept_class_name
+        description: The name describing the Concept Class, e.g. Clinical Finding,
+          Ingredient, etc.
+        required: true
+      concept_class_concept_id:
+        name: concept_class_concept_id
+        description: A Concept that represents the Concept Class.
+        range: Concept
+        required: true
+    class_uri: omop_cdm54:ConceptClass
+  ConceptRelation:
+    name: ConceptRelation
+    definition_uri: https://timformatie.github.io/SEIN-OMOP/omop-cdm54/ConceptRelation
+    description: The CONCEPT_RELATIONSHIP table contains records that define relationships
+      between any two Concepts and the nature or type of the relationship. This table
+      captures various types of relationships, including hierarchical, associative,
+      and other semantic connections, enabling comprehensive analysis and interpretation
+      of clinical concepts. Every kind of relationship is defined in the RELATIONSHIP
+      table.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slots:
+    - conceptRelation__concept_id_1
+    - conceptRelation__concept_id_2
+    - conceptRelation__relationship_id
+    - conceptRelation__valid_start_date
+    - conceptRelation__valid_end_date
+    - conceptRelation__invalid_reason
+    attributes:
+      concept_id_1:
+        name: concept_id_1
+        range: Concept
+        required: true
+      concept_id_2:
+        name: concept_id_2
+        range: Concept
+        required: true
+      relationship_id:
+        name: relationship_id
+        description: The relationship between CONCEPT_ID_1 and CONCEPT_ID_2. Please
+          see the Vocabulary Conventions. for more information.
+        range: Relationship
+        required: true
+      valid_start_date:
+        name: valid_start_date
+        description: The date when the relationship is first recorded.
+        required: true
+      valid_end_date:
+        name: valid_end_date
+        description: The date when the relationship is invalidated.
+        required: true
+      invalid_reason:
+        name: invalid_reason
+        description: "Reason the relationship was invalidated. Possible values are\
+          \ \u2018D\u2019 (deleted), \u2018U\u2019 (updated) or NULL."
+    class_uri: omop_cdm54:ConceptRelation
+  ConceptSynonym:
+    name: ConceptSynonym
+    definition_uri: https://timformatie.github.io/SEIN-OMOP/omop-cdm54/ConceptSynonym
+    description: The CONCEPT_SYNONYM table captures alternative terms, synonyms, and
+      translations of Concept Name into various languages linked to specific concepts,
+      providing users with a comprehensive view of how Concepts may be expressed or
+      referenced.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slots:
+    - conceptSynonym__concept_id
+    - conceptSynonym__concept_synonym_name
+    - conceptSynonym__language_concept_id
+    attributes:
+      concept_id:
+        name: concept_id
+        range: Concept
+        required: true
+      concept_synonym_name:
+        name: concept_synonym_name
+        required: true
+      language_concept_id:
+        name: language_concept_id
+        range: Concept
+        required: true
+    class_uri: omop_cdm54:ConceptSynonym
+  Concept:
+    name: Concept
+    definition_uri: https://timformatie.github.io/SEIN-OMOP/omop-cdm54/Concept
+    description: "The Standardized Vocabularies contains records, or Concepts, that\
+      \ uniquely identify each fundamental unit of meaning used to express clinical\
+      \ information in all domain tables of the CDM. Concepts are derived from vocabularies,\
+      \ which represent clinical information across a domain (e.g. conditions, drugs,\
+      \ procedures) through the use of codes and associated descriptions. Some Concepts\
+      \ are designated Standard Concepts, meaning these Concepts can be used as normative\
+      \ expressions of a clinical entity within the OMOP Common Data Model and standardized\
+      \ analytics. Each Standard Concept belongs to one Domain, which defines the\
+      \ location where the Concept would be expected to occur within the data tables\
+      \ of the CDM. Concepts can represent broad categories (\u2018Cardiovascular\
+      \ disease\u2019), detailed clinical elements (\u2018Myocardial infarction of\
+      \ the anterolateral wall\u2019), or modifying characteristics and attributes\
+      \ that define Concepts at various levels of detail (severity of a disease, associated\
+      \ morphology, etc.). Records in the Standardized Vocabularies tables are derived\
+      \ from national or international vocabularies such as SNOMED-CT, RxNorm, and\
+      \ LOINC, or custom OMOP Concepts defined to cover various aspects of observational\
+      \ data analysis."
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slots:
+    - concept__concept_id
+    - concept__concept_name
+    - concept__domain_id
+    - concept__vocabulary_id
+    - concept__concept_class_id
+    - concept__standard_concept
+    - concept__concept_code
+    - concept__valid_start_date
+    - concept__valid_end_date
+    - concept__invalid_reason
+    attributes:
+      concept_id:
+        name: concept_id
+        description: A unique identifier for each Concept across all domains.
+        identifier: true
+        required: true
+      concept_name:
+        name: concept_name
+        description: An unambiguous, meaningful and descriptive name for the Concept.
+        required: true
+      domain_id:
+        name: domain_id
+        description: A foreign key to the DOMAIN table the Concept belongs to.
+        range: Domain
+        required: true
+      vocabulary_id:
+        name: vocabulary_id
+        description: A foreign key to the VOCABULARY table indicating from which source
+          the Concept has been adapted.
+        range: Vocabulary
+        required: true
+      concept_class_id:
+        name: concept_class_id
+        description: "The attribute or concept class of the Concept. Examples are\
+          \ \u2018Clinical Drug\u2019, \u2018Ingredient\u2019, \u2018Clinical Finding\u2019\
+          \ etc."
+        range: ConceptClass
+        required: true
+      standard_concept:
+        name: standard_concept
+        description: "This flag determines where a Concept is a Standard Concept,\
+          \ i.e. is used in the data, a Classification Concept, or a non-standard\
+          \ Source Concept. The allowable values are \u2018S\u2019 (Standard Concept)\
+          \ and \u2018C\u2019 (Classification Concept), otherwise the content is NULL."
+      concept_code:
+        name: concept_code
+        description: The concept code represents the identifier of the Concept in
+          the source vocabulary, such as SNOMED-CT concept IDs, RxNorm RXCUIs etc.
+          Note that concept codes are not unique across vocabularies.
+        required: true
+      valid_start_date:
+        name: valid_start_date
+        description: The date when the Concept was first recorded. The default value
+          is 1-Jan-1970, meaning, the Concept has no (known) date of inception.
+        required: true
+      valid_end_date:
+        name: valid_end_date
+        description: The date when the Concept became invalid because it was deleted
+          or superseded (updated) by a new concept. The default value is 31-Dec-2099,
+          meaning, the Concept is valid until it becomes deprecated.
+        required: true
+      invalid_reason:
+        name: invalid_reason
+        description: Reason the Concept was invalidated. Possible values are D (deleted),
+          U (replaced with an update) or NULL when valid_end_date has the default
+          value.
+    class_uri: omop_cdm54:Concept
+  ConditionOccurrence:
+    name: ConditionOccurrence
+    definition_uri: https://timformatie.github.io/SEIN-OMOP/omop-cdm54/ConditionOccurrence
+    description: REWRITE THIS This table captures records about the exposure to a
+      Drug ingested or otherwise introduced into the body. A Drug is a biochemical
+      substance formulated in such a way that when administered to a Person it will
+      exert a certain biochemical effect on the metabolism. Drugs include prescription
+      and over-the-counter medicines, vaccines, and large-molecule biologic therapies.
+      Radiological devices ingested or applied locally do not count as Drugs.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slots:
+    - conditionOccurrence__condition_occurrence_id
+    - conditionOccurrence__person_id
+    - conditionOccurrence__condition_concept_id
+    - conditionOccurrence__condition_start_date
+    - conditionOccurrence__condition_start_datetime
+    - conditionOccurrence__condition_end_date
+    - conditionOccurrence__condition_end_datetime
+    - conditionOccurrence__condition_type_concept_id
+    - conditionOccurrence__condition_status_concept_id
+    - conditionOccurrence__stop_reason
+    - conditionOccurrence__provider_id
+    - conditionOccurrence__visit_occurrence_id
+    - conditionOccurrence__visit_detail_id
+    - conditionOccurrence__condition_source_value
+    - conditionOccurrence__condition_source_concept_id
+    - conditionOccurrence__condition_status_source_value
+    attributes:
+      condition_occurrence_id:
+        name: condition_occurrence_id
+        description: The unique key given to a condition record for a person.
+        identifier: true
+        required: true
+      person_id:
+        name: person_id
+        description: The PERSON_ID of the PERSON for whom the condition is recorded.
+        range: Person
+        required: true
+      condition_concept_id:
+        name: condition_concept_id
+        description: The CONDITION_CONCEPT_ID field is recommended for primary use
+          in analyses, and must be used for network studies. This is the standard
+          concept mapped from the source value which represents a condition
+        range: Concept
+        required: true
+      condition_start_date:
+        name: condition_start_date
+        description: Use this date to determine the start date of the condition
+        required: true
+      condition_start_datetime:
+        name: condition_start_datetime
+      condition_end_date:
+        name: condition_end_date
+        description: Use this date to determine the end date of the condition
+      condition_end_datetime:
+        name: condition_end_datetime
+      condition_type_concept_id:
+        name: condition_type_concept_id
+        description: This field can be used to determine the provenance of the Condition
+          record, as in whether the condition was from an EHR system, insurance claim,
+          registry, or other sources.
+        range: Concept
+        required: true
+      condition_status_concept_id:
+        name: condition_status_concept_id
+        description: This concept represents the point during the visit the diagnosis
+          was given (admitting diagnosis, final diagnosis), whether the diagnosis
+          was determined due to laboratory findings, if the diagnosis was exclusionary,
+          or if it was a preliminary diagnosis, among others.
+        range: Concept
+      stop_reason:
+        name: stop_reason
+        description: The Stop Reason indicates why a Condition is no longer valid
+          with respect to the purpose within the source data. Note that a Stop Reason
+          does not necessarily imply that the condition is no longer occurring.
+      provider_id:
+        name: provider_id
+        description: The provider associated with condition record, e.g. the provider
+          who made the diagnosis or the provider who recorded the symptom.
+      visit_occurrence_id:
+        name: visit_occurrence_id
+        description: The visit during which the condition occurred.
+        range: VisitOccurrence
+      visit_detail_id:
+        name: visit_detail_id
+        description: The VISIT_DETAIL record during which the condition occurred.
+          For example, if the person was in the ICU at the time of the diagnosis the
+          VISIT_OCCURRENCE record would reflect the overall hospital stay and the
+          VISIT_DETAIL record would reflect the ICU stay during the hospital visit.
+      condition_source_value:
+        name: condition_source_value
+        description: This field houses the verbatim value from the source data epresenting
+          the condition that occurred. For example, this could be an ICD10 or Read
+          code.
+      condition_source_concept_id:
+        name: condition_source_concept_id
+        description: This is the concept representing the condition source value and
+          may not necessarily be standard. This field is discouraged from use in analysis
+          because it is not required to contain Standard Concepts that are used across
+          the OHDSI community, and should only be used when Standard Concepts do not
+          adequately represent the source detail for the Condition necessary for a
+          given analytic use case. Consider using CONDITION_CONCEPT_ID instead to
+          enable standardized analytics that can be consistent across the network.
+        range: Concept
+      condition_status_source_value:
+        name: condition_status_source_value
+        description: This field houses the verbatim value from the source data representing
+          the condition status.
+    class_uri: omop_cdm54:ConditionOccurrence
+  Domain:
+    name: Domain
+    definition_uri: https://timformatie.github.io/SEIN-OMOP/omop-cdm54/Domain
+    description: The DOMAIN table includes a list of OMOP-defined Domains to which
+      the Concepts of the Standardized Vocabularies can belong. A Domain represents
+      a clinical definition whereby we assign matching Concepts for the standardized
+      fields in the CDM tables. For example, the Condition Domain contains Concepts
+      that describe a patient condition, and these Concepts can only be used in the
+      condition_concept_id field of the CONDITION_OCCURRENCE and CONDITION_ERA tables.
+      This reference table is populated with a single record for each Domain, including
+      a Domain ID and a descriptive name for every Domain.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slots:
+    - domain__domain_id
+    - domain__domain_name
+    - domain__domain_concept_id
+    attributes:
+      domain_id:
+        name: domain_id
+        description: A unique key for each domain.
+        identifier: true
+        required: true
+      domain_name:
+        name: domain_name
+        description: The name describing the Domain, e.g. Condition, Procedure, Measurement
+          etc.
+        required: true
+      domain_concept_id:
+        name: domain_concept_id
+        description: A Concept representing the Domain Concept the DOMAIN record belongs
+          to.
+        range: Concept
+        required: true
+    class_uri: omop_cdm54:Domain
+  DrugExposure:
+    name: DrugExposure
+    definition_uri: https://timformatie.github.io/SEIN-OMOP/omop-cdm54/DrugExposure
+    description: This table captures records about the exposure to a Drug ingested
+      or otherwise introduced into the body. A Drug is a biochemical substance formulated
+      in such a way that when administered to a Person it will exert a certain biochemical
+      effect on the metabolism. Drugs include prescription and over-the-counter medicines,
+      vaccines, and large-molecule biologic therapies. Radiological devices ingested
+      or applied locally do not count as Drugs.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slots:
+    - drugExposure__drug_exposure_id
+    - drugExposure__person_id
+    - drugExposure__drug_concept_id
+    - drugExposure__drug_exposure_start_date
+    - drugExposure__drug_exposure_start_datetime
+    - drugExposure__drug_exposure_end_date
+    - drugExposure__drug_exposure_end_datetime
+    - drugExposure__verbatim_end_date
+    - drugExposure__drug_type_concept_id
+    - drugExposure__stop_reason
+    - drugExposure__refills
+    - drugExposure__quantity
+    - drugExposure__days_supply
+    - drugExposure__sig
+    - drugExposure__route_concept_id
+    - drugExposure__lot_number
+    - drugExposure__provider_id
+    - drugExposure__visit_occurrence_id
+    - drugExposure__visit_detail_id
+    - drugExposure__drug_source_value
+    - drugExposure__drug_source_concept_id
+    - drugExposure__route_source_value
+    - drugExposure__dose_unit_source_value
+    attributes:
+      drug_exposure_id:
+        name: drug_exposure_id
+        description: The unique key given to records of drug dispensings or administrations
+          for a person.
+        identifier: true
+        required: true
+      person_id:
+        name: person_id
+        description: The PERSON_ID of the PERSON for whom the drug dispensing or administration
+          is recorded.
+        range: Person
+        required: true
+      drug_concept_id:
+        name: drug_concept_id
+        description: This is the standard concept mapped from the source concept id
+          which represents a drug product or molecule otherwise introduced to the
+          body.
+        range: Concept
+        required: true
+      drug_exposure_start_date:
+        name: drug_exposure_start_date
+        description: Start date of a prescription, the date a prescription was filled,
+          or the date on which a Drug administration was recorded.
+        required: true
+      drug_exposure_start_datetime:
+        name: drug_exposure_start_datetime
+      drug_exposure_end_date:
+        name: drug_exposure_end_date
+        description: The DRUG_EXPOSURE_END_DATE denotes the day the drug exposure
+          ended for the patient.
+        required: true
+      drug_exposure_end_datetime:
+        name: drug_exposure_end_datetime
+      verbatim_end_date:
+        name: verbatim_end_date
+        description: This is the end date of the drug exposure as it appears in the
+          source data, if it is given
+      drug_type_concept_id:
+        name: drug_type_concept_id
+        description: You can use the TYPE_CONCEPT_ID to delineate between prescriptions
+          written vs. prescriptions dispensed vs. medication history vs. patient-reported
+          exposure, etc.
+        range: Concept
+        required: true
+      stop_reason:
+        name: stop_reason
+        description: The reason a person stopped a medication as it is represented
+          in the source.
+      refills:
+        name: refills
+        description: This is only filled in when the record is coming from a prescription
+          written this field is meant to represent intended refills at time of the
+          prescription.
+      quantity:
+        name: quantity
+        description: If liquid, quantity stands for the total amount dispensed or
+          ordered of ingredient. For clinical drugs with fixed dose forms (tablets
+          etc.) the quantity is the number of units/tablets/capsules prescribed or
+          dispensed (can be partial, but then only 1/2 or 1/3, not 0.01). Clinical
+          drugs with divisible dose forms (injections) the quantity is the amount
+          of ingredient the patient got.
+      days_supply:
+        name: days_supply
+        description: The number of days of supply of the medication as recorded in
+          the original prescription or dispensing record.
+      sig:
+        name: sig
+        description: This is the verbatim instruction for the drug as written by the
+          provider.
+      route_concept_id:
+        name: route_concept_id
+        description: The standard CONCEPT_ID that the ROUTE_SOURCE_VALUE maps to in
+          the route domain.
+        range: Concept
+      lot_number:
+        name: lot_number
+      provider_id:
+        name: provider_id
+        description: The Provider associated with drug record, e.g. the provider who
+          wrote the prescription or the provider who administered the drug.
+      visit_occurrence_id:
+        name: visit_occurrence_id
+        description: The Visit during which the drug was prescribed, administered
+          or dispensed.
+        range: VisitOccurrence
+      visit_detail_id:
+        name: visit_detail_id
+        description: The VISIT_DETAIL record during which the drug exposure occurred.
+      drug_source_value:
+        name: drug_source_value
+        description: This field houses the verbatim value from the source data representing
+          the drug exposure that occurred.
+      drug_source_concept_id:
+        name: drug_source_concept_id
+        description: This is the concept representing the drug source value and may
+          not necessarily be standard.
+        range: Concept
+      route_source_value:
+        name: route_source_value
+        description: This field houses the verbatim value from the source data representing
+          the drug route.
+      dose_unit_source_value:
+        name: dose_unit_source_value
+        description: This field houses the verbatim value from the source data representing
+          the dose unit of the drug given.
+    class_uri: omop_cdm54:DrugExposure
+  Location:
+    name: Location
+    definition_uri: https://timformatie.github.io/SEIN-OMOP/omop-cdm54/Location
+    description: The LOCATION table represents a generic way to capture physical location
+      or address information of Persons and Care Sites.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slots:
+    - location__location_id
+    - location__address_1
+    - location__address_2
+    - location__city
+    - location__state
+    - location__zip
+    - location__county
+    - location__location_source_value
+    - location__country_concept_id
+    - location__country_source_value
+    - location__latitude
+    - location__longitude
+    attributes:
+      location_id:
+        name: location_id
+        description: The unique key given to a unique Location.
+        identifier: true
+        required: true
+      address_1:
+        name: address_1
+        description: This is the first line of the address.
+      address_2:
+        name: address_2
+        description: This is the second line of the address
+      city:
+        name: city
+      state:
+        name: state
+      zip:
+        name: zip
+      county:
+        name: county
+      location_source_value:
+        name: location_source_value
+      country_concept_id:
+        name: country_concept_id
+        description: The Concept Id representing the country. Values should conform
+          to the Geography domain.
+        range: Concept
+      country_source_value:
+        name: country_source_value
+        description: The name of the country.
+      latitude:
+        name: latitude
+      longitude:
+        name: longitude
+    class_uri: omop_cdm54:Location
+  Note:
+    name: Note
+    definition_uri: https://timformatie.github.io/SEIN-OMOP/omop-cdm54/Note
+    description: The NOTE table captures unstructured information that was recorded
+      by a provider about a patient in free text (in ASCII, or preferably in UTF8
+      format) notes on a given date. The type of note_text is CLOB or varchar(MAX)
+      depending on RDBMS.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slots:
+    - note__note_id
+    - note__person_id
+    - note__note_date
+    - note__note_datetime
+    - note__note_type_concept_id
+    - note__note_class_concept_id
+    - note__note_title
+    - note__note_text
+    - note__encoding_concept_id
+    - note__language_concept_id
+    - note__provider_id
+    - note__visit_occurrence_id
+    - note__visit_detail_id
+    - note__note_source_value
+    - note__note_event_id
+    - note__note_event_field_concept_id
+    attributes:
+      note_id:
+        name: note_id
+        description: A unique identifier for each note.
+        identifier: true
+        required: true
+      person_id:
+        name: person_id
+        range: Person
+        required: true
+      note_date:
+        name: note_date
+        description: The date the note was recorded.
+        required: true
+      note_datetime:
+        name: note_datetime
+      note_type_concept_id:
+        name: note_type_concept_id
+        description: The provenance of the note. Most likely this will be EHR.
+        range: Concept
+        required: true
+      note_class_concept_id:
+        name: note_class_concept_id
+        description: A Standard Concept Id representing the HL7 LOINC Document Type
+          Vocabulary classification of the note.
+        range: Concept
+        required: true
+      note_title:
+        name: note_title
+        description: The title of the note.
+      note_text:
+        name: note_text
+        description: The content of the note.
+        required: true
+      encoding_concept_id:
+        name: encoding_concept_id
+        description: This is the Concept representing the character encoding type.
+        range: Concept
+        required: true
+      language_concept_id:
+        name: language_concept_id
+        description: The language of the note.
+        range: Concept
+        required: true
+      provider_id:
+        name: provider_id
+        description: The Provider who wrote the note.
+      visit_occurrence_id:
+        name: visit_occurrence_id
+        description: The Visit during which the note was written.
+        range: VisitOccurrence
+      visit_detail_id:
+        name: visit_detail_id
+        description: The Visit Detail during which the note was written.
+      note_source_value:
+        name: note_source_value
+      note_event_id:
+        name: note_event_id
+        description: If the Note record is related to another record in the database,
+          this field is the primary key of the linked record.
+      note_event_field_concept_id:
+        name: note_event_field_concept_id
+        description: If the Note record is related to another record in the database,
+          this field is the CONCEPT_ID that identifies which table the primary key
+          of the linked record came from.
+        range: Concept
+    class_uri: omop_cdm54:Note
+  ObservationPeriod:
+    name: ObservationPeriod
+    definition_uri: https://timformatie.github.io/SEIN-OMOP/omop-cdm54/ObservationPeriod
+    description: This table contains records which define spans of time during which
+      two conditions are expected to hold (i) Clinical Events that happened to the
+      Person are recorded in the Event tables, and (ii) absence of records indicate
+      such Events did not occur during this span of time.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slots:
+    - observationPeriod__observation_period_id
+    - observationPeriod__person_id
+    - observationPeriod__observation_period_start_date
+    - observationPeriod__observation_period_end_date
+    - observationPeriod__period_type_concept_id
+    attributes:
+      observation_period_id:
+        name: observation_period_id
+        description: A Person can have multiple discrete Observation Periods which
+          are identified by the Observation_Period_Id.
+        identifier: true
+        required: true
+      person_id:
+        name: person_id
+        description: The Person ID of the PERSON record for which the Observation
+          Period is recorded.
+        range: Person
+        required: true
+      observation_period_start_date:
+        name: observation_period_start_date
+        description: Use this date to determine the start date of the Observation
+          Period.
+        required: true
+      observation_period_end_date:
+        name: observation_period_end_date
+        description: Use this date to determine the end date of the period for which
+          we can assume that all events for a Person are recorded.
+        required: true
+      period_type_concept_id:
+        name: period_type_concept_id
+        description: This field can be used to determine the provenance of the Observation
+          Period as in whether the period was determined from an insurance enrollment
+          file, EHR healthcare encounters, or other sources.
+        range: Concept
+        required: true
+    class_uri: omop_cdm54:ObservationPeriod
+  Person:
+    name: Person
+    definition_uri: https://timformatie.github.io/SEIN-OMOP/omop-cdm54/Person
+    description: This table serves as the central identity management for all Persons
+      in the database. It contains records that uniquely identify each person or patient,
+      and some demographic information.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slots:
+    - person__person_id
+    - person__gender_concept_id
+    - person__year_of_birth
+    - person__month_of_birth
+    - person__day_of_birth
+    - person__birth_datetime
+    - person__race_concept_id
+    - person__ethnicity_concept_id
+    - person__location_id
+    - person__provider_id
+    - person__care_site_id
+    - person__person_source_value
+    - person__gender_source_value
+    - person__gender_source_concept_id
+    - person__race_source_value
+    - person__race_source_concept_id
+    - person__ethnicity_source_value
+    - person__ethnicity_source_concept_id
+    attributes:
+      person_id:
+        name: person_id
+        description: It is assumed that every person with a different unique identifier
+          is in fact a different person and should be treated independently.
+        identifier: true
+        required: true
+      gender_concept_id:
+        name: gender_concept_id
+        description: This field is meant to capture the biological sex at birth of
+          the Person. This field should not be used to study gender identity issues.
+        range: Concept
+        required: true
+      year_of_birth:
+        name: year_of_birth
+        description: Compute age using year_of_birth.
+        required: true
+      month_of_birth:
+        name: month_of_birth
+      day_of_birth:
+        name: day_of_birth
+      birth_datetime:
+        name: birth_datetime
+      race_concept_id:
+        name: race_concept_id
+        description: This field captures race or ethnic background of the person.
+        range: Concept
+        required: true
+      ethnicity_concept_id:
+        name: ethnicity_concept_id
+        description: "This field captures Ethnicity as defined by the Office of Management\
+          \ and Budget (OMB) of the US Government it distinguishes only between \u201C\
+          Hispanic\u201D and \u201CNot Hispanic\u201D. Races and ethnic backgrounds\
+          \ are not stored here."
+        range: Concept
+        required: true
+      location_id:
+        name: location_id
+        description: The location refers to the physical address of the person. This
+          field should capture the last known location of the person.
+        range: Location
+      provider_id:
+        name: provider_id
+        description: The Provider refers to the last known primary care provider (General
+          Practitioner).
+      care_site_id:
+        name: care_site_id
+        description: The Care Site refers to where the Provider typically provides
+          the primary care.
+      person_source_value:
+        name: person_source_value
+        description: Use this field to link back to persons in the source data. This
+          is typically used for error checking of ETL logic.
+      gender_source_value:
+        name: gender_source_value
+        description: This field is used to store the biological sex of the person
+          from the source data. It is not intended for use in standard analytics but
+          for reference only.
+      gender_source_concept_id:
+        name: gender_source_concept_id
+        description: Due to the small number of options, this tends to be zero.
+        range: Concept
+      race_source_value:
+        name: race_source_value
+        description: This field is used to store the race of the person from the source
+          data. It is not intended for use in standard analytics but for reference
+          only.
+      race_source_concept_id:
+        name: race_source_concept_id
+        description: Due to the small number of options, this tends to be zero.
+        range: Concept
+      ethnicity_source_value:
+        name: ethnicity_source_value
+        description: This field is used to store the ethnicity of the person from
+          the source data. It is not intended for use in standard analytics but for
+          reference only.
+      ethnicity_source_concept_id:
+        name: ethnicity_source_concept_id
+        description: Due to the small number of options, this tends to be zero.
+        range: Concept
+    class_uri: omop_cdm54:Person
+  Relationship:
+    name: Relationship
+    definition_uri: https://timformatie.github.io/SEIN-OMOP/omop-cdm54/Relationship
+    description: The RELATIONSHIP table provides a reference list of all types of
+      relationships that can be used to associate any two Concepts in the CONCEPT_RELATIONSHIP
+      table, the respective reverse relationships, and their hierarchical characteristics.
+      Note, that Concepts representing relationships between the clinical facts, used
+      for filling in the FACT_RELATIONSHIP table are stored in the CONCEPT table and
+      belong to the Relationship Domain.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slots:
+    - relationship__relationship_id
+    - relationship__relationship_name
+    - relationship__is_hierarchical
+    - relationship__defines_ancestry
+    - relationship__reverse_relationship_id
+    - relationship__relationship_concept_id
+    attributes:
+      relationship_id:
+        name: relationship_id
+        description: The type of relationship captured by the relationship record.
+        identifier: true
+        required: true
+      relationship_name:
+        name: relationship_name
+        required: true
+      is_hierarchical:
+        name: is_hierarchical
+        description: Defines whether a relationship defines concepts into classes
+          or hierarchies. Values are 1 for hierarchical relationship or 0 if not.
+        required: true
+      defines_ancestry:
+        name: defines_ancestry
+        description: Defines whether a hierarchical relationship contributes to the
+          concept_ancestor table. These are subsets of the hierarchical relationships.
+          Valid values are 1 or 0.
+        required: true
+      reverse_relationship_id:
+        name: reverse_relationship_id
+        description: The identifier for the relationship used to define the reverse
+          relationship between two concepts.
+        required: true
+      relationship_concept_id:
+        name: relationship_concept_id
+        description: A foreign key that refers to an identifier in the CONCEPT table
+          for the unique relationship concept.
+        range: Concept
+        required: true
+    class_uri: omop_cdm54:Relationship
+  VisitOccurrence:
+    name: VisitOccurrence
+    definition_uri: https://timformatie.github.io/SEIN-OMOP/omop-cdm54/VisitOccurrence
+    description: "This table contains Events where Persons engage with the healthcare\
+      \ system for a duration of time. They are often also called \u201CEncounters\u201D\
+      . Visits are defined by a configuration of circumstances under which they occur,\
+      \ such as (i) whether the patient comes to a healthcare institution, the other\
+      \ way around, or the interaction is remote, (ii) whether and what kind of trained\
+      \ medical staff is delivering the service during the Visit, and (iii) whether\
+      \ the Visit is transient or for a longer period involving a stay in bed."
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slots:
+    - visitOccurrence__visit_occurrence_id
+    - visitOccurrence__person_id
+    - visitOccurrence__visit_concept_id
+    - visitOccurrence__visit_start_date
+    - visitOccurrence__visit_start_datetime
+    - visitOccurrence__visit_end_date
+    - visitOccurrence__visit_end_datetime
+    - visitOccurrence__visit_type_concept_id
+    - visitOccurrence__provider_id
+    - visitOccurrence__care_site_id
+    - visitOccurrence__preceding_visit_occurrence_id
+    - visitOccurrence__visit_source_value
+    - visitOccurrence__visit_source_concept_id
+    - visitOccurrence__admitted_from_concept_id
+    - visitOccurrence__admitted_from_source_value
+    - visitOccurrence__discharged_to_concept_id
+    - visitOccurrence__discharged_to_source_value
+    attributes:
+      visit_occurrence_id:
+        name: visit_occurrence_id
+        description: Use this to identify unique interactions between a person and
+          the health care system. This identifier links across the other CDM event
+          tables to associate events with a visit.
+        identifier: true
+        required: true
+      person_id:
+        name: person_id
+        range: Person
+        required: true
+      visit_concept_id:
+        name: visit_concept_id
+        description: This field contains a concept id representing the kind of visit,
+          like inpatient or outpatient. All concepts in this field should be standard
+          and belong to the Visit domain.
+        range: Concept
+        required: true
+      visit_start_date:
+        name: visit_start_date
+        description: For inpatient visits, the start date is typically the admission
+          date. For outpatient visits the start date and end date will be the same.
+        required: true
+      visit_start_datetime:
+        name: visit_start_datetime
+      visit_end_date:
+        name: visit_end_date
+        description: For inpatient visits the end date is typically the discharge
+          date. If a Person is still an inpatient in the hospital at the time of the
+          data extract and does not have a visit_end_date, then set the visit_end_date
+          to the date of the data pull.
+        required: true
+      visit_end_datetime:
+        name: visit_end_datetime
+        description: If a Person is still an inpatient in the hospital at the time
+          of the data extract and does not have a visit_end_datetime, then set the
+          visit_end_datetime to the datetime of the data pull.
+      visit_type_concept_id:
+        name: visit_type_concept_id
+        description: Use this field to understand the provenance of the visit record,
+          or where the record comes from.
+        range: Concept
+        required: true
+      provider_id:
+        name: provider_id
+        description: There will only be one provider per visit record and the ETL
+          document should clearly state how they were chosen (attending, admitting,
+          etc.). If there are multiple providers associated with a visit in the source,
+          this can be reflected in the event tables (CONDITION_OCCURRENCE, PROCEDURE_OCCURRENCE,
+          etc.) or in the VISIT_DETAIL table.
+      care_site_id:
+        name: care_site_id
+        description: This field provides information about the Care Site where the
+          Visit took place.
+      preceding_visit_occurrence_id:
+        name: preceding_visit_occurrence_id
+        description: Use this field to find the visit that occurred for the person
+          prior to the given visit. There could be a few days or a few years in between.
+        range: VisitOccurrence
+      visit_source_value:
+        name: visit_source_value
+        description: This field houses the verbatim value from the source data representing
+          the kind of visit that took place (inpatient, outpatient, emergency, etc.)
+      visit_source_concept_id:
+        name: visit_source_concept_id
+        range: Concept
+      admitted_from_concept_id:
+        name: admitted_from_concept_id
+        description: Use this field to determine where the patient was admitted from.
+          This concept is part of the visit domain and can indicate if a patient was
+          admitted to the hospital from a long-term care facility, for example.
+        range: Concept
+      admitted_from_source_value:
+        name: admitted_from_source_value
+      discharged_to_concept_id:
+        name: discharged_to_concept_id
+        description: "Use this field to determine where the patient was discharged\
+          \ to after a visit. This concept is part of the visit domain and can indicate\
+          \ if a patient was transferred to another hospital or sent to a long-term\
+          \ care facility, for example. It is assumed that a person is discharged\
+          \ to home therefore there is not a standard concept id for \u201Chome\u201D\
+          . Use concept id = 0 when a person is discharged to home."
+        range: Concept
+      discharged_to_source_value:
+        name: discharged_to_source_value
+    class_uri: omop_cdm54:VisitOccurrence
+  Vocabulary:
+    name: Vocabulary
+    definition_uri: https://timformatie.github.io/SEIN-OMOP/omop-cdm54/Vocabulary
+    description: The VOCABULARY table includes a list of the Vocabularies integrated
+      from various sources or created de novo in OMOP CDM. This reference table contains
+      a single record for each Vocabulary and includes a descriptive name and other
+      associated attributes for the Vocabulary.
+    from_schema: https://timformatie.github.io/SEIN-OMOP/omop-cdm54
+    slots:
+    - vocabulary__vocabulary_id
+    - vocabulary__vocabulary_name
+    - vocabulary__vocabulary_reference
+    - vocabulary__vocabulary_version
+    - vocabulary__vocabulary_concept_id
+    attributes:
+      vocabulary_id:
+        name: vocabulary_id
+        description: A unique identifier for each Vocabulary, such as ICD9CM, SNOMED,
+          Visit.
+        identifier: true
+        required: true
+      vocabulary_name:
+        name: vocabulary_name
+        description: The name describing the vocabulary, for example, International
+          Classification of Diseases, Ninth Revision, Clinical Modification, Volume
+          1 and 2 (NCHS) etc.
+        required: true
+      vocabulary_reference:
+        name: vocabulary_reference
+        description: External reference to documentation or available download of
+          the about the vocabulary.
+      vocabulary_version:
+        name: vocabulary_version
+        description: Version of the Vocabulary as indicated in the source.
+      vocabulary_concept_id:
+        name: vocabulary_concept_id
+        description: A Concept that represents the Vocabulary the VOCABULARY record
+          belongs to.
+        range: Concept
+        required: true
+    class_uri: omop_cdm54:Vocabulary
+metamodel_version: 1.7.0
+source_file: omop_cdm.yaml
+source_file_date: '2026-03-03T16:33:46'
+source_file_size: 39519
+generation_date: '2026-03-03T16:33:58'
+

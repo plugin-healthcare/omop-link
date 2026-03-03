@@ -1,0 +1,1 @@
+import{l as e,u,g as t,i as a,j as l}from"./-xppB2q1.js";function c(n){t===null&&e(),a&&t.l!==null?i(t).m.push(n):u(()=>{const o=l(n);if(typeof o=="function")return o})}function f(n){t===null&&e(),c(()=>()=>l(n))}function i(n){var o=n.l;return o.u??={a:[],b:[],m:[]}}export{f as a,c as o};

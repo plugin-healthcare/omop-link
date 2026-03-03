@@ -1,0 +1,865 @@
+name: concept
+description: Template for OMOP CDM Concept class, which represents a concept record
+  in the OMOP Common Data Model.
+title: OMOP CDM Concept
+id: https://athena.ohdsi.org/search-terms/terms#concept
+imports:
+- linkml:types
+license: https://creativecommons.org/publicdomain/zero/1.0/
+prefixes:
+  linkml:
+    prefix_prefix: linkml
+    prefix_reference: https://w3id.org/linkml/
+  omop:
+    prefix_prefix: omop
+    prefix_reference: https://athena.ohdsi.org/search-terms/terms#
+  owl:
+    prefix_prefix: owl
+    prefix_reference: http://www.w3.org/2002/07/owl#
+  rdf:
+    prefix_prefix: rdf
+    prefix_reference: http://www.w3.org/1999/02/22-rdf-syntax-ns#
+  rdfs:
+    prefix_prefix: rdfs
+    prefix_reference: http://www.w3.org/2000/01/rdf-schema#
+default_prefix: https://athena.ohdsi.org/search-terms/terms#concept/
+default_range: string
+types:
+  string:
+    name: string
+    definition_uri: https://w3id.org/linkml/String
+    description: A character string
+    notes:
+    - In RDF serializations, a slot with range of string is treated as a literal or
+      type xsd:string.   If you are authoring schemas in LinkML YAML, the type is
+      referenced with the lower case "string".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Text
+    base: str
+    uri: xsd:string
+  integer:
+    name: integer
+    definition_uri: https://w3id.org/linkml/Integer
+    description: An integer
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "integer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Integer
+    base: int
+    uri: xsd:integer
+  boolean:
+    name: boolean
+    definition_uri: https://w3id.org/linkml/Boolean
+    description: A binary (true or false) value
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "boolean".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Boolean
+    base: Bool
+    uri: xsd:boolean
+    repr: bool
+  float:
+    name: float
+    definition_uri: https://w3id.org/linkml/Float
+    description: A real number that conforms to the xsd:float specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "float".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:float
+  double:
+    name: double
+    definition_uri: https://w3id.org/linkml/Double
+    description: A real number that conforms to the xsd:double specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "double".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:double
+  decimal:
+    name: decimal
+    definition_uri: https://w3id.org/linkml/Decimal
+    description: A real number with arbitrary precision that conforms to the xsd:decimal
+      specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "decimal".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    broad_mappings:
+    - schema:Number
+    base: Decimal
+    uri: xsd:decimal
+  time:
+    name: time
+    definition_uri: https://w3id.org/linkml/Time
+    description: A time object represents a (local) time of day, independent of any
+      particular day
+    notes:
+    - URI is dateTime because OWL reasoners do not work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "time".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Time
+    base: XSDTime
+    uri: xsd:time
+    repr: str
+  date:
+    name: date
+    definition_uri: https://w3id.org/linkml/Date
+    description: a date (year, month and day) in an idealized calendar
+    notes:
+    - URI is dateTime because OWL reasoners don't work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Date
+    base: XSDDate
+    uri: xsd:date
+    repr: str
+  datetime:
+    name: datetime
+    definition_uri: https://w3id.org/linkml/Datetime
+    description: The combination of a date and time
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:DateTime
+    base: XSDDateTime
+    uri: xsd:dateTime
+    repr: str
+  date_or_datetime:
+    name: date_or_datetime
+    definition_uri: https://w3id.org/linkml/DateOrDatetime
+    description: Either a date or a datetime
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date_or_datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: linkml:DateOrDatetime
+    repr: str
+  uriorcurie:
+    name: uriorcurie
+    definition_uri: https://w3id.org/linkml/Uriorcurie
+    description: a URI or a CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uriorcurie".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: URIorCURIE
+    uri: xsd:anyURI
+    repr: str
+  curie:
+    name: curie
+    definition_uri: https://w3id.org/linkml/Curie
+    conforms_to: https://www.w3.org/TR/curie/
+    description: a compact URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "curie".
+    comments:
+    - in RDF serializations this MUST be expanded to a URI
+    - in non-RDF serializations MAY be serialized as the compact representation
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: Curie
+    uri: xsd:string
+    repr: str
+  uri:
+    name: uri
+    definition_uri: https://w3id.org/linkml/Uri
+    conforms_to: https://www.ietf.org/rfc/rfc3987.txt
+    description: a complete URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uri".
+    comments:
+    - in RDF serializations a slot with range of uri is treated as a literal or type
+      xsd:anyURI unless it is an identifier or a reference to an identifier, in which
+      case it is translated directly to a node
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:URL
+    base: URI
+    uri: xsd:anyURI
+    repr: str
+  ncname:
+    name: ncname
+    definition_uri: https://w3id.org/linkml/Ncname
+    description: Prefix part of CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "ncname".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NCName
+    uri: xsd:string
+    repr: str
+  objectidentifier:
+    name: objectidentifier
+    definition_uri: https://w3id.org/linkml/Objectidentifier
+    description: A URI or CURIE that represents an object in the model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "objectidentifier".
+    comments:
+    - Used for inheritance and type checking
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: ElementIdentifier
+    uri: shex:iri
+    repr: str
+  nodeidentifier:
+    name: nodeidentifier
+    definition_uri: https://w3id.org/linkml/Nodeidentifier
+    description: A URI, CURIE or BNODE that represents a node in a model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "nodeidentifier".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NodeIdentifier
+    uri: shex:nonLiteral
+    repr: str
+  jsonpointer:
+    name: jsonpointer
+    definition_uri: https://w3id.org/linkml/Jsonpointer
+    conforms_to: https://datatracker.ietf.org/doc/html/rfc6901
+    description: A string encoding a JSON Pointer. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to a valid object within the current
+      instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpointer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  jsonpath:
+    name: jsonpath
+    definition_uri: https://w3id.org/linkml/Jsonpath
+    conforms_to: https://www.ietf.org/archive/id/draft-goessner-dispatch-jsonpath-00.html
+    description: A string encoding a JSON Path. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to zero or more valid objects within
+      the current instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  sparqlpath:
+    name: sparqlpath
+    definition_uri: https://w3id.org/linkml/Sparqlpath
+    conforms_to: https://www.w3.org/TR/sparql11-query/#propertypaths
+    description: A string encoding a SPARQL Property Path. The value of the string
+      MUST conform to SPARQL syntax and SHOULD dereference to zero or more valid objects
+      within the current instance document when encoded as RDF.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "sparqlpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+enums:
+  standard_concept:
+    name: standard_concept
+    definition_uri: https://athena.ohdsi.org/search-terms/terms#concept/StandardConcept
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    permissible_values:
+      S:
+        text: S
+        description: Standard
+      C:
+        text: C
+        description: Classification
+  deleted_concept:
+    name: deleted_concept
+    definition_uri: https://athena.ohdsi.org/search-terms/terms#concept/DeletedConcept
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    permissible_values:
+      D:
+        text: D
+        description: Deleted
+      U:
+        text: U
+        description: Updated
+slots:
+  concept__concept_id:
+    name: concept__concept_id
+    description: Unique identifier for the concept in the OMOP CDM.
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/concept_id
+    identifier: true
+    alias: concept_id
+    owner: Concept
+    domain_of:
+    - Concept
+    range: integer
+    required: true
+  concept__concept_name:
+    name: concept__concept_name
+    description: An unambiguous, meaningful and descriptive name for the Concept.
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/concept_name
+    alias: concept_name
+    owner: Concept
+    domain_of:
+    - Concept
+    range: string
+    required: true
+  concept__concept_code:
+    name: concept__concept_code
+    description: The concept code represents the identifier of the Concept in the
+      source vocabulary, such as SNOMED-CT concept IDs, RxNorm RXCUIs etc. Note that
+      concept codes are not unique across vocabularies.
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/concept_code
+    alias: concept_code
+    owner: Concept
+    domain_of:
+    - Concept
+    range: string
+    required: true
+  concept__domain_id:
+    name: concept__domain_id
+    description: A foreign key to the [DOMAIN](https://ohdsi.github.io/CommonDataModel/cdm54.html#domain)
+      table the Concept belongs to.
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/domain_id
+    alias: domain_id
+    owner: Concept
+    domain_of:
+    - Concept
+    range: Domain
+    required: true
+  concept__vocabulary_id:
+    name: concept__vocabulary_id
+    description: A foreign key to the [VOCABULARY](https://ohdsi.github.io/CommonDataModel/cdm54.html#vocabulary)
+      table indicating from which source the Concept has been adapted.
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/vocabulary_id
+    alias: vocabulary_id
+    owner: Concept
+    domain_of:
+    - Concept
+    range: Vocabulary
+    required: true
+  concept__concept_class_id:
+    name: concept__concept_class_id
+    description: The attribute or concept class of the Concept. Examples are 'Clinical
+      Drug', 'Ingredient', 'Clinical Finding' etc.
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/concept_class_id
+    alias: concept_class_id
+    owner: Concept
+    domain_of:
+    - Concept
+    range: ConceptClass
+    required: true
+  concept__standard_concept:
+    name: concept__standard_concept
+    description: This flag determines where a Concept is a Standard Concept, i.e.
+      is used in the data, a Classification Concept, or a non-standard Source Concept.
+      The allowable values are 'S' (Standard Concept) and 'C' (Classification Concept),
+      otherwise the content is NULL.
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/standard_concept
+    alias: standard_concept
+    owner: Concept
+    domain_of:
+    - Concept
+    range: standard_concept
+    required: false
+  concept__valid_start_date:
+    name: concept__valid_start_date
+    description: The date when the Concept was first recorded. The default value is
+      1-Jan-1970, meaning, the Concept has no (known) date of inception.
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/valid_start_date
+    alias: valid_start_date
+    owner: Concept
+    domain_of:
+    - Concept
+    range: date
+    required: true
+  concept__valid_end_date:
+    name: concept__valid_end_date
+    description: The date when the Concept became invalid because it was deleted or
+      superseded (updated) by a new concept. The default value is 31-Dec-2099, meaning,
+      the Concept is valid until it becomes deprecated.
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/valid_end_date
+    alias: valid_end_date
+    owner: Concept
+    domain_of:
+    - Concept
+    range: date
+    required: true
+  concept__invalid_reason:
+    name: concept__invalid_reason
+    description: Reason the Concept was invalidated. Possible values are D (deleted),
+      U (replaced with an update) or NULL when valid_end_date has the default value.
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/invalid_reason
+    alias: invalid_reason
+    owner: Concept
+    domain_of:
+    - Concept
+    range: string
+    required: false
+  domain__domain_id:
+    name: domain__domain_id
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/domain_id
+    identifier: true
+    alias: domain_id
+    owner: Domain
+    domain_of:
+    - Domain
+    range: string
+    required: true
+  domain__domain_name:
+    name: domain__domain_name
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/domain_name
+    alias: domain_name
+    owner: Domain
+    domain_of:
+    - Domain
+    range: string
+    required: true
+  domain__domain_concept_id:
+    name: domain__domain_concept_id
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/domain_concept_id
+    alias: domain_concept_id
+    owner: Domain
+    domain_of:
+    - Domain
+    range: Concept
+    required: true
+  vocabulary__vocabulary_id:
+    name: vocabulary__vocabulary_id
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/vocabulary_id
+    identifier: true
+    alias: vocabulary_id
+    owner: Vocabulary
+    domain_of:
+    - Vocabulary
+    range: string
+    required: true
+  vocabulary__vocabulary_name:
+    name: vocabulary__vocabulary_name
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/vocabulary_name
+    alias: vocabulary_name
+    owner: Vocabulary
+    domain_of:
+    - Vocabulary
+    range: string
+    required: true
+  vocabulary__vocabulary_reference:
+    name: vocabulary__vocabulary_reference
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/vocabulary_reference
+    alias: vocabulary_reference
+    owner: Vocabulary
+    domain_of:
+    - Vocabulary
+    range: string
+    required: true
+  vocabulary__vocabulary_version:
+    name: vocabulary__vocabulary_version
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/vocabulary_version
+    alias: vocabulary_version
+    owner: Vocabulary
+    domain_of:
+    - Vocabulary
+    range: string
+    required: false
+  vocabulary__vocabulary_concept_id:
+    name: vocabulary__vocabulary_concept_id
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/vocabulary_concept_id
+    alias: vocabulary_concept_id
+    owner: Vocabulary
+    domain_of:
+    - Vocabulary
+    range: Concept
+    required: true
+  conceptClass__concept_class_id:
+    name: conceptClass__concept_class_id
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/concept_class_id
+    identifier: true
+    alias: concept_class_id
+    owner: ConceptClass
+    domain_of:
+    - ConceptClass
+    range: string
+    required: true
+  conceptClass__concept_class_name:
+    name: conceptClass__concept_class_name
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/concept_class_name
+    alias: concept_class_name
+    owner: ConceptClass
+    domain_of:
+    - ConceptClass
+    range: string
+    required: true
+  conceptClass__concept_class_concept_id:
+    name: conceptClass__concept_class_concept_id
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/concept_class_concept_id
+    alias: concept_class_concept_id
+    owner: ConceptClass
+    domain_of:
+    - ConceptClass
+    range: Concept
+    required: true
+  relationship__relationship_id:
+    name: relationship__relationship_id
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/relationship_id
+    identifier: true
+    alias: relationship_id
+    owner: Relationship
+    domain_of:
+    - Relationship
+    range: string
+    required: true
+  relationship__relationship_name:
+    name: relationship__relationship_name
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/relationship_name
+    alias: relationship_name
+    owner: Relationship
+    domain_of:
+    - Relationship
+    range: string
+    required: true
+  relationship__is_hierarchical:
+    name: relationship__is_hierarchical
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/is_hierarchical
+    alias: is_hierarchical
+    owner: Relationship
+    domain_of:
+    - Relationship
+    range: integer
+    required: true
+    minimum_value: 0
+    maximum_value: 1
+  relationship__defines_ancestry:
+    name: relationship__defines_ancestry
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/defines_ancestry
+    alias: defines_ancestry
+    owner: Relationship
+    domain_of:
+    - Relationship
+    range: integer
+    required: true
+    minimum_value: 0
+    maximum_value: 1
+  relationship__reverse_relationship_id:
+    name: relationship__reverse_relationship_id
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/reverse_relationship_id
+    alias: reverse_relationship_id
+    owner: Relationship
+    domain_of:
+    - Relationship
+    range: Relationship
+    required: true
+  relationship__relationship_concept_id:
+    name: relationship__relationship_concept_id
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slot_uri: https://athena.ohdsi.org/search-terms/terms#concept/relationship_concept_id
+    alias: relationship_concept_id
+    owner: Relationship
+    domain_of:
+    - Relationship
+    range: Concept
+    required: true
+classes:
+  Concept:
+    name: Concept
+    definition_uri: https://athena.ohdsi.org/search-terms/terms#concept/Concept
+    description: The Standardized Vocabularies contains records, or Concepts, that
+      uniquely identify each fundamental unit of meaning used to express clinical
+      information in all domain tables of the CDM.  Concepts are derived from vocabularies,
+      which represent clinical information across a domain (e.g. conditions, drugs,
+      procedures) through the use of codes and associated descriptions.  Some Concepts
+      are designated Standard Concepts, meaning these Concepts can be used as normative
+      expressions of a clinical entity within the OMOP Common Data Model and standardized
+      analytics.  Each Standard Concept belongs to one Domain, which defines the location
+      where the Concept would be expected to occur within the data tables of the CDM.  Concepts
+      can represent broad categories ('Cardiovascular disease'), detailed clinical
+      elements ('Myocardial infarction of the anterolateral wall'), or modifying characteristics
+      and attributes that define Concepts at various levels of detail (severity of
+      a disease, associated morphology, etc.).  Records in the Standardized Vocabularies
+      tables are derived from national or international vocabularies such as SNOMED-CT,
+      RxNorm, and LOINC, or custom OMOP Concepts defined to cover various aspects
+      of observational data analysis.
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slots:
+    - concept__concept_id
+    - concept__concept_name
+    - concept__concept_code
+    - concept__domain_id
+    - concept__vocabulary_id
+    - concept__concept_class_id
+    - concept__standard_concept
+    - concept__valid_start_date
+    - concept__valid_end_date
+    - concept__invalid_reason
+    attributes:
+      concept_id:
+        name: concept_id
+        description: Unique identifier for the concept in the OMOP CDM.
+        identifier: true
+        range: integer
+      concept_name:
+        name: concept_name
+        description: An unambiguous, meaningful and descriptive name for the Concept.
+        range: string
+        required: true
+      concept_code:
+        name: concept_code
+        description: The concept code represents the identifier of the Concept in
+          the source vocabulary, such as SNOMED-CT concept IDs, RxNorm RXCUIs etc.
+          Note that concept codes are not unique across vocabularies.
+        range: string
+        required: true
+      domain_id:
+        name: domain_id
+        description: A foreign key to the [DOMAIN](https://ohdsi.github.io/CommonDataModel/cdm54.html#domain)
+          table the Concept belongs to.
+        range: Domain
+        required: true
+      vocabulary_id:
+        name: vocabulary_id
+        description: A foreign key to the [VOCABULARY](https://ohdsi.github.io/CommonDataModel/cdm54.html#vocabulary)
+          table indicating from which source the Concept has been adapted.
+        range: Vocabulary
+        required: true
+      concept_class_id:
+        name: concept_class_id
+        description: The attribute or concept class of the Concept. Examples are 'Clinical
+          Drug', 'Ingredient', 'Clinical Finding' etc.
+        range: ConceptClass
+        required: true
+      standard_concept:
+        name: standard_concept
+        description: This flag determines where a Concept is a Standard Concept, i.e.
+          is used in the data, a Classification Concept, or a non-standard Source
+          Concept. The allowable values are 'S' (Standard Concept) and 'C' (Classification
+          Concept), otherwise the content is NULL.
+        range: standard_concept
+        required: false
+      valid_start_date:
+        name: valid_start_date
+        description: The date when the Concept was first recorded. The default value
+          is 1-Jan-1970, meaning, the Concept has no (known) date of inception.
+        range: date
+        required: true
+      valid_end_date:
+        name: valid_end_date
+        description: The date when the Concept became invalid because it was deleted
+          or superseded (updated) by a new concept. The default value is 31-Dec-2099,
+          meaning, the Concept is valid until it becomes deprecated.
+        range: date
+        required: true
+      invalid_reason:
+        name: invalid_reason
+        description: Reason the Concept was invalidated. Possible values are D (deleted),
+          U (replaced with an update) or NULL when valid_end_date has the default
+          value.
+        range: string
+        required: false
+    class_uri: https://athena.ohdsi.org/search-terms/terms#concept/Concept
+  Domain:
+    name: Domain
+    definition_uri: https://athena.ohdsi.org/search-terms/terms#concept/Domain
+    description: The DOMAIN table includes a list of OMOP-defined Domains to which
+      the Concepts of the Standardized Vocabularies can belong.  A Domain represents
+      a clinical definition whereby we assign matching Concepts for the standardized
+      fields in the CDM tables.  For example, the Condition Domain contains Concepts
+      that describe a patient condition, and these Concepts can only be used in the
+      condition_concept_id field of the CONDITION_OCCURRENCE and CONDITION_ERA tables.  This
+      reference table is populated with a single record for each Domain, including
+      a Domain ID and a descriptive name for every Domain.
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slots:
+    - domain__domain_id
+    - domain__domain_name
+    - domain__domain_concept_id
+    attributes:
+      domain_id:
+        name: domain_id
+        identifier: true
+        range: string
+      domain_name:
+        name: domain_name
+        range: string
+        required: true
+      domain_concept_id:
+        name: domain_concept_id
+        range: Concept
+        required: true
+    class_uri: https://athena.ohdsi.org/search-terms/terms#concept/Domain
+  Vocabulary:
+    name: Vocabulary
+    definition_uri: https://athena.ohdsi.org/search-terms/terms#concept/Vocabulary
+    description: The VOCABULARY table includes a list of the Vocabularies integrated
+      from various sources or created de novo in OMOP CDM.  This reference table contains
+      a single record for each Vocabulary and includes a descriptive name and other
+      associated attributes for the Vocabulary.
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slots:
+    - vocabulary__vocabulary_id
+    - vocabulary__vocabulary_name
+    - vocabulary__vocabulary_reference
+    - vocabulary__vocabulary_version
+    - vocabulary__vocabulary_concept_id
+    attributes:
+      vocabulary_id:
+        name: vocabulary_id
+        identifier: true
+        range: string
+      vocabulary_name:
+        name: vocabulary_name
+        range: string
+        required: true
+      vocabulary_reference:
+        name: vocabulary_reference
+        range: string
+        required: true
+      vocabulary_version:
+        name: vocabulary_version
+        range: string
+        required: false
+      vocabulary_concept_id:
+        name: vocabulary_concept_id
+        range: Concept
+        required: true
+    class_uri: https://athena.ohdsi.org/search-terms/terms#concept/Vocabulary
+  ConceptClass:
+    name: ConceptClass
+    definition_uri: https://athena.ohdsi.org/search-terms/terms#concept/ConceptClass
+    description: The CONCEPT_CLASS table includes semantic categories that reference
+      the source structure of each Vocabulary.  Concept Classes represent so-called
+      horizontal (e.g. MedDRA, RxNorm) or vertical levels (e.g. SNOMED) of the vocabulary
+      structure.  Vocabularies without any Concept Classes, such as HCPCS, use the
+      vocabulary_id as the Concept Class.  This reference table is populated with
+      a single record for each Concept Class, which includes a Concept Class ID and
+      a fully specified Concept Class name.
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slots:
+    - conceptClass__concept_class_id
+    - conceptClass__concept_class_name
+    - conceptClass__concept_class_concept_id
+    attributes:
+      concept_class_id:
+        name: concept_class_id
+        identifier: true
+        range: string
+      concept_class_name:
+        name: concept_class_name
+        range: string
+        required: true
+      concept_class_concept_id:
+        name: concept_class_concept_id
+        range: Concept
+        required: true
+    class_uri: https://athena.ohdsi.org/search-terms/terms#concept/ConceptClass
+  Relationship:
+    name: Relationship
+    definition_uri: https://athena.ohdsi.org/search-terms/terms#concept/Relationship
+    description: The RELATIONSHIP table provides a reference list of all types of
+      relationships that can be used to associate any two Concepts in the CONCEPT_RELATIONSHIP
+      table, the respective reverse relationships, and their hierarchical characteristics.  Note,
+      that Concepts representing relationships between the clinical facts, used for
+      filling in the FACT_RELATIONSHIP table are stored in the CONCEPT table and belong
+      to the Relationship Domain.
+    from_schema: https://athena.ohdsi.org/search-terms/terms#concept
+    slots:
+    - relationship__relationship_id
+    - relationship__relationship_name
+    - relationship__is_hierarchical
+    - relationship__defines_ancestry
+    - relationship__reverse_relationship_id
+    - relationship__relationship_concept_id
+    attributes:
+      relationship_id:
+        name: relationship_id
+        identifier: true
+        range: string
+      relationship_name:
+        name: relationship_name
+        range: string
+        required: true
+      is_hierarchical:
+        name: is_hierarchical
+        range: integer
+        required: true
+        minimum_value: 0
+        maximum_value: 1
+      defines_ancestry:
+        name: defines_ancestry
+        range: integer
+        required: true
+        minimum_value: 0
+        maximum_value: 1
+      reverse_relationship_id:
+        name: reverse_relationship_id
+        range: Relationship
+        required: true
+      relationship_concept_id:
+        name: relationship_concept_id
+        range: Concept
+        required: true
+    class_uri: https://athena.ohdsi.org/search-terms/terms#concept/Relationship
+metamodel_version: 1.7.0
+source_file: cdm_vocabulary.yaml
+source_file_date: '2026-03-02T15:59:43'
+source_file_size: 8192
+generation_date: '2026-03-02T17:30:53'
+

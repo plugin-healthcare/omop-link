@@ -1,0 +1,1372 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+      
+      
+        <link rel="canonical" href="https://plugin-healthcare.github.io/omop-link/omop-cdm/">
+      
+      
+        <link rel="prev" href="..">
+      
+      
+        <link rel="next" href="../elements/">
+      
+      
+      <link rel="icon" href="../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.22">
+    
+    
+      
+        <title>OMOP CDM - omop-cdm</title>
+      
+    
+    
+      <link rel="stylesheet" href="../assets/stylesheets/main.84d31ad4.min.css">
+      
+      
+
+
+    
+    
+
+      
+    
+<script src="../assets/pymdownx-extras/material-extra-theme-2ek1P7jT.js" type="text/javascript"></script>
+<script src="../assets/pymdownx-extras/material-extra-3rdparty-BUCF4rjN.js" type="text/javascript"></script>
+
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../css/ansi-colours.css">
+    
+      <link rel="stylesheet" href="../css/jupyter-cells.css">
+    
+      <link rel="stylesheet" href="../css/pandas-dataframe.css">
+    
+      <link rel="stylesheet" href="../assets/pymdownx-extras/extra-c6ab11540a.css">
+    
+    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+    
+  </head>
+  
+  
+    <body dir="ltr">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#omop-cdm54" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+
+<header class="md-header" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="header.title"
+  >
+    <a
+      href="https://plugin-healthcare.github.io/omop-link/"
+      title="omop-cdm"
+      class="md-header__button md-logo"
+      aria-label="omop-cdm"
+    >
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 2-5 4.5v11l5-4.5zM6.5 5C4.55 5 2.45 5.4 1 6.5v14.66c0 .25.25.5.5.5.1 0 .15-.07.25-.07 1.35-.65 3.3-1.09 4.75-1.09 1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.31 4.75 1.06.1.05.15.03.25.03.25 0 .5-.25.5-.5V6.5c-.6-.45-1.25-.75-2-1V19c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6.5C10.55 5.4 8.45 5 6.5 5"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            omop-cdm
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              OMOP CDM
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    <div class="md-header__options">
+      <div class="md-header-nav__scheme md-header-nav__button md-source__icon md-icon">
+          <a
+            href="javascript:toggleScheme();"
+            title="Light mode"
+            class="light-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="Dark mode"
+            class="dark-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+          </a>
+          <a
+            href="javascript:toggleScheme();"
+            title="System preference"
+            class="system-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M7.5 2c-1.79 1.15-3 3.18-3 5.5s1.21 4.35 3.03 5.5C4.46 13 2 10.54 2 7.5A5.5 5.5 0 0 1 7.5 2m11.57 1.5 1.43 1.43L4.93 20.5 3.5 19.07zm-6.18 2.43L11.41 5 9.97 6l.42-1.7L9 3.24l1.75-.12.58-1.65L12 3.1l1.73.03-1.35 1.13zm-3.3 3.61-1.16-.73-1.12.78.34-1.32-1.09-.83 1.36-.09.45-1.29.51 1.27 1.36.03-1.05.87zM19 13.5a5.5 5.5 0 0 1-5.5 5.5c-1.22 0-2.35-.4-3.26-1.07l7.69-7.69c.67.91 1.07 2.04 1.07 3.26m-4.4 6.58 2.77-1.15-.24 3.35zm4.33-2.7 1.15-2.77 2.2 2.54zm1.15-4.96-1.14-2.78 3.34.24zM9.63 18.93l2.77 1.15-2.53 2.19z"/></svg>
+          </a>
+           <a
+            href="javascript:toggleScheme();"
+            title="Unknown scheme"
+            class="unknown-mode"
+          >
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m15.07 11.25-.9.92C13.45 12.89 13 13.5 13 15h-2v-.5c0-1.11.45-2.11 1.17-2.83l1.24-1.26c.37-.36.59-.86.59-1.41a2 2 0 0 0-2-2 2 2 0 0 0-2 2H8a4 4 0 0 1 4-4 4 4 0 0 1 4 4 3.2 3.2 0 0 1-.93 2.25M13 19h-2v-2h2M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10 10 10 0 0 0 10-10c0-5.53-4.5-10-10-10"/></svg>
+          </a>
+      </div>
+    </div>
+    
+      <label class="md-header__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/plugin-healthcare/omop-link" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href=".." title="omop-cdm" class="md-nav__button md-logo" aria-label="omop-cdm" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m19 2-5 4.5v11l5-4.5zM6.5 5C4.55 5 2.45 5.4 1 6.5v14.66c0 .25.25.5.5.5.1 0 .15-.07.25-.07 1.35-.65 3.3-1.09 4.75-1.09 1.95 0 4.05.4 5.5 1.5 1.35-.85 3.8-1.5 5.5-1.5 1.65 0 3.35.31 4.75 1.06.1.05.15.03.25.03.25 0 .5-.25.5-.5V6.5c-.6-.45-1.25-.75-2-1V19c-1.1-.35-2.3-.5-3.5-.5-1.7 0-4.15.65-5.5 1.5V6.5C10.55 5.4 8.45 5 6.5 5"/></svg>
+
+    </a>
+    omop-cdm
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/plugin-healthcare/omop-link" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    GitHub
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href=".." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Home
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    OMOP CDM
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    OMOP CDM
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Classes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slots" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slots
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enumerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enumerations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subsets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subsets
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../elements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    Named Sets
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../about/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    About
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#classes" class="md-nav__link">
+    <span class="md-ellipsis">
+      Classes
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#slots" class="md-nav__link">
+    <span class="md-ellipsis">
+      Slots
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#enumerations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Enumerations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Types
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#subsets" class="md-nav__link">
+    <span class="md-ellipsis">
+      Subsets
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              <article class="md-content__inner md-typeset">
+                
+  
+                  
+
+
+  
+  
+
+
+<h1 id="omop-cdm54">omop-cdm54</h1>
+<p>URI: https://timformatie.github.io/SEIN-OMOP/omop-cdm54</p>
+<p>Name: omop-cdm54</p>
+<h2 id="classes">Classes</h2>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="CdmSource/">CdmSource</a></td>
+<td>The CDM_SOURCE table contains detail about the source database and the proces...</td>
+</tr>
+<tr>
+<td><a href="Concept/">Concept</a></td>
+<td>The Standardized Vocabularies contains records, or Concepts, that uniquely id...</td>
+</tr>
+<tr>
+<td><a href="ConceptAncestor/">ConceptAncestor</a></td>
+<td>The CONCEPT_ANCESTOR table is designed to simplify observational analysis by ...</td>
+</tr>
+<tr>
+<td><a href="ConceptClass/">ConceptClass</a></td>
+<td>The CONCEPT_CLASS table includes semantic categories that reference the sourc...</td>
+</tr>
+<tr>
+<td><a href="ConceptRelation/">ConceptRelation</a></td>
+<td>The CONCEPT_RELATIONSHIP table contains records that define relationships bet...</td>
+</tr>
+<tr>
+<td><a href="ConceptSynonym/">ConceptSynonym</a></td>
+<td>The CONCEPT_SYNONYM table captures alternative terms, synonyms, and translati...</td>
+</tr>
+<tr>
+<td><a href="ConditionOccurrence/">ConditionOccurrence</a></td>
+<td>REWRITE THIS This table captures records about the exposure to a Drug ingeste...</td>
+</tr>
+<tr>
+<td><a href="Domain/">Domain</a></td>
+<td>The DOMAIN table includes a list of OMOP-defined Domains to which the Concept...</td>
+</tr>
+<tr>
+<td><a href="DrugExposure/">DrugExposure</a></td>
+<td>This table captures records about the exposure to a Drug ingested or otherwis...</td>
+</tr>
+<tr>
+<td><a href="Location/">Location</a></td>
+<td>The LOCATION table represents a generic way to capture physical location or a...</td>
+</tr>
+<tr>
+<td><a href="Note/">Note</a></td>
+<td>The NOTE table captures unstructured information that was recorded by a provi...</td>
+</tr>
+<tr>
+<td><a href="ObservationPeriod/">ObservationPeriod</a></td>
+<td>This table contains records which define spans of time during which two condi...</td>
+</tr>
+<tr>
+<td><a href="Person/">Person</a></td>
+<td>This table serves as the central identity management for all Persons in the d...</td>
+</tr>
+<tr>
+<td><a href="Relationship/">Relationship</a></td>
+<td>The RELATIONSHIP table provides a reference list of all types of relationship...</td>
+</tr>
+<tr>
+<td><a href="VisitOccurrence/">VisitOccurrence</a></td>
+<td>This table contains Events where Persons engage with the healthcare system fo...</td>
+</tr>
+<tr>
+<td><a href="Vocabulary/">Vocabulary</a></td>
+<td>The VOCABULARY table includes a list of the Vocabularies integrated from vari...</td>
+</tr>
+</tbody>
+</table>
+<h2 id="slots">Slots</h2>
+<table>
+<thead>
+<tr>
+<th>Slot</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="address_1/">address_1</a></td>
+<td>This is the first line of the address</td>
+</tr>
+<tr>
+<td><a href="address_2/">address_2</a></td>
+<td>This is the second line of the address</td>
+</tr>
+<tr>
+<td><a href="admitted_from_concept_id/">admitted_from_concept_id</a></td>
+<td>Use this field to determine where the patient was admitted from</td>
+</tr>
+<tr>
+<td><a href="admitted_from_source_value/">admitted_from_source_value</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="ancestor_concept_id/">ancestor_concept_id</a></td>
+<td>The Concept Id for the higher-level concept that forms the ancestor in the re...</td>
+</tr>
+<tr>
+<td><a href="birth_datetime/">birth_datetime</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="care_site_id/">care_site_id</a></td>
+<td>The Care Site refers to where the Provider typically provides the primary car...</td>
+</tr>
+<tr>
+<td><a href="cdm_etl_reference/">cdm_etl_reference</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="cdm_holder/">cdm_holder</a></td>
+<td>The holder of the CDM instance</td>
+</tr>
+<tr>
+<td><a href="cdm_release_date/">cdm_release_date</a></td>
+<td>The date the ETL script was completed</td>
+</tr>
+<tr>
+<td><a href="cdm_source_abbreviation/">cdm_source_abbreviation</a></td>
+<td>The abbreviation of the CDM instance</td>
+</tr>
+<tr>
+<td><a href="cdm_source_name/">cdm_source_name</a></td>
+<td>The name of the CDM instance</td>
+</tr>
+<tr>
+<td><a href="cdm_version/">cdm_version</a></td>
+<td>Version of the OMOP CDM used as string</td>
+</tr>
+<tr>
+<td><a href="cdm_version_concept_id/">cdm_version_concept_id</a></td>
+<td>The Concept Id representing the version of the CDM</td>
+</tr>
+<tr>
+<td><a href="city/">city</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="concept_class_concept_id/">concept_class_concept_id</a></td>
+<td>A Concept that represents the Concept Class</td>
+</tr>
+<tr>
+<td><a href="concept_class_id/">concept_class_id</a></td>
+<td>A unique key for each class</td>
+</tr>
+<tr>
+<td><a href="concept_class_name/">concept_class_name</a></td>
+<td>The name describing the Concept Class, e</td>
+</tr>
+<tr>
+<td><a href="concept_code/">concept_code</a></td>
+<td>The concept code represents the identifier of the Concept in the source vocab...</td>
+</tr>
+<tr>
+<td><a href="concept_id/">concept_id</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="concept_id_1/">concept_id_1</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="concept_id_2/">concept_id_2</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="concept_name/">concept_name</a></td>
+<td>An unambiguous, meaningful and descriptive name for the Concept</td>
+</tr>
+<tr>
+<td><a href="concept_synonym_name/">concept_synonym_name</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="condition_concept_id/">condition_concept_id</a></td>
+<td>The CONDITION_CONCEPT_ID field is recommended for primary use in analyses, an...</td>
+</tr>
+<tr>
+<td><a href="condition_end_date/">condition_end_date</a></td>
+<td>Use this date to determine the end date of the condition</td>
+</tr>
+<tr>
+<td><a href="condition_end_datetime/">condition_end_datetime</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="condition_occurrence_id/">condition_occurrence_id</a></td>
+<td>The unique key given to a condition record for a person</td>
+</tr>
+<tr>
+<td><a href="condition_source_concept_id/">condition_source_concept_id</a></td>
+<td>This is the concept representing the condition source value and may not neces...</td>
+</tr>
+<tr>
+<td><a href="condition_source_value/">condition_source_value</a></td>
+<td>This field houses the verbatim value from the source data epresenting the con...</td>
+</tr>
+<tr>
+<td><a href="condition_start_date/">condition_start_date</a></td>
+<td>Use this date to determine the start date of the condition</td>
+</tr>
+<tr>
+<td><a href="condition_start_datetime/">condition_start_datetime</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="condition_status_concept_id/">condition_status_concept_id</a></td>
+<td>This concept represents the point during the visit the diagnosis was given (a...</td>
+</tr>
+<tr>
+<td><a href="condition_status_source_value/">condition_status_source_value</a></td>
+<td>This field houses the verbatim value from the source data representing the co...</td>
+</tr>
+<tr>
+<td><a href="condition_type_concept_id/">condition_type_concept_id</a></td>
+<td>This field can be used to determine the provenance of the Condition record, a...</td>
+</tr>
+<tr>
+<td><a href="country_concept_id/">country_concept_id</a></td>
+<td>The Concept Id representing the country</td>
+</tr>
+<tr>
+<td><a href="country_source_value/">country_source_value</a></td>
+<td>The name of the country</td>
+</tr>
+<tr>
+<td><a href="county/">county</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="day_of_birth/">day_of_birth</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="days_supply/">days_supply</a></td>
+<td>The number of days of supply of the medication as recorded in the original pr...</td>
+</tr>
+<tr>
+<td><a href="defines_ancestry/">defines_ancestry</a></td>
+<td>Defines whether a hierarchical relationship contributes to the concept_ancest...</td>
+</tr>
+<tr>
+<td><a href="descendant_concept_id/">descendant_concept_id</a></td>
+<td>The Concept Id for the lower-level concept that forms the descendant in the r...</td>
+</tr>
+<tr>
+<td><a href="discharged_to_concept_id/">discharged_to_concept_id</a></td>
+<td>Use this field to determine where the patient was discharged to after a visit</td>
+</tr>
+<tr>
+<td><a href="discharged_to_source_value/">discharged_to_source_value</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="domain_concept_id/">domain_concept_id</a></td>
+<td>A Concept representing the Domain Concept the DOMAIN record belongs to</td>
+</tr>
+<tr>
+<td><a href="domain_id/">domain_id</a></td>
+<td>A foreign key to the DOMAIN table the Concept belongs to</td>
+</tr>
+<tr>
+<td><a href="domain_name/">domain_name</a></td>
+<td>The name describing the Domain, e</td>
+</tr>
+<tr>
+<td><a href="dose_unit_source_value/">dose_unit_source_value</a></td>
+<td>This field houses the verbatim value from the source data representing the do...</td>
+</tr>
+<tr>
+<td><a href="drug_concept_id/">drug_concept_id</a></td>
+<td>This is the standard concept mapped from the source concept id which represen...</td>
+</tr>
+<tr>
+<td><a href="drug_exposure_end_date/">drug_exposure_end_date</a></td>
+<td>The DRUG_EXPOSURE_END_DATE denotes the day the drug exposure ended for the pa...</td>
+</tr>
+<tr>
+<td><a href="drug_exposure_end_datetime/">drug_exposure_end_datetime</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="drug_exposure_id/">drug_exposure_id</a></td>
+<td>The unique key given to records of drug dispensings or administrations for a ...</td>
+</tr>
+<tr>
+<td><a href="drug_exposure_start_date/">drug_exposure_start_date</a></td>
+<td>Start date of a prescription, the date a prescription was filled, or the date...</td>
+</tr>
+<tr>
+<td><a href="drug_exposure_start_datetime/">drug_exposure_start_datetime</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="drug_source_concept_id/">drug_source_concept_id</a></td>
+<td>This is the concept representing the drug source value and may not necessaril...</td>
+</tr>
+<tr>
+<td><a href="drug_source_value/">drug_source_value</a></td>
+<td>This field houses the verbatim value from the source data representing the dr...</td>
+</tr>
+<tr>
+<td><a href="drug_type_concept_id/">drug_type_concept_id</a></td>
+<td>You can use the TYPE_CONCEPT_ID to delineate between prescriptions written vs</td>
+</tr>
+<tr>
+<td><a href="encoding_concept_id/">encoding_concept_id</a></td>
+<td>This is the Concept representing the character encoding type</td>
+</tr>
+<tr>
+<td><a href="ethnicity_concept_id/">ethnicity_concept_id</a></td>
+<td>This field captures Ethnicity as defined by the Office of Management and Budg...</td>
+</tr>
+<tr>
+<td><a href="ethnicity_source_concept_id/">ethnicity_source_concept_id</a></td>
+<td>Due to the small number of options, this tends to be zero</td>
+</tr>
+<tr>
+<td><a href="ethnicity_source_value/">ethnicity_source_value</a></td>
+<td>This field is used to store the ethnicity of the person from the source data</td>
+</tr>
+<tr>
+<td><a href="gender_concept_id/">gender_concept_id</a></td>
+<td>This field is meant to capture the biological sex at birth of the Person</td>
+</tr>
+<tr>
+<td><a href="gender_source_concept_id/">gender_source_concept_id</a></td>
+<td>Due to the small number of options, this tends to be zero</td>
+</tr>
+<tr>
+<td><a href="gender_source_value/">gender_source_value</a></td>
+<td>This field is used to store the biological sex of the person from the source ...</td>
+</tr>
+<tr>
+<td><a href="invalid_reason/">invalid_reason</a></td>
+<td>Reason the relationship was invalidated</td>
+</tr>
+<tr>
+<td><a href="is_hierarchical/">is_hierarchical</a></td>
+<td>Defines whether a relationship defines concepts into classes or hierarchies</td>
+</tr>
+<tr>
+<td><a href="language_concept_id/">language_concept_id</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="latitude/">latitude</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="location_id/">location_id</a></td>
+<td>The unique key given to a unique Location</td>
+</tr>
+<tr>
+<td><a href="location_source_value/">location_source_value</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="longitude/">longitude</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="lot_number/">lot_number</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="max_levels_of_separation/">max_levels_of_separation</a></td>
+<td>The maximum separation in number of levels of hierarchy between ancestor and ...</td>
+</tr>
+<tr>
+<td><a href="min_levels_of_separation/">min_levels_of_separation</a></td>
+<td>The minimum separation in number of levels of hierarchy between ancestor and ...</td>
+</tr>
+<tr>
+<td><a href="month_of_birth/">month_of_birth</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="note_class_concept_id/">note_class_concept_id</a></td>
+<td>A Standard Concept Id representing the HL7 LOINC Document Type Vocabulary cla...</td>
+</tr>
+<tr>
+<td><a href="note_date/">note_date</a></td>
+<td>The date the note was recorded</td>
+</tr>
+<tr>
+<td><a href="note_datetime/">note_datetime</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="note_event_field_concept_id/">note_event_field_concept_id</a></td>
+<td>If the Note record is related to another record in the database, this field i...</td>
+</tr>
+<tr>
+<td><a href="note_event_id/">note_event_id</a></td>
+<td>If the Note record is related to another record in the database, this field i...</td>
+</tr>
+<tr>
+<td><a href="note_id/">note_id</a></td>
+<td>A unique identifier for each note</td>
+</tr>
+<tr>
+<td><a href="note_source_value/">note_source_value</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="note_text/">note_text</a></td>
+<td>The content of the note</td>
+</tr>
+<tr>
+<td><a href="note_title/">note_title</a></td>
+<td>The title of the note</td>
+</tr>
+<tr>
+<td><a href="note_type_concept_id/">note_type_concept_id</a></td>
+<td>The provenance of the note</td>
+</tr>
+<tr>
+<td><a href="observation_period_end_date/">observation_period_end_date</a></td>
+<td>Use this date to determine the end date of the period for which we can assume...</td>
+</tr>
+<tr>
+<td><a href="observation_period_id/">observation_period_id</a></td>
+<td>A Person can have multiple discrete Observation Periods which are identified ...</td>
+</tr>
+<tr>
+<td><a href="observation_period_start_date/">observation_period_start_date</a></td>
+<td>Use this date to determine the start date of the Observation Period</td>
+</tr>
+<tr>
+<td><a href="period_type_concept_id/">period_type_concept_id</a></td>
+<td>This field can be used to determine the provenance of the Observation Period ...</td>
+</tr>
+<tr>
+<td><a href="person_id/">person_id</a></td>
+<td>The PERSON_ID of the PERSON for whom the condition is recorded</td>
+</tr>
+<tr>
+<td><a href="person_source_value/">person_source_value</a></td>
+<td>Use this field to link back to persons in the source data</td>
+</tr>
+<tr>
+<td><a href="preceding_visit_occurrence_id/">preceding_visit_occurrence_id</a></td>
+<td>Use this field to find the visit that occurred for the person prior to the gi...</td>
+</tr>
+<tr>
+<td><a href="provider_id/">provider_id</a></td>
+<td>The provider associated with condition record, e</td>
+</tr>
+<tr>
+<td><a href="quantity/">quantity</a></td>
+<td>If liquid, quantity stands for the total amount dispensed or ordered of ingre...</td>
+</tr>
+<tr>
+<td><a href="race_concept_id/">race_concept_id</a></td>
+<td>This field captures race or ethnic background of the person</td>
+</tr>
+<tr>
+<td><a href="race_source_concept_id/">race_source_concept_id</a></td>
+<td>Due to the small number of options, this tends to be zero</td>
+</tr>
+<tr>
+<td><a href="race_source_value/">race_source_value</a></td>
+<td>This field is used to store the race of the person from the source data</td>
+</tr>
+<tr>
+<td><a href="refills/">refills</a></td>
+<td>This is only filled in when the record is coming from a prescription written ...</td>
+</tr>
+<tr>
+<td><a href="relationship_concept_id/">relationship_concept_id</a></td>
+<td>A foreign key that refers to an identifier in the CONCEPT table for the uniqu...</td>
+</tr>
+<tr>
+<td><a href="relationship_id/">relationship_id</a></td>
+<td>The relationship between CONCEPT_ID_1 and CONCEPT_ID_2</td>
+</tr>
+<tr>
+<td><a href="relationship_name/">relationship_name</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="reverse_relationship_id/">reverse_relationship_id</a></td>
+<td>The identifier for the relationship used to define the reverse relationship b...</td>
+</tr>
+<tr>
+<td><a href="route_concept_id/">route_concept_id</a></td>
+<td>The standard CONCEPT_ID that the ROUTE_SOURCE_VALUE maps to in the route doma...</td>
+</tr>
+<tr>
+<td><a href="route_source_value/">route_source_value</a></td>
+<td>This field houses the verbatim value from the source data representing the dr...</td>
+</tr>
+<tr>
+<td><a href="sig/">sig</a></td>
+<td>This is the verbatim instruction for the drug as written by the provider</td>
+</tr>
+<tr>
+<td><a href="source_description/">source_description</a></td>
+<td>The description of the CDM instance</td>
+</tr>
+<tr>
+<td><a href="source_documentation_reference/">source_documentation_reference</a></td>
+<td>Refers to a publication or web resource describing the source data</td>
+</tr>
+<tr>
+<td><a href="source_release_date/">source_release_date</a></td>
+<td>The date the data was extracted from the source system</td>
+</tr>
+<tr>
+<td><a href="standard_concept/">standard_concept</a></td>
+<td>This flag determines where a Concept is a Standard Concept, i</td>
+</tr>
+<tr>
+<td><a href="state/">state</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="stop_reason/">stop_reason</a></td>
+<td>The Stop Reason indicates why a Condition is no longer valid with respect to ...</td>
+</tr>
+<tr>
+<td><a href="valid_end_date/">valid_end_date</a></td>
+<td>The date when the relationship is invalidated</td>
+</tr>
+<tr>
+<td><a href="valid_start_date/">valid_start_date</a></td>
+<td>The date when the relationship is first recorded</td>
+</tr>
+<tr>
+<td><a href="verbatim_end_date/">verbatim_end_date</a></td>
+<td>This is the end date of the drug exposure as it appears in the source data, i...</td>
+</tr>
+<tr>
+<td><a href="visit_concept_id/">visit_concept_id</a></td>
+<td>This field contains a concept id representing the kind of visit, like inpatie...</td>
+</tr>
+<tr>
+<td><a href="visit_detail_id/">visit_detail_id</a></td>
+<td>The VISIT_DETAIL record during which the condition occurred</td>
+</tr>
+<tr>
+<td><a href="visit_end_date/">visit_end_date</a></td>
+<td>For inpatient visits the end date is typically the discharge date</td>
+</tr>
+<tr>
+<td><a href="visit_end_datetime/">visit_end_datetime</a></td>
+<td>If a Person is still an inpatient in the hospital at the time of the data ext...</td>
+</tr>
+<tr>
+<td><a href="visit_occurrence_id/">visit_occurrence_id</a></td>
+<td>The visit during which the condition occurred</td>
+</tr>
+<tr>
+<td><a href="visit_source_concept_id/">visit_source_concept_id</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="visit_source_value/">visit_source_value</a></td>
+<td>This field houses the verbatim value from the source data representing the ki...</td>
+</tr>
+<tr>
+<td><a href="visit_start_date/">visit_start_date</a></td>
+<td>For inpatient visits, the start date is typically the admission date</td>
+</tr>
+<tr>
+<td><a href="visit_start_datetime/">visit_start_datetime</a></td>
+<td></td>
+</tr>
+<tr>
+<td><a href="visit_type_concept_id/">visit_type_concept_id</a></td>
+<td>Use this field to understand the provenance of the visit record, or where the...</td>
+</tr>
+<tr>
+<td><a href="vocabulary_concept_id/">vocabulary_concept_id</a></td>
+<td>A Concept that represents the Vocabulary the VOCABULARY record belongs to</td>
+</tr>
+<tr>
+<td><a href="vocabulary_id/">vocabulary_id</a></td>
+<td>A foreign key to the VOCABULARY table indicating from which source the Concep...</td>
+</tr>
+<tr>
+<td><a href="vocabulary_name/">vocabulary_name</a></td>
+<td>The name describing the vocabulary, for example, International Classification...</td>
+</tr>
+<tr>
+<td><a href="vocabulary_reference/">vocabulary_reference</a></td>
+<td>External reference to documentation or available download of the about the vo...</td>
+</tr>
+<tr>
+<td><a href="vocabulary_version/">vocabulary_version</a></td>
+<td>Version of the OMOP standardised vocabularies loaded</td>
+</tr>
+<tr>
+<td><a href="year_of_birth/">year_of_birth</a></td>
+<td>Compute age using year_of_birth</td>
+</tr>
+<tr>
+<td><a href="zip/">zip</a></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="enumerations">Enumerations</h2>
+<table>
+<thead>
+<tr>
+<th>Enumeration</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<h2 id="types">Types</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="Boolean/">Boolean</a></td>
+<td>A binary (true or false) value</td>
+</tr>
+<tr>
+<td><a href="Curie/">Curie</a></td>
+<td>a compact URI</td>
+</tr>
+<tr>
+<td><a href="Date/">Date</a></td>
+<td>a date (year, month and day) in an idealized calendar</td>
+</tr>
+<tr>
+<td><a href="DateOrDatetime/">DateOrDatetime</a></td>
+<td>Either a date or a datetime</td>
+</tr>
+<tr>
+<td><a href="Datetime/">Datetime</a></td>
+<td>The combination of a date and time</td>
+</tr>
+<tr>
+<td><a href="Decimal/">Decimal</a></td>
+<td>A real number with arbitrary precision that conforms to the xsd:decimal speci...</td>
+</tr>
+<tr>
+<td><a href="Double/">Double</a></td>
+<td>A real number that conforms to the xsd:double specification</td>
+</tr>
+<tr>
+<td><a href="Float/">Float</a></td>
+<td>A real number that conforms to the xsd:float specification</td>
+</tr>
+<tr>
+<td><a href="Integer/">Integer</a></td>
+<td>An integer</td>
+</tr>
+<tr>
+<td><a href="Jsonpath/">Jsonpath</a></td>
+<td>A string encoding a JSON Path</td>
+</tr>
+<tr>
+<td><a href="Jsonpointer/">Jsonpointer</a></td>
+<td>A string encoding a JSON Pointer</td>
+</tr>
+<tr>
+<td><a href="Ncname/">Ncname</a></td>
+<td>Prefix part of CURIE</td>
+</tr>
+<tr>
+<td><a href="Nodeidentifier/">Nodeidentifier</a></td>
+<td>A URI, CURIE or BNODE that represents a node in a model</td>
+</tr>
+<tr>
+<td><a href="Objectidentifier/">Objectidentifier</a></td>
+<td>A URI or CURIE that represents an object in the model</td>
+</tr>
+<tr>
+<td><a href="Sparqlpath/">Sparqlpath</a></td>
+<td>A string encoding a SPARQL Property Path</td>
+</tr>
+<tr>
+<td><a href="String/">String</a></td>
+<td>A character string</td>
+</tr>
+<tr>
+<td><a href="Time/">Time</a></td>
+<td>A time object represents a (local) time of day, independent of any particular...</td>
+</tr>
+<tr>
+<td><a href="Uri/">Uri</a></td>
+<td>a complete URI</td>
+</tr>
+<tr>
+<td><a href="Uriorcurie/">Uriorcurie</a></td>
+<td>a URI or a CURIE</td>
+</tr>
+</tbody>
+</table>
+<h2 id="subsets">Subsets</h2>
+<table>
+<thead>
+<tr>
+<th>Subset</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+  
+
+              </article>
+            </div>
+          
+          
+  <script>var tabs=__md_get("__tabs");if(Array.isArray(tabs))e:for(var set of document.querySelectorAll(".tabbed-set")){var labels=set.querySelector(".tabbed-labels");for(var tab of tabs)for(var label of labels.getElementsByTagName("label"))if(label.innerText.trim()===tab){var input=document.getElementById(label.htmlFor);input.checked=!0;continue e}}</script>
+
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        
+
+<footer class="md-footer">
+  
+    <nav
+      class="md-footer__inner md-grid"
+      aria-label="footer.title"
+    >
+      
+        <a
+          href=".."
+          class="md-footer__link md-footer__link--prev"
+          rel="prev"
+        >
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+          </div>
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Previous
+              </span>
+              Home
+            </div>
+          </div>
+        </a>
+      
+      
+        <a
+          href="../elements/"
+          class="md-footer__link md-footer__link--next"
+          rel="next"
+        >
+          <div class="md-footer__title">
+            <div class="md-ellipsis">
+              <span class="md-footer__direction">
+                Next
+              </span>
+              Named Sets
+            </div>
+          </div>
+          <div class="md-footer__button md-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+          </div>
+        </a>
+      
+    </nav>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+        with emoji by
+        <a href="https://github.com/twitter/twemoji" target="_blank" rel="noopener">
+          Twemoji
+        </a>
+      </div>
+      
+<div class="md-social">
+  
+</div>
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+      <div class="md-progress" data-md-component="progress" role="progressbar"></div>
+    
+    
+    
+      
+      <script id="__config" type="application/json">{"base": "..", "features": ["content.tabs.link", "header.autohide", "navigation.expand", "navigation.instant", "navigation.instant.progress", "navigation.tracking", "search.suggest", "content.code.copy"], "search": "../assets/javascripts/workers/search.973d3a69.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../assets/javascripts/bundle.f55a23d4.min.js"></script>
+      
+        <script src="../assets/pymdownx-extras/extra-loader-B5CKpNQx.js"></script>
+      
+    
+  </body>
+</html>

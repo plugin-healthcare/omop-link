@@ -1,0 +1,665 @@
+name: omop_named_sets
+id: https://example.org/omop_named_sets
+imports:
+- omop_semantic_base
+- linkml:types
+license: https://creativecommons.org/publicdomain/zero/1.0/
+prefixes:
+  linkml:
+    prefix_prefix: linkml
+    prefix_reference: https://w3id.org/linkml/
+  omop:
+    prefix_prefix: omop
+    prefix_reference: https://athena.ohdsi.org/search-terms/terms/
+default_prefix: https://example.org/omop_named_sets/
+default_range: string
+types:
+  string:
+    name: string
+    definition_uri: https://w3id.org/linkml/String
+    description: A character string
+    notes:
+    - In RDF serializations, a slot with range of string is treated as a literal or
+      type xsd:string.   If you are authoring schemas in LinkML YAML, the type is
+      referenced with the lower case "string".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Text
+    base: str
+    uri: xsd:string
+  integer:
+    name: integer
+    definition_uri: https://w3id.org/linkml/Integer
+    description: An integer
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "integer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Integer
+    base: int
+    uri: xsd:integer
+  boolean:
+    name: boolean
+    definition_uri: https://w3id.org/linkml/Boolean
+    description: A binary (true or false) value
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "boolean".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Boolean
+    base: Bool
+    uri: xsd:boolean
+    repr: bool
+  float:
+    name: float
+    definition_uri: https://w3id.org/linkml/Float
+    description: A real number that conforms to the xsd:float specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "float".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:float
+  double:
+    name: double
+    definition_uri: https://w3id.org/linkml/Double
+    description: A real number that conforms to the xsd:double specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "double".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:Float
+    base: float
+    uri: xsd:double
+  decimal:
+    name: decimal
+    definition_uri: https://w3id.org/linkml/Decimal
+    description: A real number with arbitrary precision that conforms to the xsd:decimal
+      specification
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "decimal".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    broad_mappings:
+    - schema:Number
+    base: Decimal
+    uri: xsd:decimal
+  time:
+    name: time
+    definition_uri: https://w3id.org/linkml/Time
+    description: A time object represents a (local) time of day, independent of any
+      particular day
+    notes:
+    - URI is dateTime because OWL reasoners do not work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "time".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Time
+    base: XSDTime
+    uri: xsd:time
+    repr: str
+  date:
+    name: date
+    definition_uri: https://w3id.org/linkml/Date
+    description: a date (year, month and day) in an idealized calendar
+    notes:
+    - URI is dateTime because OWL reasoners don't work with straight date or time
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:Date
+    base: XSDDate
+    uri: xsd:date
+    repr: str
+  datetime:
+    name: datetime
+    definition_uri: https://w3id.org/linkml/Datetime
+    description: The combination of a date and time
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    exact_mappings:
+    - schema:DateTime
+    base: XSDDateTime
+    uri: xsd:dateTime
+    repr: str
+  date_or_datetime:
+    name: date_or_datetime
+    definition_uri: https://w3id.org/linkml/DateOrDatetime
+    description: Either a date or a datetime
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "date_or_datetime".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: linkml:DateOrDatetime
+    repr: str
+  uriorcurie:
+    name: uriorcurie
+    definition_uri: https://w3id.org/linkml/Uriorcurie
+    description: a URI or a CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uriorcurie".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: URIorCURIE
+    uri: xsd:anyURI
+    repr: str
+  curie:
+    name: curie
+    definition_uri: https://w3id.org/linkml/Curie
+    conforms_to: https://www.w3.org/TR/curie/
+    description: a compact URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "curie".
+    comments:
+    - in RDF serializations this MUST be expanded to a URI
+    - in non-RDF serializations MAY be serialized as the compact representation
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: Curie
+    uri: xsd:string
+    repr: str
+  uri:
+    name: uri
+    definition_uri: https://w3id.org/linkml/Uri
+    conforms_to: https://www.ietf.org/rfc/rfc3987.txt
+    description: a complete URI
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "uri".
+    comments:
+    - in RDF serializations a slot with range of uri is treated as a literal or type
+      xsd:anyURI unless it is an identifier or a reference to an identifier, in which
+      case it is translated directly to a node
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    close_mappings:
+    - schema:URL
+    base: URI
+    uri: xsd:anyURI
+    repr: str
+  ncname:
+    name: ncname
+    definition_uri: https://w3id.org/linkml/Ncname
+    description: Prefix part of CURIE
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "ncname".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NCName
+    uri: xsd:string
+    repr: str
+  objectidentifier:
+    name: objectidentifier
+    definition_uri: https://w3id.org/linkml/Objectidentifier
+    description: A URI or CURIE that represents an object in the model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "objectidentifier".
+    comments:
+    - Used for inheritance and type checking
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: ElementIdentifier
+    uri: shex:iri
+    repr: str
+  nodeidentifier:
+    name: nodeidentifier
+    definition_uri: https://w3id.org/linkml/Nodeidentifier
+    description: A URI, CURIE or BNODE that represents a node in a model.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "nodeidentifier".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: NodeIdentifier
+    uri: shex:nonLiteral
+    repr: str
+  jsonpointer:
+    name: jsonpointer
+    definition_uri: https://w3id.org/linkml/Jsonpointer
+    conforms_to: https://datatracker.ietf.org/doc/html/rfc6901
+    description: A string encoding a JSON Pointer. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to a valid object within the current
+      instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpointer".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  jsonpath:
+    name: jsonpath
+    definition_uri: https://w3id.org/linkml/Jsonpath
+    conforms_to: https://www.ietf.org/archive/id/draft-goessner-dispatch-jsonpath-00.html
+    description: A string encoding a JSON Path. The value of the string MUST conform
+      to JSON Point syntax and SHOULD dereference to zero or more valid objects within
+      the current instance document when encoded in tree form.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "jsonpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+  sparqlpath:
+    name: sparqlpath
+    definition_uri: https://w3id.org/linkml/Sparqlpath
+    conforms_to: https://www.w3.org/TR/sparql11-query/#propertypaths
+    description: A string encoding a SPARQL Property Path. The value of the string
+      MUST conform to SPARQL syntax and SHOULD dereference to zero or more valid objects
+      within the current instance document when encoded as RDF.
+    notes:
+    - If you are authoring schemas in LinkML YAML, the type is referenced with the
+      lower case "sparqlpath".
+    from_schema: https://w3id.org/linkml/types
+    imported_from: linkml:types
+    base: str
+    uri: xsd:string
+    repr: str
+slots:
+  named_enumerators:
+    name: named_enumerators
+    definition_uri: https://example.org/omop_named_sets/named_enumerators
+    from_schema: https://example.org/omop_named_sets
+    slot_uri: https://example.org/omop_named_sets/named_enumerators
+    owner: CDMSemanticUnits
+    domain_of:
+    - CDMSemanticUnits
+    range: OmopEnum
+    required: false
+    multivalued: true
+    inlined: true
+  named_concepts:
+    name: named_concepts
+    definition_uri: https://example.org/omop_named_sets/named_concepts
+    from_schema: https://example.org/omop_named_sets
+    slot_uri: https://example.org/omop_named_sets/named_concepts
+    owner: CDMSemanticUnits
+    domain_of:
+    - CDMSemanticUnits
+    range: OmopConcept
+    required: false
+    multivalued: true
+    inlined: true
+  named_valuesets:
+    name: named_valuesets
+    definition_uri: https://example.org/omop_named_sets/named_valuesets
+    from_schema: https://example.org/omop_named_sets
+    slot_uri: https://example.org/omop_named_sets/named_valuesets
+    range: OmopValueSet
+    required: false
+    multivalued: true
+    inlined: true
+  named_groups:
+    name: named_groups
+    definition_uri: https://example.org/omop_named_sets/named_groups
+    from_schema: https://example.org/omop_named_sets
+    slot_uri: https://example.org/omop_named_sets/named_groups
+    owner: CDMSemanticUnits
+    domain_of:
+    - CDMSemanticUnits
+    range: OmopGroup
+    required: false
+    multivalued: true
+    inlined: true
+  valueset_name:
+    name: valueset_name
+    definition_uri: https://example.org/omop_named_sets/valueset_name
+    from_schema: https://example.org/omop_named_sets
+    slot_uri: https://example.org/omop_named_sets/valueset_name
+    owner: CDMValueSet
+    domain_of:
+    - CDMValueSet
+    range: string
+    required: true
+  valueset_members:
+    name: valueset_members
+    definition_uri: https://example.org/omop_named_sets/valueset_members
+    from_schema: https://example.org/omop_named_sets
+    slot_uri: https://example.org/omop_named_sets/valueset_members
+    owner: CDMValueSet
+    domain_of:
+    - CDMValueSet
+    range: OmopSemanticObject
+    required: true
+    multivalued: true
+    inlined: true
+  valuesets:
+    name: valuesets
+    definition_uri: https://example.org/omop_named_sets/valuesets
+    from_schema: https://example.org/omop_named_sets
+    slot_uri: https://example.org/omop_named_sets/valuesets
+    owner: CDMValueSets
+    domain_of:
+    - CDMValueSets
+    range: CDMValueSet
+    required: true
+    multivalued: true
+    inlined: true
+  name:
+    name: name
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/name
+    from_schema: https://example.org/omop_semantics
+    slot_uri: omop:name
+    owner: OmopSemanticObject
+    domain_of:
+    - CDMSemanticUnits
+    - OmopSemanticObject
+    range: string
+    required: true
+  concept_id:
+    name: concept_id
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/concept_id
+    description: OMOP concept_id
+    from_schema: https://example.org/omop_semantics
+    slot_uri: omop:concept_id
+    owner: Concept
+    domain_of:
+    - OmopConcept
+    - Concept
+    range: integer
+  label:
+    name: label
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/label
+    from_schema: https://example.org/omop_semantics
+    slot_uri: omop:label
+    owner: Concept
+    domain_of:
+    - OmopConcept
+    - Concept
+    range: string
+    required: false
+  parent_concepts:
+    name: parent_concepts
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/parent_concepts
+    description: Semantic parent concepts or grouping parents.
+    from_schema: https://example.org/omop_semantics
+    slot_uri: omop:parent_concepts
+    owner: OmopGroup
+    domain_of:
+    - OmopGroup
+    range: Concept
+    multivalued: true
+    inlined: true
+  enum_members:
+    name: enum_members
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/enum_members
+    from_schema: https://example.org/omop_semantics
+    slot_uri: omop:enum_members
+    owner: OmopEnum
+    domain_of:
+    - OmopEnum
+    range: Concept
+    required: true
+    multivalued: true
+    inlined: true
+  members:
+    name: members
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/members
+    from_schema: https://example.org/omop_semantics
+    slot_uri: omop:members
+    owner: OmopValueSet
+    domain_of:
+    - OmopValueSet
+    range: OmopSemanticObject
+    multivalued: true
+    inlined: true
+  notes:
+    name: notes
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/notes
+    from_schema: https://example.org/omop_semantics
+    slot_uri: omop:notes
+    owner: OmopSemanticObject
+    domain_of:
+    - OmopSemanticObject
+    range: string
+    required: false
+  class_uri:
+    name: class_uri
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/class_uri
+    from_schema: https://example.org/omop_semantics
+    slot_uri: omop:class_uri
+    designates_type: true
+    owner: OmopSemanticObject
+    domain_of:
+    - OmopSemanticObject
+    range: string
+    required: true
+  OmopGroup_class_uri:
+    name: OmopGroup_class_uri
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/class_uri
+    from_schema: https://example.org/omop_semantics
+    is_a: class_uri
+    domain: OmopGroup
+    slot_uri: omop:class_uri
+    designates_type: true
+    alias: class_uri
+    owner: OmopGroup
+    domain_of:
+    - OmopGroup
+    is_usage_slot: true
+    usage_slot_name: class_uri
+    range: string
+    required: true
+    equals_string: OmopGroup
+  OmopConcept_class_uri:
+    name: OmopConcept_class_uri
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/class_uri
+    from_schema: https://example.org/omop_semantics
+    is_a: class_uri
+    domain: OmopConcept
+    slot_uri: omop:class_uri
+    designates_type: true
+    alias: class_uri
+    owner: OmopConcept
+    domain_of:
+    - OmopConcept
+    is_usage_slot: true
+    usage_slot_name: class_uri
+    range: string
+    required: true
+    equals_string: OmopConcept
+  OmopEnum_class_uri:
+    name: OmopEnum_class_uri
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/class_uri
+    from_schema: https://example.org/omop_semantics
+    is_a: class_uri
+    domain: OmopEnum
+    slot_uri: omop:class_uri
+    designates_type: true
+    alias: class_uri
+    owner: OmopEnum
+    domain_of:
+    - OmopEnum
+    is_usage_slot: true
+    usage_slot_name: class_uri
+    range: string
+    required: true
+    equals_string: OmopEnum
+  OmopValueSet_class_uri:
+    name: OmopValueSet_class_uri
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/class_uri
+    from_schema: https://example.org/omop_semantics
+    is_a: class_uri
+    domain: OmopValueSet
+    slot_uri: omop:class_uri
+    designates_type: true
+    alias: class_uri
+    owner: OmopValueSet
+    domain_of:
+    - OmopValueSet
+    is_usage_slot: true
+    usage_slot_name: class_uri
+    range: string
+    required: true
+    equals_string: OmopValueSet
+classes:
+  CDMValueSets:
+    name: CDMValueSets
+    definition_uri: https://example.org/omop_named_sets/CDMValueSets
+    from_schema: https://example.org/omop_named_sets
+    slots:
+    - valuesets
+    class_uri: https://example.org/omop_named_sets/CDMValueSets
+    tree_root: true
+  CDMValueSet:
+    name: CDMValueSet
+    definition_uri: https://example.org/omop_named_sets/CDMValueSet
+    from_schema: https://example.org/omop_named_sets
+    slots:
+    - valueset_name
+    - valueset_members
+    class_uri: https://example.org/omop_named_sets/CDMValueSet
+  CDMSemanticUnits:
+    name: CDMSemanticUnits
+    definition_uri: https://example.org/omop_named_sets/CDMSemanticUnits
+    from_schema: https://example.org/omop_named_sets
+    slots:
+    - name
+    - named_enumerators
+    - named_concepts
+    - named_groups
+    class_uri: https://example.org/omop_named_sets/CDMSemanticUnits
+  OmopSemanticObject:
+    name: OmopSemanticObject
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/OmopSemanticObject
+    description: 'Abstract base class for OMOP semantic objects.  Used to represent
+      concepts, groups of concepts, enumerations of concepts, and value sets of concepts
+      in the context of defining complex semantic structures for the OMOP CDM.
+
+      '
+    from_schema: https://example.org/omop_semantics
+    abstract: true
+    slots:
+    - class_uri
+    - name
+    - notes
+    class_uri: omop:OmopSemanticObject
+  OmopGroup:
+    name: OmopGroup
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/OmopGroup
+    description: 'Named group of OMOP concepts defined by their membership in a particular
+      group, such  as hierarchy and / or domain. Importantly, this is not a static
+      definition and if the vocabularies are updated, the membership of these groups
+      may change. This is intended to be used for defining sets of concepts that are
+      used in semantic definitions, such as the set of all  T stage concepts.
+
+      '
+    from_schema: https://example.org/omop_semantics
+    is_a: OmopSemanticObject
+    slots:
+    - name
+    - notes
+    - parent_concepts
+    - OmopGroup_class_uri
+    slot_usage:
+      class_uri:
+        name: class_uri
+        equals_string: OmopGroup
+    class_uri: omop:OmopGroup
+  OmopConcept:
+    name: OmopConcept
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/OmopConcept
+    description: A single labelled OMOP concept for use in higher level semantic annotations
+    from_schema: https://example.org/omop_semantics
+    is_a: OmopSemanticObject
+    slots:
+    - name
+    - notes
+    - concept_id
+    - label
+    - OmopConcept_class_uri
+    slot_usage:
+      class_uri:
+        name: class_uri
+        equals_string: OmopConcept
+    class_uri: omop:OmopConcept
+  OmopEnum:
+    name: OmopEnum
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/OmopEnum
+    description: 'Enumeration (static) of permissible values for a particular slot.
+      This is intended to be used for defining slots that have a fixed set of permissible
+      values, such as the staging axis (T, N, M, Group). This will not update dynamically
+      with vocabulary updates, so should be used for concepts that are  short lists
+      and not expected to change over time.
+
+      '
+    from_schema: https://example.org/omop_semantics
+    is_a: OmopSemanticObject
+    slots:
+    - name
+    - notes
+    - enum_members
+    - OmopEnum_class_uri
+    slot_usage:
+      class_uri:
+        name: class_uri
+        equals_string: OmopEnum
+    class_uri: omop:OmopEnum
+  OmopValueSet:
+    name: OmopValueSet
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/OmopValueSet
+    description: 'A semantic grouping of mixed types of permissible values for a template
+      slot. Members may be OmopConcepts, OmopGroups, or OmopEnums. This represents
+      a registry-level value domain, not a direct OMOP structure.
+
+      '
+    from_schema: https://example.org/omop_semantics
+    is_a: OmopSemanticObject
+    slots:
+    - name
+    - notes
+    - members
+    - OmopValueSet_class_uri
+    slot_usage:
+      class_uri:
+        name: class_uri
+        equals_string: OmopValueSet
+    class_uri: omop:OmopValueSet
+  Concept:
+    name: Concept
+    definition_uri: https://athena.ohdsi.org/search-terms/terms/Concept
+    description: 'Concept that serves as a member of a semantic object. This is intended
+      to be used for defining the permissible values of an OmopSemanticObject, such
+      as the members of an OmopGroup or OmopEnum.  The concept_id and label slots
+      are used to specify the concept_id and label of the concept that serves as a  member
+      of the enumeration.
+
+      '
+    from_schema: https://example.org/omop_semantics
+    slots:
+    - concept_id
+    - label
+    class_uri: omop:Concept
+metamodel_version: 1.7.0
+source_file: omop_named_sets.yaml
+source_file_date: '2026-03-03T16:33:46'
+source_file_size: 1014
+generation_date: '2026-03-03T16:33:55'
+

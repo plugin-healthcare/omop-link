@@ -1,0 +1,3279 @@
+{
+  "name": "omop-cdm",
+  "description": "OMOP Common Data Model version 5.4 in LinkML",
+  "id": "http://example.org/omop-cdm",
+  "classes": {
+    "person": {
+      "name": "person",
+      "description": "This table serves as the central identity management for all Persons in the database. It contains records that uniquely identify each person or patient, and some demographic information.",
+      "slots": [
+        {
+          "name": "person_id",
+          "slot_name": "person_person_id",
+          "range": "person",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "year_of_birth",
+          "slot_name": "person_year_of_birth",
+          "range": "integer",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "month_of_birth",
+          "slot_name": "person_month_of_birth",
+          "range": "integer",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "day_of_birth",
+          "slot_name": "person_day_of_birth",
+          "range": "integer",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "birth_datetime",
+          "slot_name": "person_birth_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "location_id",
+          "slot_name": "location_id",
+          "range": "location",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The location_id from the LOCATION table representing the physical location of the care_site."
+        },
+        {
+          "name": "provider_id",
+          "slot_name": "provider_id",
+          "range": "integer",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "It is assumed that every provider with a different unique identifier is in fact a different person and should be treated independently."
+        },
+        {
+          "name": "care_site_id",
+          "slot_name": "care_site_id",
+          "range": "care_site",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "This is the CARE_SITE_ID for the location that the provider primarily practices in."
+        },
+        {
+          "name": "person_source_value",
+          "slot_name": "person_person_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Use this field to link back to persons in the source data. This is typically used for error checking of ETL logic."
+        },
+        {
+          "name": "gender_source_value",
+          "slot_name": "person_gender_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is provider's gender as it appears in the source data."
+        },
+        {
+          "name": "race_source_value",
+          "slot_name": "person_race_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field is used to store the race of the person from the source data. It is not intended for use in standard analytics but for reference only."
+        },
+        {
+          "name": "ethnicity_source_value",
+          "slot_name": "person_ethnicity_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field is used to store the ethnicity of the person from the source data. It is not intended for use in standard analytics but for reference only."
+        }
+      ]
+    },
+    "observation_period": {
+      "name": "observation_period",
+      "description": "This table contains records which define spans of time during which two conditions are expected to hold: (i) Clinical Events that happened to the Person are recorded in the Event tables, and (ii) absence of records indicate such Events did not occur during this span of time.",
+      "slots": [
+        {
+          "name": "observation_period_id",
+          "slot_name": "observation_period_observation_period_id",
+          "range": "integer",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "A Person can have multiple discrete Observation Periods which are identified by the Observation_Period_Id."
+        },
+        {
+          "name": "person_id",
+          "slot_name": "person_id",
+          "range": "person",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "observation_period_start_date",
+          "slot_name": "observation_period_observation_period_start_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Use this date to determine the start date of the Observation Period."
+        },
+        {
+          "name": "observation_period_end_date",
+          "slot_name": "observation_period_observation_period_end_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Use this date to determine the end date of the period for which we can assume that all events for a Person are recorded."
+        }
+      ]
+    },
+    "visit_occurrence": {
+      "name": "visit_occurrence",
+      "description": "This table contains Events where Persons engage with the healthcare system for a duration of time. They are often also called \"Encounters\". Visits are defined by a configuration of circumstances under which they occur, such as (i) whether the patient comes to a healthcare institution, the other way around, or the interaction is remote, (ii) whether and what kind of trained medical staff is delivering the service during the Visit, and (iii) whether the Visit is transient or for a longer period involving a stay in bed.",
+      "slots": [
+        {
+          "name": "visit_occurrence_id",
+          "slot_name": "visit_occurrence_visit_occurrence_id",
+          "range": "visit_occurrence",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The Visit during which the note was written."
+        },
+        {
+          "name": "person_id",
+          "slot_name": "person_id",
+          "range": "person",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "visit_start_date",
+          "slot_name": "visit_occurrence_visit_start_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "For inpatient visits, the start date is typically the admission date. For outpatient visits the start date and end date will be the same."
+        },
+        {
+          "name": "visit_start_datetime",
+          "slot_name": "visit_occurrence_visit_start_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "visit_end_date",
+          "slot_name": "visit_occurrence_visit_end_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "For inpatient visits the end date is typically the discharge date.  If a Person is still an inpatient in the hospital at the time of the data extract and does not have a visit_end_date, then set the visit_end_date to the date of the data pull."
+        },
+        {
+          "name": "visit_end_datetime",
+          "slot_name": "visit_occurrence_visit_end_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "If a Person is still an inpatient in the hospital at the time of the data extract and does not have a visit_end_datetime, then set the visit_end_datetime to the datetime of the data pull."
+        },
+        {
+          "name": "provider_id",
+          "slot_name": "provider_id",
+          "range": "integer",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "It is assumed that every provider with a different unique identifier is in fact a different person and should be treated independently."
+        },
+        {
+          "name": "care_site_id",
+          "slot_name": "care_site_id",
+          "range": "care_site",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "This is the CARE_SITE_ID for the location that the provider primarily practices in."
+        },
+        {
+          "name": "visit_source_value",
+          "slot_name": "visit_occurrence_visit_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field houses the verbatim value from the source data representing the kind of visit that took place (inpatient, outpatient, emergency, etc.)"
+        },
+        {
+          "name": "admitted_from_source_value",
+          "slot_name": "visit_occurrence_admitted_from_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "discharged_to_source_value",
+          "slot_name": "visit_occurrence_discharged_to_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "preceding_visit_occurrence_id",
+          "slot_name": "preceding_visit_occurrence_id",
+          "range": "visit_occurrence",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "Use this field to find the visit that occurred for the person prior to the given visit. There could be a few days or a few years in between."
+        }
+      ]
+    },
+    "visit_detail": {
+      "name": "visit_detail",
+      "description": "The VISIT_DETAIL table is an optional table used to represents details of each record in the parent VISIT_OCCURRENCE table. A good example of this would be the movement between units in a hospital during an inpatient stay or claim lines associated with a one insurance claim. For every record in the VISIT_OCCURRENCE table there may be 0 or more records in the VISIT_DETAIL table with a 1:n relationship where n may be 0. The VISIT_DETAIL table is structurally very similar to VISIT_OCCURRENCE table and belongs to the visit domain.",
+      "slots": [
+        {
+          "name": "visit_detail_id",
+          "slot_name": "visit_detail_visit_detail_id",
+          "range": "visit_detail",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The Visit Detail during which the note was written."
+        },
+        {
+          "name": "person_id",
+          "slot_name": "person_id",
+          "range": "person",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "visit_detail_start_date",
+          "slot_name": "visit_detail_visit_detail_start_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is the date of the start of the encounter. This may or may not be equal to the date of the Visit the Visit Detail is associated with."
+        },
+        {
+          "name": "visit_detail_start_datetime",
+          "slot_name": "visit_detail_visit_detail_start_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "visit_detail_end_date",
+          "slot_name": "visit_detail_visit_detail_end_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This the end date of the patient-provider interaction.  If a Person is still an inpatient in the hospital at the time of the data extract and does not have a visit_end_date, then set the visit_end_date to the date of the data pull."
+        },
+        {
+          "name": "visit_detail_end_datetime",
+          "slot_name": "visit_detail_visit_detail_end_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "If a Person is still an inpatient in the hospital at the time of the data extract and does not have a visit_end_datetime, then set the visit_end_datetime to the datetime of the data pull."
+        },
+        {
+          "name": "provider_id",
+          "slot_name": "provider_id",
+          "range": "integer",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "It is assumed that every provider with a different unique identifier is in fact a different person and should be treated independently."
+        },
+        {
+          "name": "care_site_id",
+          "slot_name": "care_site_id",
+          "range": "care_site",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "This is the CARE_SITE_ID for the location that the provider primarily practices in."
+        },
+        {
+          "name": "visit_detail_source_value",
+          "slot_name": "visit_detail_visit_detail_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field houses the verbatim value from the source data representing the kind of visit detail that took place (inpatient, outpatient, emergency, etc.)"
+        },
+        {
+          "name": "admitted_from_source_value",
+          "slot_name": "visit_detail_admitted_from_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "discharged_to_source_value",
+          "slot_name": "visit_detail_discharged_to_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "preceding_visit_detail_id",
+          "slot_name": "preceding_visit_detail_id",
+          "range": "visit_detail",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "Use this field to find the visit detail that occurred for the person prior to the given visit detail record. There could be a few days or a few years in between."
+        },
+        {
+          "name": "parent_visit_detail_id",
+          "slot_name": "parent_visit_detail_id",
+          "range": "visit_detail",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "Use this field to find the visit detail that subsumes the given visit detail record. This is used in the case that a visit detail record needs to be nested beyond the VISIT_OCCURRENCE/VISIT_DETAIL relationship."
+        },
+        {
+          "name": "visit_occurrence_id",
+          "slot_name": "visit_occurrence_id",
+          "range": "visit_occurrence",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The Visit during which the note was written."
+        }
+      ]
+    },
+    "condition_occurrence": {
+      "name": "condition_occurrence",
+      "description": "This table contains records of Events of a Person suggesting the presence of a disease or medical condition stated as a diagnosis, a sign, or a symptom, which is either observed by a Provider or reported by the patient.",
+      "slots": [
+        {
+          "name": "condition_occurrence_id",
+          "slot_name": "condition_occurrence_condition_occurrence_id",
+          "range": "integer",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The unique key given to a condition record for a person. Refer to the ETL for how duplicate conditions during the same visit were handled."
+        },
+        {
+          "name": "person_id",
+          "slot_name": "person_id",
+          "range": "person",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "condition_start_date",
+          "slot_name": "condition_occurrence_condition_start_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Use this date to determine the start date of the condition"
+        },
+        {
+          "name": "condition_start_datetime",
+          "slot_name": "condition_occurrence_condition_start_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "condition_end_date",
+          "slot_name": "condition_occurrence_condition_end_date",
+          "range": "date",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Use this date to determine the end date of the condition"
+        },
+        {
+          "name": "condition_end_datetime",
+          "slot_name": "condition_occurrence_condition_end_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "stop_reason",
+          "slot_name": "condition_occurrence_stop_reason",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The reason a person stopped a medication as it is represented in the source. Reasons include regimen completed, changed, removed, etc. This field will be retired in v6.0."
+        },
+        {
+          "name": "provider_id",
+          "slot_name": "provider_id",
+          "range": "integer",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "It is assumed that every provider with a different unique identifier is in fact a different person and should be treated independently."
+        },
+        {
+          "name": "visit_occurrence_id",
+          "slot_name": "visit_occurrence_id",
+          "range": "visit_occurrence",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The Visit during which the note was written."
+        },
+        {
+          "name": "visit_detail_id",
+          "slot_name": "visit_detail_id",
+          "range": "visit_detail",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The Visit Detail during which the note was written."
+        },
+        {
+          "name": "condition_source_value",
+          "slot_name": "condition_occurrence_condition_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field houses the verbatim value from the source data representing the condition that occurred. For example, this could be an ICD10 or Read code."
+        },
+        {
+          "name": "condition_status_source_value",
+          "slot_name": "condition_occurrence_condition_status_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field houses the verbatim value from the source data representing the condition status."
+        }
+      ]
+    },
+    "drug_exposure": {
+      "name": "drug_exposure",
+      "description": "This table captures records about the exposure to a Drug ingested or otherwise introduced into the body. A Drug is a biochemical substance formulated in such a way that when administered to a Person it will exert a certain biochemical effect on the metabolism. Drugs include prescription and over-the-counter medicines, vaccines, and large-molecule biologic therapies. Radiological devices ingested or applied locally do not count as Drugs.",
+      "slots": [
+        {
+          "name": "drug_exposure_id",
+          "slot_name": "drug_exposure_drug_exposure_id",
+          "range": "integer",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The unique key given to records of drug dispensings or administrations for a person. Refer to the ETL for how duplicate drugs during the same visit were handled."
+        },
+        {
+          "name": "person_id",
+          "slot_name": "person_id",
+          "range": "person",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "drug_exposure_start_date",
+          "slot_name": "drug_exposure_drug_exposure_start_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Use this date to determine the start date of the drug record."
+        },
+        {
+          "name": "drug_exposure_start_datetime",
+          "slot_name": "drug_exposure_drug_exposure_start_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "drug_exposure_end_date",
+          "slot_name": "drug_exposure_drug_exposure_end_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The DRUG_EXPOSURE_END_DATE denotes the day the drug exposure ended for the patient."
+        },
+        {
+          "name": "drug_exposure_end_datetime",
+          "slot_name": "drug_exposure_drug_exposure_end_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "verbatim_end_date",
+          "slot_name": "drug_exposure_verbatim_end_date",
+          "range": "date",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is the end date of the drug exposure as it appears in the source data, if it is given"
+        },
+        {
+          "name": "stop_reason",
+          "slot_name": "drug_exposure_stop_reason",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The reason a person stopped a medication as it is represented in the source. Reasons include regimen completed, changed, removed, etc. This field will be retired in v6.0."
+        },
+        {
+          "name": "refills",
+          "slot_name": "drug_exposure_refills",
+          "range": "integer",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is only filled in when the record is coming from a prescription written this field is meant to represent intended refills at time of the prescription."
+        },
+        {
+          "name": "quantity",
+          "slot_name": "drug_exposure_quantity",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The amount of specimen collected from the person."
+        },
+        {
+          "name": "days_supply",
+          "slot_name": "drug_exposure_days_supply",
+          "range": "integer",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "sig",
+          "slot_name": "drug_exposure_sig",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is the verbatim instruction for the drug as written by the provider."
+        },
+        {
+          "name": "lot_number",
+          "slot_name": "drug_exposure_lot_number",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "provider_id",
+          "slot_name": "provider_id",
+          "range": "integer",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "It is assumed that every provider with a different unique identifier is in fact a different person and should be treated independently."
+        },
+        {
+          "name": "visit_occurrence_id",
+          "slot_name": "visit_occurrence_id",
+          "range": "visit_occurrence",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The Visit during which the note was written."
+        },
+        {
+          "name": "visit_detail_id",
+          "slot_name": "visit_detail_id",
+          "range": "visit_detail",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The Visit Detail during which the note was written."
+        },
+        {
+          "name": "drug_source_value",
+          "slot_name": "drug_exposure_drug_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field houses the verbatim value from the source data representing the drug exposure that occurred. For example, this could be an NDC or Gemscript code."
+        },
+        {
+          "name": "route_source_value",
+          "slot_name": "drug_exposure_route_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field houses the verbatim value from the source data representing the drug route."
+        },
+        {
+          "name": "dose_unit_source_value",
+          "slot_name": "drug_exposure_dose_unit_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field houses the verbatim value from the source data representing the dose unit of the drug given."
+        }
+      ]
+    },
+    "procedure_occurrence": {
+      "name": "procedure_occurrence",
+      "description": "This table contains records of activities or processes ordered by, or carried out by, a healthcare provider on the patient with a diagnostic or therapeutic purpose.",
+      "slots": [
+        {
+          "name": "procedure_occurrence_id",
+          "slot_name": "procedure_occurrence_procedure_occurrence_id",
+          "range": "integer",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The unique key given to a procedure record for a person. Refer to the ETL for how duplicate procedures during the same visit were handled."
+        },
+        {
+          "name": "person_id",
+          "slot_name": "person_id",
+          "range": "person",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "procedure_date",
+          "slot_name": "procedure_occurrence_procedure_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Use this date to determine the date the procedure started."
+        },
+        {
+          "name": "procedure_datetime",
+          "slot_name": "procedure_occurrence_procedure_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "procedure_end_date",
+          "slot_name": "procedure_occurrence_procedure_end_date",
+          "range": "date",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Use this field to house the date that the procedure ended."
+        },
+        {
+          "name": "procedure_end_datetime",
+          "slot_name": "procedure_occurrence_procedure_end_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Use this field to house the datetime that the procedure ended."
+        },
+        {
+          "name": "quantity",
+          "slot_name": "procedure_occurrence_quantity",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The amount of specimen collected from the person."
+        },
+        {
+          "name": "provider_id",
+          "slot_name": "provider_id",
+          "range": "integer",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "It is assumed that every provider with a different unique identifier is in fact a different person and should be treated independently."
+        },
+        {
+          "name": "visit_occurrence_id",
+          "slot_name": "visit_occurrence_id",
+          "range": "visit_occurrence",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The Visit during which the note was written."
+        },
+        {
+          "name": "visit_detail_id",
+          "slot_name": "visit_detail_id",
+          "range": "visit_detail",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The Visit Detail during which the note was written."
+        },
+        {
+          "name": "procedure_source_value",
+          "slot_name": "procedure_occurrence_procedure_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field houses the verbatim value from the source data representing the procedure that occurred. For example, this could be an CPT4 or OPCS4 code."
+        },
+        {
+          "name": "modifier_source_value",
+          "slot_name": "procedure_occurrence_modifier_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field houses the verbatim value from the source data representing the modifier code for the procedure that occurred."
+        }
+      ]
+    },
+    "device_exposure": {
+      "name": "device_exposure",
+      "description": "The Device domain captures information about a person's exposure to a foreign physical object or instrument which is used for diagnostic or therapeutic purposes through a mechanism beyond chemical action. Devices include implantable objects (e.g. pacemakers, stents, artificial joints), medical equipment and supplies (e.g. bandages, crutches, syringes), other instruments used in medical procedures (e.g. sutures, defibrillators) and material used in clinical care (e.g. adhesives, body material, dental material, surgical material).",
+      "slots": [
+        {
+          "name": "device_exposure_id",
+          "slot_name": "device_exposure_device_exposure_id",
+          "range": "integer",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The unique key given to records a person's exposure to a foreign physical object or instrument."
+        },
+        {
+          "name": "person_id",
+          "slot_name": "person_id",
+          "range": "person",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "device_exposure_start_date",
+          "slot_name": "device_exposure_device_exposure_start_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Use this date to determine the start date of the device record."
+        },
+        {
+          "name": "device_exposure_start_datetime",
+          "slot_name": "device_exposure_device_exposure_start_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "device_exposure_end_date",
+          "slot_name": "device_exposure_device_exposure_end_date",
+          "range": "date",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The DEVICE_EXPOSURE_END_DATE denotes the day the device exposure ended for the patient, if given."
+        },
+        {
+          "name": "device_exposure_end_datetime",
+          "slot_name": "device_exposure_device_exposure_end_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "unique_device_id",
+          "slot_name": "device_exposure_unique_device_id",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is the Unique Device Identification (UDI-DI) number for devices regulated by the FDA, if given."
+        },
+        {
+          "name": "production_id",
+          "slot_name": "device_exposure_production_id",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is the Production Identifier (UDI-PI) portion of the Unique Device Identification."
+        },
+        {
+          "name": "quantity",
+          "slot_name": "device_exposure_quantity",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The amount of specimen collected from the person."
+        },
+        {
+          "name": "provider_id",
+          "slot_name": "provider_id",
+          "range": "integer",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "It is assumed that every provider with a different unique identifier is in fact a different person and should be treated independently."
+        },
+        {
+          "name": "visit_occurrence_id",
+          "slot_name": "visit_occurrence_id",
+          "range": "visit_occurrence",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The Visit during which the note was written."
+        },
+        {
+          "name": "visit_detail_id",
+          "slot_name": "visit_detail_id",
+          "range": "visit_detail",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The Visit Detail during which the note was written."
+        },
+        {
+          "name": "device_source_value",
+          "slot_name": "device_exposure_device_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field houses the verbatim value from the source data representing the device exposure that occurred. For example, this could be an NDC or Gemscript code."
+        },
+        {
+          "name": "unit_source_value",
+          "slot_name": "device_exposure_unit_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        }
+      ]
+    },
+    "measurement": {
+      "name": "measurement",
+      "description": "The MEASUREMENT table contains records of Measurements, i.e. structured values (numerical or categorical) obtained through systematic and standardized examination or testing of a Person or Person's sample. The MEASUREMENT table contains both orders and results of such Measurements as laboratory tests, vital signs, quantitative findings from pathology reports, etc. Measurements are stored as attribute value pairs, with the attribute as the Measurement Concept and the value representing the result. The value can be a Concept (stored in VALUE_AS_CONCEPT), or a numerical value (VALUE_AS_NUMBER) with a Unit (UNIT_CONCEPT_ID). The Procedure for obtaining the sample is housed in the PROCEDURE_OCCURRENCE table, though it is unnecessary to create a PROCEDURE_OCCURRENCE record for each measurement if one does not exist in the source data. Measurements differ from Observations in that they require a standardized test or some other activity to generate a quantitative or qualitative result. If there is no result, it is assumed that the lab test was conducted but the result was not captured.",
+      "slots": [
+        {
+          "name": "measurement_id",
+          "slot_name": "measurement_measurement_id",
+          "range": "integer",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The unique key given to a Measurement record for a Person. Refer to the ETL for how duplicate Measurements during the same Visit were handled."
+        },
+        {
+          "name": "person_id",
+          "slot_name": "person_id",
+          "range": "person",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "measurement_date",
+          "slot_name": "measurement_measurement_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Use this date to determine the date of the measurement."
+        },
+        {
+          "name": "measurement_datetime",
+          "slot_name": "measurement_measurement_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "measurement_time",
+          "slot_name": "measurement_measurement_time",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "value_as_number",
+          "slot_name": "measurement_value_as_number",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is the numerical value of the result of the Metadata, if applicable and available. It is not expected that all Metadata will have numeric results, rather, this field is here to house values should they exist."
+        },
+        {
+          "name": "range_low",
+          "slot_name": "measurement_range_low",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Ranges have the same unit as the VALUE_AS_NUMBER. These ranges are provided by the source and should remain NULL if not given."
+        },
+        {
+          "name": "range_high",
+          "slot_name": "measurement_range_high",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Ranges have the same unit as the VALUE_AS_NUMBER. These ranges are provided by the source and should remain NULL if not given."
+        },
+        {
+          "name": "provider_id",
+          "slot_name": "provider_id",
+          "range": "integer",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "It is assumed that every provider with a different unique identifier is in fact a different person and should be treated independently."
+        },
+        {
+          "name": "visit_occurrence_id",
+          "slot_name": "visit_occurrence_id",
+          "range": "visit_occurrence",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The Visit during which the note was written."
+        },
+        {
+          "name": "visit_detail_id",
+          "slot_name": "visit_detail_id",
+          "range": "visit_detail",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The Visit Detail during which the note was written."
+        },
+        {
+          "name": "measurement_source_value",
+          "slot_name": "measurement_measurement_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field contains the exact value from the source data that represents the measurement that occurred."
+        },
+        {
+          "name": "unit_source_value",
+          "slot_name": "measurement_unit_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "value_source_value",
+          "slot_name": "measurement_value_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field houses the verbatim result value of the Observation from the source data.  Do not get confused with the Observation_source_value which captures source value of the observation mapped to observation_concept_id. This field is the observation result value from the source."
+        },
+        {
+          "name": "measurement_event_id",
+          "slot_name": "measurement_measurement_event_id",
+          "range": "integer",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "If the Measurement record is related to another record in the database, this field is the primary key of the linked record."
+        }
+      ]
+    },
+    "observation": {
+      "name": "observation",
+      "description": "The OBSERVATION table captures clinical facts about a Person obtained in the context of examination, questioning or a procedure. Any data that cannot be represented by any other domains, such as social and lifestyle facts, medical history, family history, etc. are recorded here.",
+      "slots": [
+        {
+          "name": "observation_id",
+          "slot_name": "observation_observation_id",
+          "range": "integer",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The unique key given to an Observation record for a Person. Refer to the ETL for how duplicate Observations during the same Visit were handled."
+        },
+        {
+          "name": "person_id",
+          "slot_name": "person_id",
+          "range": "person",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "observation_date",
+          "slot_name": "observation_observation_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date of when the Observation was obtained. Depending on what the Observation represents this could be the date of a lab test, the date of a survey, or the date a patient's family history was taken."
+        },
+        {
+          "name": "observation_datetime",
+          "slot_name": "observation_observation_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "value_as_number",
+          "slot_name": "observation_value_as_number",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is the numerical value of the result of the Metadata, if applicable and available. It is not expected that all Metadata will have numeric results, rather, this field is here to house values should they exist."
+        },
+        {
+          "name": "value_as_string",
+          "slot_name": "observation_value_as_string",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "provider_id",
+          "slot_name": "provider_id",
+          "range": "integer",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "It is assumed that every provider with a different unique identifier is in fact a different person and should be treated independently."
+        },
+        {
+          "name": "visit_occurrence_id",
+          "slot_name": "visit_occurrence_id",
+          "range": "visit_occurrence",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The Visit during which the note was written."
+        },
+        {
+          "name": "visit_detail_id",
+          "slot_name": "visit_detail_id",
+          "range": "visit_detail",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The Visit Detail during which the note was written."
+        },
+        {
+          "name": "observation_source_value",
+          "slot_name": "observation_observation_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field houses the verbatim value from the source data representing the Observation that occurred. For example, this could be an ICD10 or Read code."
+        },
+        {
+          "name": "unit_source_value",
+          "slot_name": "observation_unit_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "qualifier_source_value",
+          "slot_name": "observation_qualifier_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field houses the verbatim value from the source data representing the qualifier of the Observation that occurred."
+        },
+        {
+          "name": "value_source_value",
+          "slot_name": "observation_value_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field houses the verbatim result value of the Observation from the source data.  Do not get confused with the Observation_source_value which captures source value of the observation mapped to observation_concept_id. This field is the observation result value from the source."
+        },
+        {
+          "name": "observation_event_id",
+          "slot_name": "observation_observation_event_id",
+          "range": "integer",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "If the Observation record is related to another record in the database, this field is the primary key of the linked record."
+        }
+      ]
+    },
+    "death": {
+      "name": "death",
+      "description": "The death domain contains the clinical event for how and when a Person dies. A person can have up to one record if the source system contains evidence about the Death, such as: Condition in an administrative claim, status of enrollment into a health plan, or explicit record in EHR data.",
+      "slots": [
+        {
+          "name": "person_id",
+          "slot_name": "person_id",
+          "range": "person",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "death_date",
+          "slot_name": "death_death_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date the person was deceased."
+        },
+        {
+          "name": "death_datetime",
+          "slot_name": "death_death_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "cause_source_value",
+          "slot_name": "death_cause_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        }
+      ]
+    },
+    "note": {
+      "name": "note",
+      "description": "The NOTE table captures unstructured information that was recorded by a provider about a patient in free text (in ASCII, or preferably in UTF8 format) notes on a given date. The type of note_text is CLOB or varchar(MAX) depending on RDBMS.",
+      "slots": [
+        {
+          "name": "note_id",
+          "slot_name": "note_note_id",
+          "range": "note",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is the NOTE_ID for the NOTE record the NLP record is associated to."
+        },
+        {
+          "name": "person_id",
+          "slot_name": "person_id",
+          "range": "person",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "note_date",
+          "slot_name": "note_note_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date the note was recorded."
+        },
+        {
+          "name": "note_datetime",
+          "slot_name": "note_note_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "note_title",
+          "slot_name": "note_note_title",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The title of the note."
+        },
+        {
+          "name": "note_text",
+          "slot_name": "note_note_text",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The content of the note."
+        },
+        {
+          "name": "provider_id",
+          "slot_name": "provider_id",
+          "range": "integer",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "It is assumed that every provider with a different unique identifier is in fact a different person and should be treated independently."
+        },
+        {
+          "name": "visit_occurrence_id",
+          "slot_name": "visit_occurrence_id",
+          "range": "visit_occurrence",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The Visit during which the note was written."
+        },
+        {
+          "name": "visit_detail_id",
+          "slot_name": "visit_detail_id",
+          "range": "visit_detail",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The Visit Detail during which the note was written."
+        },
+        {
+          "name": "note_source_value",
+          "slot_name": "note_note_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "note_event_id",
+          "slot_name": "note_note_event_id",
+          "range": "integer",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "If the Note record is related to another record in the database, this field is the primary key of the linked record."
+        }
+      ]
+    },
+    "note_nlp": {
+      "name": "note_nlp",
+      "description": "The NOTE_NLP table encodes all output of NLP on clinical notes. Each row represents a single extracted term from a note.",
+      "slots": [
+        {
+          "name": "note_nlp_id",
+          "slot_name": "note_nlp_note_nlp_id",
+          "range": "integer",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "A unique identifier for the NLP record."
+        },
+        {
+          "name": "note_id",
+          "slot_name": "note_id",
+          "range": "note",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "This is the NOTE_ID for the NOTE record the NLP record is associated to."
+        },
+        {
+          "name": "snippet",
+          "slot_name": "note_nlp_snippet",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "A small window of text surrounding the term"
+        },
+        {
+          "name": "offset",
+          "slot_name": "note_nlp_offset",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Character offset of the extracted term in the input note"
+        },
+        {
+          "name": "lexical_variant",
+          "slot_name": "note_nlp_lexical_variant",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Raw text extracted from the NLP tool."
+        },
+        {
+          "name": "nlp_system",
+          "slot_name": "note_nlp_nlp_system",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "nlp_date",
+          "slot_name": "note_nlp_nlp_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date of the note processing."
+        },
+        {
+          "name": "nlp_datetime",
+          "slot_name": "note_nlp_nlp_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date and time of the note processing."
+        },
+        {
+          "name": "term_exists",
+          "slot_name": "note_nlp_term_exists",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "term_temporal",
+          "slot_name": "note_nlp_term_temporal",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "term_modifiers",
+          "slot_name": "note_nlp_term_modifiers",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        }
+      ]
+    },
+    "specimen": {
+      "name": "specimen",
+      "description": "The specimen domain contains the records identifying biological samples from a person.",
+      "slots": [
+        {
+          "name": "specimen_id",
+          "slot_name": "specimen_specimen_id",
+          "range": "integer",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Unique identifier for each specimen."
+        },
+        {
+          "name": "person_id",
+          "slot_name": "person_id",
+          "range": "person",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "specimen_date",
+          "slot_name": "specimen_specimen_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date the specimen was collected."
+        },
+        {
+          "name": "specimen_datetime",
+          "slot_name": "specimen_specimen_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "quantity",
+          "slot_name": "specimen_quantity",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The amount of specimen collected from the person."
+        },
+        {
+          "name": "specimen_source_id",
+          "slot_name": "specimen_specimen_source_id",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is the identifier for the specimen from the source system."
+        },
+        {
+          "name": "specimen_source_value",
+          "slot_name": "specimen_specimen_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "unit_source_value",
+          "slot_name": "specimen_unit_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "anatomic_site_source_value",
+          "slot_name": "specimen_anatomic_site_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "disease_status_source_value",
+          "slot_name": "specimen_disease_status_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        }
+      ]
+    },
+    "fact_relationship": {
+      "name": "fact_relationship",
+      "description": "The FACT_RELATIONSHIP table contains records about the relationships between facts stored as records in any table of the CDM. Relationships can be defined between facts from the same domain, or different domains. Examples of Fact Relationships include: [Person relationships](https://athena.ohdsi.org/search-terms/terms?domain=Relationship&standardConcept=Standard&page=2&pageSize=15&query=) (parent-child), care site relationships (hierarchical organizational structure of facilities within a health system), indication relationship (between drug exposures and associated conditions), usage relationships (of devices during the course of an associated procedure), or facts derived from one another (measurements derived from an associated specimen).",
+      "slots": [
+        {
+          "name": "fact_id_1",
+          "slot_name": "fact_relationship_fact_id_1",
+          "range": "integer",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "fact_id_2",
+          "slot_name": "fact_relationship_fact_id_2",
+          "range": "integer",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        }
+      ]
+    },
+    "location": {
+      "name": "location",
+      "description": "The LOCATION table represents a generic way to capture physical location or address information of Persons and Care Sites.",
+      "slots": [
+        {
+          "name": "location_id",
+          "slot_name": "location_location_id",
+          "range": "location",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The location_id from the LOCATION table representing the physical location of the care_site."
+        },
+        {
+          "name": "address_1",
+          "slot_name": "location_address_1",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is the first line of the address."
+        },
+        {
+          "name": "address_2",
+          "slot_name": "location_address_2",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is the second line of the address"
+        },
+        {
+          "name": "city",
+          "slot_name": "location_city",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "state",
+          "slot_name": "location_state",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "zip",
+          "slot_name": "location_zip",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "county",
+          "slot_name": "location_county",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "location_source_value",
+          "slot_name": "location_location_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "country_source_value",
+          "slot_name": "location_country_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The name of the country."
+        },
+        {
+          "name": "latitude",
+          "slot_name": "location_latitude",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "longitude",
+          "slot_name": "location_longitude",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        }
+      ]
+    },
+    "care_site": {
+      "name": "care_site",
+      "description": "The CARE_SITE table contains a list of uniquely identified institutional (physical or organizational) units where healthcare delivery is practiced (offices, wards, hospitals, clinics, etc.).",
+      "slots": [
+        {
+          "name": "care_site_id",
+          "slot_name": "care_site_care_site_id",
+          "range": "care_site",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is the CARE_SITE_ID for the location that the provider primarily practices in."
+        },
+        {
+          "name": "care_site_name",
+          "slot_name": "care_site_care_site_name",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The name of the care_site as it appears in the source data"
+        },
+        {
+          "name": "location_id",
+          "slot_name": "location_id",
+          "range": "location",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The location_id from the LOCATION table representing the physical location of the care_site."
+        },
+        {
+          "name": "care_site_source_value",
+          "slot_name": "care_site_care_site_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The identifier of the care_site as it appears in the source data. This could be an identifier separate from the name of the care_site."
+        },
+        {
+          "name": "place_of_service_source_value",
+          "slot_name": "care_site_place_of_service_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        }
+      ]
+    },
+    "provider": {
+      "name": "provider",
+      "description": "The PROVIDER table contains a list of uniquely identified healthcare providers; duplication is not allowed. These are individuals providing hands-on healthcare to patients, such as physicians, nurses, midwives, physical therapists etc.",
+      "slots": [
+        {
+          "name": "provider_id",
+          "slot_name": "provider_provider_id",
+          "range": "integer",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "It is assumed that every provider with a different unique identifier is in fact a different person and should be treated independently."
+        },
+        {
+          "name": "provider_name",
+          "slot_name": "provider_provider_name",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field contains information that describes a healthcare provider."
+        },
+        {
+          "name": "npi",
+          "slot_name": "provider_npi",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is the National Provider Number issued to health care providers in the US by the Centers for Medicare and Medicaid Services (CMS)."
+        },
+        {
+          "name": "dea",
+          "slot_name": "provider_dea",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is the identifier issued by the DEA, a US federal agency, that allows a provider to write prescriptions for controlled substances."
+        },
+        {
+          "name": "care_site_id",
+          "slot_name": "care_site_id",
+          "range": "care_site",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "This is the CARE_SITE_ID for the location that the provider primarily practices in."
+        },
+        {
+          "name": "year_of_birth",
+          "slot_name": "provider_year_of_birth",
+          "range": "integer",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "provider_source_value",
+          "slot_name": "provider_provider_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Use this field to link back to providers in the source data. This is typically used for error checking of ETL logic."
+        },
+        {
+          "name": "specialty_source_value",
+          "slot_name": "provider_specialty_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This refers to the specific type of healthcare provider or field of expertise listed in the source data, encompassing physician specialties like internal medicine, emergency medicine, etc., as well as allied health professionals such as nurses, midwives, and pharmacists. It covers medical specialties like surgery, internal medicine, and radiology, while other services like prosthetics, acupuncture, and physical therapy fall under the domain of \"Service.\""
+        },
+        {
+          "name": "gender_source_value",
+          "slot_name": "provider_gender_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is provider's gender as it appears in the source data."
+        }
+      ]
+    },
+    "payer_plan_period": {
+      "name": "payer_plan_period",
+      "description": "The PAYER_PLAN_PERIOD table captures details of the period of time that a Person is continuously enrolled under a specific health Plan benefit structure from a given Payer. Each Person receiving healthcare is typically covered by a health benefit plan, which pays for (fully or partially), or directly provides, the care. These benefit plans are provided by payers, such as health insurances or state or government agencies. In each plan the details of the health benefits are defined for the Person or her family, and the health benefit Plan might change over time typically with increasing utilization (reaching certain cost thresholds such as deductibles), plan availability and purchasing choices of the Person. The unique combinations of Payer organizations, health benefit Plans and time periods in which they are valid for a Person are recorded in this table.",
+      "slots": [
+        {
+          "name": "payer_plan_period_id",
+          "slot_name": "payer_plan_period_payer_plan_period_id",
+          "range": "integer",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "person_id",
+          "slot_name": "person_id",
+          "range": "person",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "payer_plan_period_start_date",
+          "slot_name": "payer_plan_period_payer_plan_period_start_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Start date of Plan coverage."
+        },
+        {
+          "name": "payer_plan_period_end_date",
+          "slot_name": "payer_plan_period_payer_plan_period_end_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "End date of Plan coverage."
+        },
+        {
+          "name": "payer_source_value",
+          "slot_name": "payer_plan_period_payer_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is the Payer as it appears in the source data."
+        },
+        {
+          "name": "plan_source_value",
+          "slot_name": "payer_plan_period_plan_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is the health benefit Plan of the Person as it appears in the source data."
+        },
+        {
+          "name": "sponsor_source_value",
+          "slot_name": "payer_plan_period_sponsor_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The Plan sponsor as it appears in the source data."
+        },
+        {
+          "name": "family_source_value",
+          "slot_name": "payer_plan_period_family_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The common identifier for all people (often a family) that covered by the same policy."
+        },
+        {
+          "name": "stop_reason_source_value",
+          "slot_name": "payer_plan_period_stop_reason_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The Plan stop reason as it appears in the source data."
+        }
+      ]
+    },
+    "cost": {
+      "name": "cost",
+      "description": "The COST table captures records containing the cost of any medical event recorded in one of the OMOP clinical event tables such as DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, VISIT_OCCURRENCE, VISIT_DETAIL, DEVICE_OCCURRENCE, OBSERVATION or MEASUREMENT.\n\nEach record in the cost table account for the amount of money transacted for the clinical event. So, the COST table may be used to represent both receivables (charges) and payments (paid), each transaction type represented by its COST_CONCEPT_ID. The COST_TYPE_CONCEPT_ID field will use concepts in the Standardized Vocabularies to designate the source (provenance) of the cost data. A reference to the health plan information in the PAYER_PLAN_PERIOD table is stored in the record for information used for the adjudication system to determine the persons benefit for the clinical event.",
+      "slots": [
+        {
+          "name": "cost_id",
+          "slot_name": "cost_cost_id",
+          "range": "integer",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "cost_event_id",
+          "slot_name": "cost_cost_event_id",
+          "range": "integer",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "cost_domain_id",
+          "slot_name": "cost_domain_id",
+          "range": "domain",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "NA"
+        },
+        {
+          "name": "total_charge",
+          "slot_name": "cost_total_charge",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "total_cost",
+          "slot_name": "cost_total_cost",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "total_paid",
+          "slot_name": "cost_total_paid",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "paid_by_payer",
+          "slot_name": "cost_paid_by_payer",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "paid_by_patient",
+          "slot_name": "cost_paid_by_patient",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "paid_patient_copay",
+          "slot_name": "cost_paid_patient_copay",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "paid_patient_coinsurance",
+          "slot_name": "cost_paid_patient_coinsurance",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "paid_patient_deductible",
+          "slot_name": "cost_paid_patient_deductible",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "paid_by_primary",
+          "slot_name": "cost_paid_by_primary",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "paid_ingredient_cost",
+          "slot_name": "cost_paid_ingredient_cost",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "paid_dispensing_fee",
+          "slot_name": "cost_paid_dispensing_fee",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "payer_plan_period_id",
+          "slot_name": "cost_payer_plan_period_id",
+          "range": "integer",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "amount_allowed",
+          "slot_name": "cost_amount_allowed",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "revenue_code_source_value",
+          "slot_name": "cost_revenue_code_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Revenue codes are a method to charge for a class of procedures and conditions in the U.S. hospital system."
+        },
+        {
+          "name": "drg_source_value",
+          "slot_name": "cost_drg_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Diagnosis Related Groups are US codes used to classify hospital cases into one of approximately 500 groups."
+        }
+      ]
+    },
+    "drug_era": {
+      "name": "drug_era",
+      "description": "A Drug Era is defined as a span of time when the Person is assumed to be exposed to a particular active ingredient. A Drug Era is not the same as a Drug Exposure: Exposures are individual records corresponding to the source when Drug was delivered to the Person, while successive periods of Drug Exposures are combined under certain rules to produce continuous Drug Eras. Every record in the DRUG_EXPOSURE table should be part of a drug era based on the dates of exposure. ",
+      "slots": [
+        {
+          "name": "drug_era_id",
+          "slot_name": "drug_era_drug_era_id",
+          "range": "integer",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "person_id",
+          "slot_name": "person_id",
+          "range": "person",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "drug_era_start_date",
+          "slot_name": "drug_era_drug_era_start_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "drug_era_end_date",
+          "slot_name": "drug_era_drug_era_end_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "drug_exposure_count",
+          "slot_name": "drug_era_drug_exposure_count",
+          "range": "integer",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The count of grouped DRUG_EXPOSURE records that were included in the DRUG_ERA row"
+        },
+        {
+          "name": "gap_days",
+          "slot_name": "drug_era_gap_days",
+          "range": "integer",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        }
+      ]
+    },
+    "dose_era": {
+      "name": "dose_era",
+      "description": "A Dose Era is defined as a span of time when the Person is assumed to be exposed to a constant dose of a specific active ingredient.",
+      "slots": [
+        {
+          "name": "dose_era_id",
+          "slot_name": "dose_era_dose_era_id",
+          "range": "integer",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "person_id",
+          "slot_name": "person_id",
+          "range": "person",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "dose_value",
+          "slot_name": "dose_era_dose_value",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The numeric value of the dosage of the drug_ingredient."
+        },
+        {
+          "name": "dose_era_start_date",
+          "slot_name": "dose_era_dose_era_start_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date the Person started on the specific dosage, with at least 31 days since any prior exposure."
+        },
+        {
+          "name": "dose_era_end_date",
+          "slot_name": "dose_era_dose_era_end_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        }
+      ]
+    },
+    "condition_era": {
+      "name": "condition_era",
+      "description": "A Condition Era is defined as a span of time when the Person is assumed to have a given condition. Similar to Drug Eras, Condition Eras are chronological periods of Condition Occurrence and every Condition Occurrence record should be part of a Condition Era. Combining individual Condition Occurrences into a single Condition Era serves two purposes:\n\n- It allows aggregation of chronic conditions that require frequent ongoing care, instead of treating each Condition Occurrence as an independent event.\n- It allows aggregation of multiple, closely timed doctor visits for the same Condition to avoid double-counting the Condition Occurrences.\nFor example, consider a Person who visits her Primary Care Physician (PCP) and who is referred to a specialist. At a later time, the Person visits the specialist, who confirms the PCP's original diagnosis and provides the appropriate treatment to resolve the condition. These two independent doctor visits should be aggregated into one Condition Era.",
+      "slots": [
+        {
+          "name": "condition_era_id",
+          "slot_name": "condition_era_condition_era_id",
+          "range": "integer",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "person_id",
+          "slot_name": "person_id",
+          "range": "person",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "condition_era_start_date",
+          "slot_name": "condition_era_condition_era_start_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The start date for the Condition Era\nconstructed from the individual\ninstances of Condition Occurrences.\nIt is the start date of the very first\nchronologically recorded instance of\nthe condition with at least 31 days since any prior record of the same Condition."
+        },
+        {
+          "name": "condition_era_end_date",
+          "slot_name": "condition_era_condition_era_end_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The end date for the Condition Era\nconstructed from the individual\ninstances of Condition Occurrences.\nIt is the end date of the final\ncontinuously recorded instance of the\nCondition."
+        },
+        {
+          "name": "condition_occurrence_count",
+          "slot_name": "condition_era_condition_occurrence_count",
+          "range": "integer",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The number of individual Condition\nOccurrences used to construct the\ncondition era."
+        }
+      ]
+    },
+    "episode": {
+      "name": "episode",
+      "description": "The EPISODE table aggregates lower-level clinical events (VISIT_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE) into a higher-level abstraction representing clinically and analytically relevant disease phases,outcomes and treatments. The EPISODE_EVENT table connects qualifying clinical events (VISIT_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, DEVICE_EXPOSURE) to the appropriate EPISODE entry. For example cancers including their development over time, their treatment, and final resolution.",
+      "slots": [
+        {
+          "name": "episode_id",
+          "slot_name": "episode_episode_id",
+          "range": "episode",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Use this field to link the EPISODE_EVENT record to its EPISODE."
+        },
+        {
+          "name": "person_id",
+          "slot_name": "person_id",
+          "range": "person",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The PERSON_ID of the PERSON for whom the episode is recorded."
+        },
+        {
+          "name": "episode_start_date",
+          "slot_name": "episode_episode_start_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date when the Episode beings."
+        },
+        {
+          "name": "episode_start_datetime",
+          "slot_name": "episode_episode_start_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date and time when the Episode begins."
+        },
+        {
+          "name": "episode_end_date",
+          "slot_name": "episode_episode_end_date",
+          "range": "date",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date when the instance of the Episode is considered to have ended."
+        },
+        {
+          "name": "episode_end_datetime",
+          "slot_name": "episode_episode_end_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date when the instance of the Episode is considered to have ended."
+        },
+        {
+          "name": "episode_parent_id",
+          "slot_name": "episode_episode_parent_id",
+          "range": "integer",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Use this field to find the Episode that subsumes the given Episode record. This is used in the case that an Episode are nested into each other."
+        },
+        {
+          "name": "episode_number",
+          "slot_name": "episode_episode_number",
+          "range": "integer",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "For sequences of episodes, this is used to indicate the order the episodes occurred. For example, lines of treatment could be indicated here."
+        },
+        {
+          "name": "episode_source_value",
+          "slot_name": "episode_episode_source_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The source code for the Episode as it appears in the source data. This code is mapped to a Standard Condition Concept in the Standardized Vocabularies and the original code is stored here for reference."
+        }
+      ]
+    },
+    "episode_event": {
+      "name": "episode_event",
+      "description": "The EPISODE_EVENT table connects qualifying clinical events (such as CONDITION_OCCURRENCE, DRUG_EXPOSURE, PROCEDURE_OCCURRENCE, MEASUREMENT) to the appropriate EPISODE entry. For example, linking the precise location of the metastasis (cancer modifier in MEASUREMENT) to the disease episode.",
+      "slots": [
+        {
+          "name": "episode_id",
+          "slot_name": "episode_id",
+          "range": "episode",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "Use this field to link the EPISODE_EVENT record to its EPISODE."
+        },
+        {
+          "name": "event_id",
+          "slot_name": "episode_event_event_id",
+          "range": "integer",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This field is the primary key of the linked record in the database. For example, if the Episode Event is a Condition Occurrence, then the CONDITION_OCCURRENCE_ID of the linked record goes in this field."
+        }
+      ]
+    },
+    "metadata": {
+      "name": "metadata",
+      "description": "The METADATA table contains metadata information about a dataset that has been transformed to the OMOP Common Data Model.",
+      "slots": [
+        {
+          "name": "metadata_id",
+          "slot_name": "metadata_metadata_id",
+          "range": "integer",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The unique key given to a Metadata record."
+        },
+        {
+          "name": "name",
+          "slot_name": "metadata_name",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "value_as_string",
+          "slot_name": "metadata_value_as_string",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "value_as_number",
+          "slot_name": "metadata_value_as_number",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This is the numerical value of the result of the Metadata, if applicable and available. It is not expected that all Metadata will have numeric results, rather, this field is here to house values should they exist."
+        },
+        {
+          "name": "metadata_date",
+          "slot_name": "metadata_metadata_date",
+          "range": "date",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "metadata_datetime",
+          "slot_name": "metadata_metadata_datetime",
+          "range": "datetime",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        }
+      ]
+    },
+    "cdm_source": {
+      "name": "cdm_source",
+      "description": "The CDM_SOURCE table contains detail about the source database and the process used to transform the data into the OMOP Common Data Model.",
+      "slots": [
+        {
+          "name": "cdm_source_name",
+          "slot_name": "cdm_source_cdm_source_name",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The name of the CDM instance."
+        },
+        {
+          "name": "cdm_source_abbreviation",
+          "slot_name": "cdm_source_cdm_source_abbreviation",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The abbreviation of the CDM instance."
+        },
+        {
+          "name": "cdm_holder",
+          "slot_name": "cdm_source_cdm_holder",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The holder of the CDM instance."
+        },
+        {
+          "name": "source_description",
+          "slot_name": "cdm_source_source_description",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The description of the CDM instance."
+        },
+        {
+          "name": "source_documentation_reference",
+          "slot_name": "cdm_source_source_documentation_reference",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Refers to a publication or web resource describing the source data"
+        },
+        {
+          "name": "cdm_etl_reference",
+          "slot_name": "cdm_source_cdm_etl_reference",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "source_release_date",
+          "slot_name": "cdm_source_source_release_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date the data was extracted from the source system. In some systems that is the same as the date the ETL was run. Typically the latest even date in the source is on the source_release_date."
+        },
+        {
+          "name": "cdm_release_date",
+          "slot_name": "cdm_source_cdm_release_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date the ETL script was completed. Typically this is after the source_release_date."
+        },
+        {
+          "name": "cdm_version",
+          "slot_name": "cdm_source_cdm_version",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Version of the OMOP CDM used as string. e.g. v5.4"
+        },
+        {
+          "name": "vocabulary_version",
+          "slot_name": "cdm_source_vocabulary_version",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Version of the Vocabulary as indicated in\nthe source."
+        }
+      ]
+    },
+    "concept": {
+      "name": "concept",
+      "description": "The Standardized Vocabularies contains records, or Concepts, that uniquely identify each fundamental unit of meaning used to express clinical information in all domain tables of the CDM. Concepts are derived from vocabularies, which represent clinical information across a domain (e.g. conditions, drugs, procedures) through the use of codes and associated descriptions. Some Concepts are designated Standard Concepts, meaning these Concepts can be used as normative expressions of a clinical entity within the OMOP Common Data Model and standardized analytics. Each Standard Concept belongs to one Domain, which defines the location where the Concept would be expected to occur within the data tables of the CDM. Concepts can represent broad categories ('Cardiovascular disease'), detailed clinical elements ('Myocardial infarction of the anterolateral wall'), or modifying characteristics and attributes that define Concepts at various levels of detail (severity of a disease, associated morphology, etc.). Records in the Standardized Vocabularies tables are derived from national or international vocabularies such as SNOMED-CT, RxNorm, and LOINC, or custom OMOP Concepts defined to cover various aspects of observational data analysis.",
+      "slots": [
+        {
+          "name": "concept_name",
+          "slot_name": "concept_concept_name",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "An unambiguous, meaningful and descriptive name for the Concept."
+        },
+        {
+          "name": "domain_id",
+          "slot_name": "domain_id",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "A unique key for each domain."
+        },
+        {
+          "name": "vocabulary_id",
+          "slot_name": "vocabulary_id",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "A unique identifier for each Vocabulary, such\nas ICD9CM, SNOMED, Visit."
+        },
+        {
+          "name": "concept_class_id",
+          "slot_name": "concept_class_id",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "A unique key for each class."
+        },
+        {
+          "name": "standard_concept",
+          "slot_name": "concept_standard_concept",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "This flag determines where a Concept is\na Standard Concept, i.e. is used in the\ndata, a Classification Concept, or a\nnon-standard Source Concept. The\nallowable values are 'S' (Standard\nConcept) and 'C' (Classification\nConcept), otherwise the content is NULL."
+        },
+        {
+          "name": "concept_code",
+          "slot_name": "concept_concept_code",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The concept code represents the identifier\nof the Concept in the source vocabulary,\nsuch as SNOMED-CT concept IDs,\nRxNorm RXCUIs etc. Note that concept\ncodes are not unique across vocabularies."
+        },
+        {
+          "name": "valid_start_date",
+          "slot_name": "concept_valid_start_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date when the Concept was first\nrecorded. The default value is\n1-Jan-1970."
+        },
+        {
+          "name": "valid_end_date",
+          "slot_name": "concept_valid_end_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date when then Concept became invalid."
+        },
+        {
+          "name": "invalid_reason",
+          "slot_name": "concept_invalid_reason",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Reason the concept was invalidated. Possible values are D (deleted), U (replaced with an update) or NULL when valid_end_date has the default value."
+        },
+        {
+          "name": "concept_id",
+          "slot_name": "concept_concept_id",
+          "range": "concept",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        }
+      ]
+    },
+    "vocabulary": {
+      "name": "vocabulary",
+      "description": "The VOCABULARY table includes a list of the Vocabularies integrated from various sources or created de novo in OMOP CDM. This reference table contains a single record for each Vocabulary and includes a descriptive name and other associated attributes for the Vocabulary.",
+      "slots": [
+        {
+          "name": "vocabulary_id",
+          "slot_name": "vocabulary_vocabulary_id",
+          "range": "string",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "A unique identifier for each Vocabulary, such\nas ICD9CM, SNOMED, Visit."
+        },
+        {
+          "name": "vocabulary_name",
+          "slot_name": "vocabulary_vocabulary_name",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The name describing the vocabulary, for\nexample, International Classification of\nDiseases, Ninth Revision, Clinical\nModification, Volume 1 and 2 (NCHS) etc."
+        },
+        {
+          "name": "vocabulary_reference",
+          "slot_name": "vocabulary_vocabulary_reference",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "External reference to documentation or\navailable download of the about the\nvocabulary."
+        },
+        {
+          "name": "vocabulary_version",
+          "slot_name": "vocabulary_vocabulary_version",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Version of the Vocabulary as indicated in\nthe source."
+        }
+      ]
+    },
+    "domain": {
+      "name": "domain",
+      "description": "The DOMAIN table includes a list of OMOP-defined Domains to which the Concepts of the Standardized Vocabularies can belong. A Domain represents a clinical definition whereby we assign matching Concepts for the standardized fields in the CDM tables. For example, the Condition Domain contains Concepts that describe a patient condition, and these Concepts can only be used in the condition_concept_id field of the CONDITION_OCCURRENCE and CONDITION_ERA tables. This reference table is populated with a single record for each Domain, including a Domain ID and a descriptive name for every Domain.",
+      "slots": [
+        {
+          "name": "domain_id",
+          "slot_name": "domain_domain_id",
+          "range": "string",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "A unique key for each domain."
+        },
+        {
+          "name": "domain_name",
+          "slot_name": "domain_domain_name",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The name describing the Domain, e.g.\nCondition, Procedure, Measurement\netc."
+        }
+      ]
+    },
+    "concept_class": {
+      "name": "concept_class",
+      "description": "The CONCEPT_CLASS table includes semantic categories that reference the source structure of each Vocabulary. Concept Classes represent so-called horizontal (e.g. MedDRA, RxNorm) or vertical levels (e.g. SNOMED) of the vocabulary structure. Vocabularies without any Concept Classes, such as HCPCS, use the vocabulary_id as the Concept Class. This reference table is populated with a single record for each Concept Class, which includes a Concept Class ID and a fully specified Concept Class name.\n",
+      "slots": [
+        {
+          "name": "concept_class_id",
+          "slot_name": "concept_class_concept_class_id",
+          "range": "string",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "A unique key for each class."
+        },
+        {
+          "name": "concept_class_name",
+          "slot_name": "concept_class_concept_class_name",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The name describing the Concept Class, e.g.\nClinical Finding, Ingredient, etc."
+        }
+      ]
+    },
+    "concept_relationship": {
+      "name": "concept_relationship",
+      "description": "The CONCEPT_RELATIONSHIP table contains records that define relationships between any two Concepts and the nature or type of the relationship. This table captures various types of relationships, including hierarchical, associative, and other semantic connections, enabling comprehensive analysis and interpretation of clinical concepts. Every kind of relationship is defined in the RELATIONSHIP table.",
+      "slots": [
+        {
+          "name": "relationship_id",
+          "slot_name": "relationship_id",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The type of relationship captured by the\nrelationship record."
+        },
+        {
+          "name": "valid_start_date",
+          "slot_name": "concept_relationship_valid_start_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date when the Concept was first\nrecorded. The default value is\n1-Jan-1970."
+        },
+        {
+          "name": "valid_end_date",
+          "slot_name": "concept_relationship_valid_end_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date when then Concept became invalid."
+        },
+        {
+          "name": "invalid_reason",
+          "slot_name": "concept_relationship_invalid_reason",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Reason the concept was invalidated. Possible values are D (deleted), U (replaced with an update) or NULL when valid_end_date has the default value."
+        }
+      ]
+    },
+    "relationship": {
+      "name": "relationship",
+      "description": "The RELATIONSHIP table provides a reference list of all types of relationships that can be used to associate any two Concepts in the CONCEPT_RELATIONSHIP table, the respective reverse relationships, and their hierarchical characteristics. Note, that Concepts representing relationships between the clinical facts, used for filling in the FACT_RELATIONSHIP table are stored in the CONCEPT table and belong to the Relationship Domain.",
+      "slots": [
+        {
+          "name": "relationship_id",
+          "slot_name": "relationship_relationship_id",
+          "range": "string",
+          "required": true,
+          "identifier": true,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The type of relationship captured by the\nrelationship record."
+        },
+        {
+          "name": "relationship_name",
+          "slot_name": "relationship_relationship_name",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        },
+        {
+          "name": "is_hierarchical",
+          "slot_name": "relationship_is_hierarchical",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Defines whether a relationship defines\nconcepts into classes or hierarchies. Values\nare 1 for hierarchical relationship or 0 if not."
+        },
+        {
+          "name": "defines_ancestry",
+          "slot_name": "relationship_defines_ancestry",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Defines whether a hierarchical relationship\ncontributes to the concept_ancestor table.\nThese are subsets of the hierarchical\nrelationships. Valid values are 1 or 0."
+        },
+        {
+          "name": "reverse_relationship_id",
+          "slot_name": "relationship_reverse_relationship_id",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The identifier for the relationship used to\ndefine the reverse relationship between two\nconcepts."
+        }
+      ]
+    },
+    "concept_synonym": {
+      "name": "concept_synonym",
+      "description": "The CONCEPT_SYNONYM table captures alternative terms, synonyms, and translations of Concept Name into various languages linked to specific concepts, providing users with a comprehensive view of how Concepts may be expressed or referenced.",
+      "slots": [
+        {
+          "name": "concept_synonym_name",
+          "slot_name": "concept_synonym_concept_synonym_name",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "NA"
+        }
+      ]
+    },
+    "concept_ancestor": {
+      "name": "concept_ancestor",
+      "description": "The CONCEPT_ANCESTOR table is designed to simplify observational analysis by providing the complete hierarchical relationships between Concepts. Only direct parent-child relationships between Concepts are stored in the CONCEPT_RELATIONSHIP table. To determine higher-level ancestry connections, all individual direct relationships would have to be navigated at analysis time. The CONCEPT_ANCESTOR table includes records for all parent-child relationships, as well as grandparent-grandchild relationships and those of any other level of lineage for Standard or Classification concepts. Using the CONCEPT_ANCESTOR table allows for querying for all descendants of a hierarchical concept, and the other way around. For example, drug ingredients and drug products, beneath them in the hierarchy, are all descendants of a drug class ancestor. This table is entirely derived from the CONCEPT, CONCEPT_RELATIONSHIP, and RELATIONSHIP tables.",
+      "slots": [
+        {
+          "name": "min_levels_of_separation",
+          "slot_name": "concept_ancestor_min_levels_of_separation",
+          "range": "integer",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The minimum separation in number of\nlevels of hierarchy between ancestor and\ndescendant concepts. This is an attribute\nthat is used to simplify hierarchic analysis."
+        },
+        {
+          "name": "max_levels_of_separation",
+          "slot_name": "concept_ancestor_max_levels_of_separation",
+          "range": "integer",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The maximum separation in number of\nlevels of hierarchy between ancestor and\ndescendant concepts. This is an attribute\nthat is used to simplify hierarchic analysis."
+        }
+      ]
+    },
+    "source_to_concept_map": {
+      "name": "source_to_concept_map",
+      "description": "The source to concept map table is recommended for use in ETL processes to maintain local source codes which are not available as Concepts in the Standardized Vocabularies, and to establish mappings for each source code into a Standard Concept as target_concept_ids that can be used to populate the Common Data Model tables. The SOURCE_TO_CONCEPT_MAP table is no longer populated with content within the Standardized Vocabularies published to the OMOP community. **There are OHDSI tools to help you populate this table; [Usagi](https://github.com/OHDSI/Usagi) and [Perseus](https://github.com/ohdsi/Perseus). You can read more about OMOP vocabulary mapping in [The Book of OHDSI Chapter 6.3](https://ohdsi.github.io/TheBookOfOhdsi/ExtractTransformLoad.html#step-2-create-the-code-mappings).**",
+      "slots": [
+        {
+          "name": "source_code",
+          "slot_name": "source_to_concept_map_source_code",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The source code being translated\ninto a Standard Concept."
+        },
+        {
+          "name": "source_vocabulary_id",
+          "slot_name": "source_to_concept_map_source_vocabulary_id",
+          "range": "string",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "A foreign key to the\nVOCABULARY table defining the\nvocabulary of the source code that\nis being translated to a Standard\nConcept."
+        },
+        {
+          "name": "source_code_description",
+          "slot_name": "source_to_concept_map_source_code_description",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "An optional description for the\nsource code. This is included as a\nconvenience to compare the\ndescription of the source code to\nthe name of the concept."
+        },
+        {
+          "name": "target_vocabulary_id",
+          "slot_name": "target_vocabulary_id",
+          "range": "vocabulary",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": true,
+          "description": "The Vocabulary of the target Concept."
+        },
+        {
+          "name": "valid_start_date",
+          "slot_name": "source_to_concept_map_valid_start_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date when the Concept was first\nrecorded. The default value is\n1-Jan-1970."
+        },
+        {
+          "name": "valid_end_date",
+          "slot_name": "source_to_concept_map_valid_end_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date when then Concept became invalid."
+        },
+        {
+          "name": "invalid_reason",
+          "slot_name": "source_to_concept_map_invalid_reason",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Reason the concept was invalidated. Possible values are D (deleted), U (replaced with an update) or NULL when valid_end_date has the default value."
+        }
+      ]
+    },
+    "drug_strength": {
+      "name": "drug_strength",
+      "description": "The DRUG_STRENGTH table contains structured content about the amount or concentration and associated units of a specific ingredient contained within a particular drug product. This table is supplemental information to support standardized analysis of drug utilization.",
+      "slots": [
+        {
+          "name": "amount_value",
+          "slot_name": "drug_strength_amount_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The numeric value or the amount of active ingredient contained within the drug product."
+        },
+        {
+          "name": "numerator_value",
+          "slot_name": "drug_strength_numerator_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The concentration of the active ingredient contained within the drug product."
+        },
+        {
+          "name": "denominator_value",
+          "slot_name": "drug_strength_denominator_value",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The amount of total liquid (or other divisible product, such as ointment, gel, spray, etc.)."
+        },
+        {
+          "name": "box_size",
+          "slot_name": "drug_strength_box_size",
+          "range": "integer",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The number of units of Clinical Branded Drug or Quantified Clinical or Branded Drug contained in a box as dispensed to the patient."
+        },
+        {
+          "name": "valid_start_date",
+          "slot_name": "drug_strength_valid_start_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date when the Concept was first\nrecorded. The default value is\n1-Jan-1970."
+        },
+        {
+          "name": "valid_end_date",
+          "slot_name": "drug_strength_valid_end_date",
+          "range": "date",
+          "required": true,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "The date when then Concept became invalid."
+        },
+        {
+          "name": "invalid_reason",
+          "slot_name": "drug_strength_invalid_reason",
+          "range": "string",
+          "required": false,
+          "identifier": false,
+          "multivalued": false,
+          "is_fk": false,
+          "description": "Reason the concept was invalidated. Possible values are D (deleted), U (replaced with an update) or NULL when valid_end_date has the default value."
+        }
+      ]
+    }
+  }
+}
